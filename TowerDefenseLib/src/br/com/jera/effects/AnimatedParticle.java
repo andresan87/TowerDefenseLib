@@ -21,7 +21,6 @@ public class AnimatedParticle implements TemporaryEffect {
 		this.angle = degreeAngle;
 	}
 
-	@Override
 	public void draw(SceneViewer viewer, SpriteResourceManager res) {
 		final long elapsed = System.currentTimeMillis() - startTime;
 		if (elapsed < duration) {
@@ -32,36 +31,29 @@ public class AnimatedParticle implements TemporaryEffect {
 		}
 	}
 
-	@Override
 	public Vector2 getMin(SpriteResourceManager res) {
 		return pos.sub(size);
 	}
 
-	@Override
 	public Vector2 getMax(SpriteResourceManager res) {
 		return pos.add(size);
 	}
 
-	@Override
 	public Vector3 getPos() {
 		return new Vector3(pos, 0);
 	}
 
-	@Override
 	public void update(long lastFrameDeltaTimeMS, AudioPlayer audioPlayer) {
 	}
 
-	@Override
 	public boolean isVisible(SceneViewer viewer, Rectangle2D clientRect) {
 		return clientRect.isIntersecting(new Rectangle2D(pos.sub(viewer.getOrthogonalViewerPos()), size, Sprite.centerOrigin));
 	}
 
-	@Override
 	public int compareTo(DisplayableEntity arg0) {
 		return 0;
 	}
 
-	@Override
 	public boolean isOver() {
 		return (System.currentTimeMillis() - startTime > duration);
 	}

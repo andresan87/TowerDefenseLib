@@ -2,8 +2,6 @@
 
 import br.com.jera.audio.AudioPlayer;
 import br.com.jera.enemies.EnemyRoad;
-import br.com.jera.game.Player;
-import br.com.jera.game.Scenario;
 import br.com.jera.graphic.GraphicDevice;
 import br.com.jera.graphic.GraphicDevice.ALPHA_MODE;
 import br.com.jera.graphic.Sprite;
@@ -11,6 +9,8 @@ import br.com.jera.gui.SideBar;
 import br.com.jera.input.InputListener;
 import br.com.jera.resources.ResourceIdRetriever;
 import br.com.jera.towerdefenselib.GameCharacter;
+import br.com.jera.towerdefenselib.Player;
+import br.com.jera.towerdefenselib.Scenario;
 import br.com.jera.util.BitmapFont;
 import br.com.jera.util.Classic2DViewer;
 import br.com.jera.util.CommonMath;
@@ -108,8 +108,8 @@ public class TowerSelector {
 
 	private boolean isValidPlace(Vector2 relativePos, EnemyRoad road, SpriteResourceManager res) {
 		Vector2 absolutePos = viewer.computeAbsolutePosition(relativePos);
-		return !(road.isPointOnRoad(relativePos) || manager.hasUnityIn(relativePos) || sideBar.isOverSideBar(res.getGraphicDevice(), absolutePos) || !scene
-				.isPointInScene(relativePos, res));
+		return !(road.isPointOnRoad(relativePos) || manager.hasUnityIn(relativePos) || sideBar.isOverSideBar(res.getGraphicDevice(), absolutePos) ||
+				!scene.isPointInScene(relativePos, res));
 	}
 
 	private Vector2 validatePos(Vector2 currentPos, Vector2 nextPos, EnemyRoad road, SpriteResourceManager res) {

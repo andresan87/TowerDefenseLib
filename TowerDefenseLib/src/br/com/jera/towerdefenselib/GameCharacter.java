@@ -115,7 +115,6 @@ public class GameCharacter implements DisplayableEntity {
 		return initialHp;
 	}
 
-	@Override
 	public Vector3 getPos() {
 		return new Vector3(pos, 0);
 	}
@@ -148,7 +147,6 @@ public class GameCharacter implements DisplayableEntity {
 		}
 	}
 
-	@Override
 	public void draw(SceneViewer viewer, SpriteResourceManager res) {
 		Sprite sprite = res.getSprite(resourceId);
 
@@ -177,19 +175,16 @@ public class GameCharacter implements DisplayableEntity {
 		}
 	}
 
-	@Override
 	public Vector2 getMin(SpriteResourceManager res) {
 		Sprite sprite = res.getSprite(resourceId);
 		return new Vector2(pos.sub(sprite.getBitmapSize().multiply(defaultSpriteOrigin)));
 	}
 
-	@Override
 	public Vector2 getMax(SpriteResourceManager res) {
 		Sprite sprite = res.getSprite(resourceId);
 		return new Vector2(pos.add(sprite.getBitmapSize().multiply(new Vector2(1, 1).sub(defaultSpriteOrigin))));
 	}
 
-	@Override
 	public void update(final long lastFrameDeltaTimeMS, AudioPlayer audioPlayer) {
 		manageHarmEffects(lastFrameDeltaTimeMS, audioPlayer);
 		final float angle = CommonMath.getAngle(moveVector);
@@ -231,12 +226,10 @@ public class GameCharacter implements DisplayableEntity {
 		moveVector.y = 0.0f;
 	}
 
-	@Override
 	public int compareTo(DisplayableEntity another) {
 		return new Float(Math.signum(pos.y - another.getPos().y)).intValue();
 	}
 
-	@Override
 	public boolean isVisible(SceneViewer viewer, Rectangle2D clientRect) {
 		assert (viewer instanceof Classic2DViewer);
 		final Vector2 absolutePos = ((Classic2DViewer) viewer).computeAbsolutePosition(pos);

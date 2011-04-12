@@ -1,4 +1,4 @@
-﻿package br.com.jera.game;
+﻿package br.com.jera.towerdefenselib;
 
 import br.com.jera.graphic.Sprite;
 import br.com.jera.resources.ResourceIdRetriever;
@@ -10,7 +10,7 @@ public class Player implements OutputData.Data {
 	
 	private ResourceIdRetriever resRet;
 	
-	Player(ResourceIdRetriever resRet) {
+	public Player(ResourceIdRetriever resRet) {
 		this.resRet = resRet;
 	}
 
@@ -29,7 +29,6 @@ public class Player implements OutputData.Data {
 
 	private int money = 50;
 
-	@Override
 	public Vector2 drawData(Vector2 pos, SpriteResourceManager res, BitmapFont font) {
 		Sprite sprite = res.getSprite(resRet.getBmpMoneySymbol());
 		sprite.draw(pos, Sprite.defaultOrigin);

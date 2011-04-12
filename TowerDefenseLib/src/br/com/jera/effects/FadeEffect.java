@@ -21,16 +21,13 @@ public class FadeEffect implements BaseApplication {
 		FADING_OUT, FADED_OUT, NOT_FADED
 	}
 
-	@Override
 	public void resetFrameBuffer(int width, int height) {
 	}
 
-	@Override
 	public void create(GraphicDevice device, InputListener input, AudioPlayer player) {
 		this.device = device;
 	}
 
-	@Override
 	public void draw() {
 		final long elapsedTime = System.currentTimeMillis()-startTime; 
 		if (elapsedTime <= fadeTime) {
@@ -60,17 +57,14 @@ public class FadeEffect implements BaseApplication {
 		}
 	}
 
-	@Override
 	public void loadResources() {
 		fadeWall = new Sprite(device, resRet.getBmpWhite(), 1, 1);
 	}
 
-	@Override
 	public STATE update(long lastFrameDeltaTimeMS) {
 		return null;
 	}
 
-	@Override
 	public String getStateName() {
 		return null;
 	}

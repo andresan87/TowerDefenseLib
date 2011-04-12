@@ -21,48 +21,39 @@ public class Axe implements WeaponProfile {
 		Axe.resRet = resRet;
 	}
 	
-	@Override
 	public float getRange() {
 		return 100.0f;
 	}
 
-	@Override
 	public long getCoolDownTime() {
 		return 4000;
 	}
 
-	@Override
 	public int getResourceId() {
 		return Axe.resRet.getBmpWeaponProjectile03();
 	}
 
-	@Override
 	public boolean shoot(GameCharacter actor, Vector2 pos, Enemy targetZombie, ProjectileManager manager, AudioPlayer audioPlayer) {
 		manager.addProjectile(new Projectile(getResourceId(), pos, targetZombie, getSpeed(), getRotationSpeed(), this, actor));
 		audioPlayer.play(Axe.resRet.getSfxWeaponTrigger03());
 		return true;
 	}
 
-	@Override
 	public float getSpeed() {
 		return 120.0f;
 	}
 
-	@Override
 	public float getRotationSpeed() {
 		return 530.0f;
 	}
 
-	@Override
 	public int getPrice() {
 		return 240;
 	}
 
-	@Override
 	public HarmEffect getHarmEffect(EffectManager effectManager, GameCharacter actor) {
 		return new HarmEffect(0, effectManager, actor) {
 
-			@Override
 			public void applyEffect(GameCharacter target, AudioPlayer audioPlayer) {
 				target.addToHp(Axe.DAMAGE);
 				if (!target.isDead()) {
@@ -75,27 +66,22 @@ public class Axe implements WeaponProfile {
 				}
 			}
 
-			@Override
 			public void removeEffect(GameCharacter target, AudioPlayer audioPlayer) {
 			}
 
-			@Override
 			public void drawHarmEffect(GameCharacter target, SceneViewer viewer, SpriteResourceManager res) {
 			}
 
-			@Override
 			public boolean isUnique() {
 				return false;
 			}
 
-			@Override
 			public String getHarmEffectName() {
 				return "AxeHit";
 			}
 		};
 	}
 
-	@Override
 	public float getDamage() {
 		return Axe.DAMAGE;
 	}

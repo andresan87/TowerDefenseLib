@@ -10,11 +10,11 @@ import java.util.ListIterator;
 import br.com.jera.audio.AudioPlayer;
 import br.com.jera.effects.AnimatedParticle;
 import br.com.jera.effects.EffectManager;
-import br.com.jera.game.OutputData;
-import br.com.jera.game.Player;
-import br.com.jera.game.SortedDisplayableEntityList;
 import br.com.jera.graphic.Sprite;
 import br.com.jera.resources.ResourceIdRetriever;
+import br.com.jera.towerdefenselib.Player;
+import br.com.jera.towerdefenselib.OutputData;
+import br.com.jera.towerdefenselib.SortedDisplayableEntityList;
 import br.com.jera.util.BitmapFont;
 import br.com.jera.util.Classic2DViewer;
 import br.com.jera.util.CommonMath.Rectangle2D;
@@ -101,7 +101,6 @@ public class EnemyWaveManager implements OutputData.Data {
 		waves = newWaves;
 	}
 
-	@Override
 	public Vector2 drawData(Vector2 pos, SpriteResourceManager res, BitmapFont font) {
 		Sprite sprite = res.getSprite(resRet.getBmpNextWaveSymbol());
 		sprite.draw(pos, Sprite.defaultOrigin);

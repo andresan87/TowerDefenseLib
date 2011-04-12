@@ -2,13 +2,13 @@
 
 import br.com.jera.audio.AudioPlayer;
 import br.com.jera.enemies.EnemyRoad;
-import br.com.jera.game.Player;
-import br.com.jera.game.Scenario;
 import br.com.jera.graphic.GraphicDevice;
 import br.com.jera.graphic.GraphicDevice.ALPHA_MODE;
 import br.com.jera.graphic.Sprite;
 import br.com.jera.input.InputListener;
 import br.com.jera.resources.ResourceIdRetriever;
+import br.com.jera.towerdefenselib.Player;
+import br.com.jera.towerdefenselib.Scenario;
 import br.com.jera.towers.TowerManager;
 import br.com.jera.towers.TowerSelector;
 import br.com.jera.util.BitmapFont;

@@ -5,17 +5,22 @@ import br.com.jera.graphic.GraphicDevice;
 import br.com.jera.input.InputListener;
 import br.com.jera.resources.ResourceIdRetriever;
 import br.com.jera.util.BaseApplication;
+import br.com.jera.util.CommonMath.Vector2;
 
 public class StateManager implements BaseApplication {
 
-	public StateManager(String versionStr, ResourceIdRetriever resRet) {
-		level = new GameLevel(FADE_IN_TIME, resRet);
+	public StateManager(String versionStr, ResourceIdRetriever resRet, int tilemapSizeX, int tilemapSizeY, Vector2 tileSize, int[] mainLayer, int[] pathLayer) {
+		level = new GameLevel(FADE_IN_TIME, resRet, tilemapSizeX, tilemapSizeY, tileSize, mainLayer, pathLayer);
 		this.versionStr = versionStr;
 		this.resRet = resRet;
+		this.tilemapSizeX = tilemapSizeX;
+		this.tilemapSizeY = tilemapSizeY;
+		this.tileSize = tileSize;
+		this.mainLayer = mainLayer;
+		this.pathLayer = pathLayer;
 		currentState = new MainMenu(FADE_IN_TIME, versionStr, resRet);
 	}
 
-	@Override
 	public void create(GraphicDevice device, InputListener input, AudioPlayer player) {
 		currentState.create(device, input, player);
 		this.device = device;
@@ -23,22 +28,18 @@ public class StateManager implements BaseApplication {
 		this.player = player;
 	}
 
-	@Override
 	public void loadResources() {
 		currentState.loadResources();
 	}
 
-	@Override
 	public void resetFrameBuffer(int width, int height) {
 		currentState.resetFrameBuffer(width, height);
 	}
 
-	@Override
 	public STATE update(long lastFrameDeltaTimeMS) {
 		return currentState.update(lastFrameDeltaTimeMS);
 	}
 
-	@Override
 	public void draw() {
 		currentState.draw();
 		checkStateChange();
@@ -48,7 +49,7 @@ public class StateManager implements BaseApplication {
 		if (currentState instanceof MainMenu) {
 			switch (((MainMenu) (currentState)).getChosenState()) {
 			case NEW_GAME:
-				level = new GameLevel(FADE_IN_TIME, resRet);
+				level = new GameLevel(FADE_IN_TIME, resRet, tilemapSizeX, tilemapSizeY, tileSize, mainLayer, pathLayer);
 				currentState = level;
 				currentState.create(device, input, player);
 				currentState.loadResources();
@@ -72,7 +73,7 @@ public class StateManager implements BaseApplication {
 				currentState.create(device, input, player);
 				currentState.loadResources();
 				currentState.resetFrameBuffer((int) device.getScreenSize().x, (int) device.getScreenSize().y);
-				level = new GameLevel(FADE_IN_TIME, resRet);
+				level = new GameLevel(FADE_IN_TIME, resRet, tilemapSizeX, tilemapSizeY, tileSize, mainLayer, pathLayer);
 			}
 		} else if (currentState instanceof GameOver) {
 			if (((GameOver) (currentState)).isBackToMainMenu()) {
@@ -88,7 +89,6 @@ public class StateManager implements BaseApplication {
 		currentState.resetFrameBuffer((int) device.getScreenSize().x, (int) device.getScreenSize().y);
 	}
 
-	@Override
 	public String getStateName() {
 		return "manager";
 	}
@@ -102,4 +102,10 @@ public class StateManager implements BaseApplication {
 	GraphicDevice device;
 	InputListener input;
 	AudioPlayer player;
+	
+	private int tilemapSizeX;
+	private int tilemapSizeY;
+	private Vector2 tileSize;
+	private int[] mainLayer;
+	private int[] pathLayer;
 }

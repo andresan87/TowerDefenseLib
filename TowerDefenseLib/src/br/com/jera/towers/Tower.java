@@ -27,12 +27,10 @@ public class Tower extends GameCharacter {
 	// TODO criar perfis de vikings em arquivo resource separado, não no código
 	static public void createTowerProfiles(final ResourceIdRetriever resRet) {
 		towerProfiles[0] = new TowerProfile() {
-			@Override
 			public int getResourceId() {
 				return resRet.getBmpTower01();
 			}
 
-			@Override
 			public WeaponProfile getWeapon() {
 				return weapon;
 			}
@@ -40,12 +38,10 @@ public class Tower extends GameCharacter {
 			private WeaponProfile weapon = new Spear(resRet);
 		};
 		towerProfiles[1] = new TowerProfile() {
-			@Override
 			public int getResourceId() {
 				return resRet.getBmpTower02();
 			}
 
-			@Override
 			public WeaponProfile getWeapon() {
 				return weapon;
 			}
@@ -54,12 +50,10 @@ public class Tower extends GameCharacter {
 
 		};
 		towerProfiles[2] = new TowerProfile() {
-			@Override
 			public int getResourceId() {
 				return resRet.getBmpTower03();
 			}
 
-			@Override
 			public WeaponProfile getWeapon() {
 				return weapon;
 			}

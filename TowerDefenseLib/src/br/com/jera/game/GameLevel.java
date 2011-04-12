@@ -13,6 +13,10 @@ import br.com.jera.gui.SideBar;
 import br.com.jera.gui.TouchButton;
 import br.com.jera.input.InputListener;
 import br.com.jera.resources.ResourceIdRetriever;
+import br.com.jera.towerdefenselib.OutputData;
+import br.com.jera.towerdefenselib.Player;
+import br.com.jera.towerdefenselib.Scenario;
+import br.com.jera.towerdefenselib.SortedDisplayableEntityList;
 import br.com.jera.towers.Tower;
 import br.com.jera.towers.TowerManager;
 import br.com.jera.util.BaseApplication;
@@ -26,9 +30,14 @@ import br.com.jera.weapons.ProjectileManager;
 
 public class GameLevel extends FadeEffect {
 
-	protected GameLevel(long fadeTime, ResourceIdRetriever resRet) {
+	protected GameLevel(long fadeTime, ResourceIdRetriever resRet, int tilemapSizeX, int tilemapSizeY, Vector2 tileSize, int[] mainLayer, int[] pathLayer) {
 		super(fadeTime, resRet);
 		this.resRet = resRet;
+		this.tilemapSizeX = tilemapSizeX;
+		this.tilemapSizeY = tilemapSizeY;
+		this.tileSize = tileSize;
+		this.mainLayer = mainLayer;
+		this.pathLayer = pathLayer;
 		forceNextWave = new TouchButton(Sprite.zero, Sprite.zero, resRet.getBmpNextWaveButton(), 0, resRet.getSfxBack());
 	}
 
@@ -42,7 +51,7 @@ public class GameLevel extends FadeEffect {
 
 		if (isFirstTime) {
 			scenario = new Scenario(resRet.getBmpScenario(), new Vector2(0, 0), resRet);
-			road = new EnemyRoad(resRet);
+			road = new EnemyRoad(resRet, tilemapSizeX, tilemapSizeY, tileSize, mainLayer, pathLayer);
 			waveManager = new EnemyWaveManager(road, System.currentTimeMillis(), resRet);
 			vikingManager = new TowerManager(resRet);
 			projectileManager = new ProjectileManager();
@@ -235,4 +244,10 @@ public class GameLevel extends FadeEffect {
 	private EnemyWaveManager waveManager;
 	private EffectManager effectManager;
 	private ResourceIdRetriever resRet;
+
+	private int tilemapSizeX;
+	private int tilemapSizeY;
+	private Vector2 tileSize;
+	private int[] mainLayer;
+	private int[] pathLayer;
 }

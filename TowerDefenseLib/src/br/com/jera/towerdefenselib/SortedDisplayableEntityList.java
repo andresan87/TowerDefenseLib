@@ -1,7 +1,6 @@
-﻿package br.com.jera.game;
+﻿package br.com.jera.towerdefenselib;
 
 import java.util.Collections;
-import java.util.ConcurrentModificationException;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
@@ -17,7 +16,7 @@ public class SortedDisplayableEntityList extends LinkedList<DisplayableEntity> {
 	private void sortMaroto() {
 		try {
 			Collections.sort(this);
-		} catch (IllegalArgumentException e) {
+		} catch (Exception e) {
 			// dummy
 		}
 	}
@@ -30,7 +29,7 @@ public class SortedDisplayableEntityList extends LinkedList<DisplayableEntity> {
 			try {
 				DisplayableEntity ent = (DisplayableEntity) iter.next();
 				ent.draw(viewer, res);
-			} catch (ConcurrentModificationException e) {
+			} catch (Exception e) {
 				continue;
 			}
 		}

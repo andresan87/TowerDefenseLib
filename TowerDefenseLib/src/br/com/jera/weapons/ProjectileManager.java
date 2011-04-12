@@ -6,14 +6,14 @@ import java.util.ListIterator;
 import br.com.jera.audio.AudioPlayer;
 import br.com.jera.effects.EffectManager;
 import br.com.jera.enemies.Enemy;
-import br.com.jera.game.SortedDisplayableEntityList;
 import br.com.jera.graphic.Sprite;
 import br.com.jera.towerdefenselib.GameCharacter;
+import br.com.jera.towerdefenselib.SortedDisplayableEntityList;
 import br.com.jera.util.Classic2DViewer;
+import br.com.jera.util.CommonMath;
 import br.com.jera.util.CommonMath.Rectangle2D;
 import br.com.jera.util.CommonMath.Vector2;
 import br.com.jera.util.CommonMath.Vector3;
-import br.com.jera.util.CommonMath;
 import br.com.jera.util.DisplayableEntity;
 import br.com.jera.util.SceneViewer;
 import br.com.jera.util.SpriteResourceManager;
@@ -66,35 +66,29 @@ public class ProjectileManager {
 			return new Vector2(pos);
 		}
 
-		@Override
 		public Vector3 getPos() {
 			return new Vector3(pos, 0);
 		}
 
-		@Override
 		public void draw(SceneViewer viewer, SpriteResourceManager res) {
 			Sprite sprite = res.getSprite(resourceId);
 			sprite.draw(pos.sub(viewer.getOrthogonalViewerPos()).add(HEIGHT_OFFSET), angle, Sprite.centerOrigin);
 		}
 
-		@Override
 		public int compareTo(DisplayableEntity another) {
 			return new Float(Math.signum(pos.y - another.getPos().y)).intValue();
 		}
 
-		@Override
 		public Vector2 getMin(SpriteResourceManager res) {
 			Sprite sprite = res.getSprite(resourceId);
 			return pos.sub(sprite.getFrameSize());
 		}
 
-		@Override
 		public Vector2 getMax(SpriteResourceManager res) {
 			Sprite sprite = res.getSprite(resourceId);
 			return pos.add(sprite.getFrameSize());
 		}
 
-		@Override
 		public boolean isVisible(SceneViewer viewer, Rectangle2D clientRect) {
 			// TODO verificar visibilidade
 			return true;

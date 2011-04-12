@@ -20,23 +20,19 @@ public class Net implements WeaponProfile {
 	public Net(ResourceIdRetriever resRet) {
 		Net.resRet = resRet;
 	}
-	
-	@Override
+
 	public float getRange() {
 		return 100.0f;
 	}
 
-	@Override
 	public long getCoolDownTime() {
 		return 5000;
 	}
 
-	@Override
 	public int getResourceId() {
 		return Net.resRet.getBmpWeaponProjectile02();
 	}
 
-	@Override
 	public boolean shoot(GameCharacter actor, Vector2 pos, Enemy targetZombie, ProjectileManager manager, AudioPlayer audioPlayer) {
 		if (!targetZombie.hasHarmEffect(TRAP_EFFECT_NAME)) {
 			manager.addProjectile(new Projectile(getResourceId(), pos, targetZombie, getSpeed(), getRotationSpeed(), this, actor));
@@ -47,50 +43,41 @@ public class Net implements WeaponProfile {
 		}
 	}
 
-	@Override
 	public float getSpeed() {
 		return 50.0f;
 	}
 
-	@Override
 	public float getRotationSpeed() {
 		return 360.0f;
 	}
 
-	@Override
 	public int getPrice() {
 		return 70;
 	}
 
-	@Override
 	public HarmEffect getHarmEffect(EffectManager effectManager, GameCharacter actor) {
 		return new HarmEffect(4500, effectManager, actor) {
 
-			@Override
 			public void applyEffect(GameCharacter target, AudioPlayer audioPlayer) {
 				previousSpeed = target.getSpeed();
 				target.setSpeed(0.0f);
 			}
 
-			@Override
 			public void removeEffect(GameCharacter target, AudioPlayer audioPlayer) {
 				target.addToSpeed(previousSpeed);
 				((Enemy) target).setNetLaunched(false);
 			}
 
-			@Override
 			public void drawHarmEffect(GameCharacter target, SceneViewer viewer, SpriteResourceManager res) {
 				Sprite sprite = res.getSprite(Net.resRet.getBmpWeaponHitEffect02());
 				res.getGraphicDevice().setAlphaMode(ALPHA_MODE.DEFAULT);
 				sprite.draw(target.get2DPos().sub(viewer.getOrthogonalViewerPos().add(netOffset)), GameCharacter.defaultSpriteOrigin);
 			}
 
-			@Override
 			public boolean isUnique() {
 				return true;
 			}
 
-			@Override
 			public String getHarmEffectName() {
 				return TRAP_EFFECT_NAME;
 			}
@@ -102,7 +89,6 @@ public class Net implements WeaponProfile {
 
 	private static final String TRAP_EFFECT_NAME = "NetTrapped";
 
-	@Override
 	public float getDamage() {
 		return Net.DAMAGE;
 	}

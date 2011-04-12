@@ -3,9 +3,9 @@
 import java.util.ArrayList;
 
 import br.com.jera.audio.AudioPlayer;
-import br.com.jera.game.OutputData;
 import br.com.jera.graphic.Sprite;
 import br.com.jera.resources.ResourceIdRetriever;
+import br.com.jera.towerdefenselib.OutputData;
 import br.com.jera.util.BitmapFont;
 import br.com.jera.util.CommonMath.Vector2;
 import br.com.jera.util.SpriteResourceManager;
@@ -127,7 +127,6 @@ public class InfiniteWaveManager implements OutputData.Data {
 		}
 	}
 
-	@Override
 	public Vector2 drawData(Vector2 pos, SpriteResourceManager res, BitmapFont font) {
 		Sprite sprite = res.getSprite(resRet.getBmpScoreSymbol());
 		sprite.draw(pos, Sprite.defaultOrigin);

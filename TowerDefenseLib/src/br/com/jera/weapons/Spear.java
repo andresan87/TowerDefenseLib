@@ -21,44 +21,36 @@ public class Spear implements WeaponProfile {
 		Spear.resRet = resRet;
 	}
 
-	@Override
 	public float getRange() {
 		return 160.0f;
 	}
 
-	@Override
 	public long getCoolDownTime() {
 		return 1500;
 	}
 
-	@Override
 	public int getResourceId() {
 		return Spear.resRet.getBmpWeaponProjectile01();
 	}
 
-	@Override
 	public boolean shoot(GameCharacter actor, Vector2 pos, Enemy targetZombie, ProjectileManager manager, AudioPlayer audioPlayer) {
 		manager.addProjectile(new Projectile(getResourceId(), pos, targetZombie, getSpeed(), getRotationSpeed(), this, actor));
 		audioPlayer.play(Spear.resRet.getSfxWeaponTrigger01());
 		return true;
 	}
 
-	@Override
 	public float getSpeed() {
 		return 170.0f;
 	}
 
-	@Override
 	public float getRotationSpeed() {
 		return 0.0f;
 	}
 
-	@Override
 	public int getPrice() {
 		return 50;
 	}
 
-	@Override
 	public HarmEffect getHarmEffect(EffectManager effectManager, GameCharacter actor) {
 		return new HarmEffect(0, effectManager, actor) {
 
@@ -95,7 +87,6 @@ public class Spear implements WeaponProfile {
 		};
 	}
 
-	@Override
 	public float getDamage() {
 		return Spear.DAMAGE;
 	}
