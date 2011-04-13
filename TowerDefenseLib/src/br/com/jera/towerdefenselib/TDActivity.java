@@ -6,13 +6,26 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.widget.Toast;
 import br.com.jera.game.StateManager;
 import br.com.jera.platform.android.AndroidSurfaceView;
+import br.com.jera.resources.PropertyReader;
 import br.com.jera.resources.ResourceIdRetriever;
 import br.com.jera.util.CommonMath.Vector2;
 
 public class TDActivity extends Activity {
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event)  {
+		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+	    	return true;
+	    }
+		if (keyCode == KeyEvent.KEYCODE_MENU && event.getRepeatCount() == 0) {
+	    	return true;
+	    }
+		return super.onKeyDown(keyCode, event);
+	}
 
 	public String getVersion() {
 		String versionStr = "";
@@ -36,6 +49,8 @@ public class TDActivity extends Activity {
 	
 	public void startGame(ResourceIdRetriever resRet, int tilemapSizeX, int tilemapSizeY, Vector2 tileSize, int[] mainLayer, int[] pathLayer)
 	{
+		propertyReader = new PropertyReader(this);
+		
 		if (manager == null) {
 			manager = new StateManager(getVersion(), resRet, tilemapSizeX, tilemapSizeY, tileSize, mainLayer, pathLayer);
 		}
@@ -57,6 +72,7 @@ public class TDActivity extends Activity {
 		mGLSurfaceView.onPause();
 	}
 	
+	protected PropertyReader propertyReader;
 	private AndroidSurfaceView mGLSurfaceView;
 	private static StateManager manager;
 }

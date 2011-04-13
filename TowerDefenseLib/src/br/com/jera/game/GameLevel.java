@@ -12,6 +12,7 @@ import br.com.jera.graphic.Sprite;
 import br.com.jera.gui.SideBar;
 import br.com.jera.gui.TouchButton;
 import br.com.jera.input.InputListener;
+import br.com.jera.resources.PropertyReader;
 import br.com.jera.resources.ResourceIdRetriever;
 import br.com.jera.towerdefenselib.OutputData;
 import br.com.jera.towerdefenselib.Player;
@@ -125,7 +126,7 @@ public class GameLevel extends FadeEffect {
 		vikingManager.update(lastFrameDeltaTimeMS, waveManager.getEnemies(), projectileManager, audioPlayer);
 		requestingMainMenu = sideBar.isRequestingMainMenu();
 		sideBar.update(road, spriteManager, vikingManager, audioPlayer, lastFrameDeltaTimeMS);
-		infiniteWaveManager.updateWaveManager(audioPlayer, waveManager);
+		infiniteWaveManager.updateWaveManager(audioPlayer, waveManager, spriteManager.getSprite(resRet.getBmpEnemy01()).getFrameSize().x);
 		return BaseApplication.STATE.CONTINUE;
 	}
 
@@ -175,8 +176,12 @@ public class GameLevel extends FadeEffect {
 	private void resetScrollBounds(DisplayableEntity scene) {
 		viewer.setScrollBounds(scene.getMin(spriteManager), scene.getMax(spriteManager),
 				graphicDevice.getScreenSize().sub(new Vector2(sideBar.getSideBarWidth(), 0)));
-		viewer.scrollTo(new Vector2(((scene.getMin(spriteManager).x + scene.getMax(spriteManager).x / 2.0f))
-				- (graphicDevice.getScreenSize().x / 2.0f), scene.getMax(spriteManager).y));
+		if (!PropertyReader.isCustomViewStart()) {
+			viewer.scrollTo(new Vector2(((scene.getMin(spriteManager).x + scene.getMax(spriteManager).x / 2.0f))
+					- (graphicDevice.getScreenSize().x / 2.0f), scene.getMax(spriteManager).y));
+		} else {
+			viewer.scrollTo(PropertyReader.getViewStart());
+		}
 	}
 
 	private void scrollView() {

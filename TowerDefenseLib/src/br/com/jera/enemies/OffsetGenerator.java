@@ -4,8 +4,8 @@ import br.com.jera.util.CommonMath.Vector2;
 
 public class OffsetGenerator {
 
-	public Vector2 getVerticalOffset(final float length) {
-		offset = offset.add(new Vector2(0, length));
+	public Vector2 getVerticalOffset(final float length, Vector2 dir) {
+		offset = offset.add(dir.multiply(length));
 		return new Vector2(offset);
 	}
 

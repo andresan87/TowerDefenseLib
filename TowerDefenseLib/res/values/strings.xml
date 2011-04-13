@@ -2,4 +2,7 @@
 <resources>
     <string name="hello">Hello World!</string>
     <string name="app_name">TowerDefenseLib</string>
+    <string name="quitConfirm">Quit application?</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirm">Confirm</string>
 </resources>

@@ -8,6 +8,7 @@ import br.com.jera.enemies.Enemy;
 import br.com.jera.graphic.GraphicDevice;
 import br.com.jera.graphic.GraphicDevice.ALPHA_MODE;
 import br.com.jera.graphic.Sprite;
+import br.com.jera.resources.PropertyReader;
 import br.com.jera.resources.ResourceIdRetriever;
 import br.com.jera.util.Classic2DViewer;
 import br.com.jera.util.CommonMath;
@@ -153,7 +154,7 @@ public class GameCharacter implements DisplayableEntity {
 		final Vector2 absolutePos = pos.sub(viewer.getOrthogonalViewerPos());
 		res.getGraphicDevice().setAlphaMode(ALPHA_MODE.MODULATE);
 		
-		if (!(this instanceof Enemy)) {
+		if (!(this instanceof Enemy) && PropertyReader.isDrawTowerShadow()) {
 			Sprite shadow = res.getSprite(resRet.getBmpShadow());
 			shadow.draw(absolutePos, new Vector2(0.5f, 0.65f));
 		}

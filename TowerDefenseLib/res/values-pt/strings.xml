@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">TowerDefenseLib</string>
+    <string name="quitConfirm">Fechar aplicativo?</string>
+    <string name="cancel">Cancela</string>
+    <string name="confirm">Confirma</string>
+</resources>
