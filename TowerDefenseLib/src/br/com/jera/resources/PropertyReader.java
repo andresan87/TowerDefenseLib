@@ -22,6 +22,7 @@ public class PropertyReader {
 			viewStart.x = getFloat("viewStartX", properties, viewStart.x);
 			viewStart.y = getFloat("viewStartY", properties, viewStart.y);
 			smartPlaceTolerance = getFloat("smartPlaceTolerance", properties, smartPlaceTolerance);
+			defaultFontSize = getInt("defaultFontSize", properties, defaultFontSize);
 		} catch (IOException e) {
 			// no problem...
 		}
@@ -31,6 +32,15 @@ public class PropertyReader {
 		String value = properties.getProperty(name);
 		if (value != null) {
 			return Float.parseFloat(value);
+		} else {
+			return defaultValue;
+		}
+	}
+
+	private int getInt(String name, Properties properties, int defaultValue) {
+		String value = properties.getProperty(name);
+		if (value != null) {
+			return Integer.parseInt(value);
 		} else {
 			return defaultValue;
 		}
@@ -65,9 +75,14 @@ public class PropertyReader {
 		return smartPlaceTolerance;
 	}
 
+	public static int getDefaultFontSize() {
+		return defaultFontSize;
+	}
+
 	private static Vector2 enemyStartOffset = new Vector2(0, 1);
 	private static boolean drawTowerShadow = true;
 	private static boolean customViewStart = false;
 	private static Vector2 viewStart = new Vector2(0, 0);
 	private static float smartPlaceTolerance = 128.0f;
+	private static int defaultFontSize = 16;
 }
