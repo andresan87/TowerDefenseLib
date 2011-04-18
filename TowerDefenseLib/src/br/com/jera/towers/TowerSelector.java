@@ -7,6 +7,7 @@ import br.com.jera.graphic.GraphicDevice.ALPHA_MODE;
 import br.com.jera.graphic.Sprite;
 import br.com.jera.gui.SideBar;
 import br.com.jera.input.InputListener;
+import br.com.jera.resources.PropertyReader;
 import br.com.jera.resources.ResourceIdRetriever;
 import br.com.jera.towerdefenselib.GameCharacter;
 import br.com.jera.towerdefenselib.Player;
@@ -118,7 +119,7 @@ public class TowerSelector {
 		Vector2 relativeNextPos = viewer.computeRelativePosition(nextPos);
 		if (isValidPlace(relativeNextPos, road, res)) {
 			return nextPos;
-		} else if (relativeNextPos.distance(relativeCurrentPos) > 50) {
+		} else if (relativeNextPos.distance(relativeCurrentPos) > PropertyReader.getSmartPlaceTolerance()) {
 			return nextPos;
 		} else {
 			Vector2 testWithX = new Vector2(relativeNextPos.x, relativeCurrentPos.y);

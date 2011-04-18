@@ -21,6 +21,7 @@ public class PropertyReader {
 			customViewStart = getBoolean("customViewStart", properties, customViewStart);
 			viewStart.x = getFloat("viewStartX", properties, viewStart.x);
 			viewStart.y = getFloat("viewStartY", properties, viewStart.y);
+			smartPlaceTolerance = getFloat("smartPlaceTolerance", properties, smartPlaceTolerance);
 		} catch (IOException e) {
 			// no problem...
 		}
@@ -60,8 +61,13 @@ public class PropertyReader {
 		return new Vector2(viewStart);
 	}
 
+	public static float getSmartPlaceTolerance() {
+		return smartPlaceTolerance;
+	}
+
 	private static Vector2 enemyStartOffset = new Vector2(0, 1);
 	private static boolean drawTowerShadow = true;
 	private static boolean customViewStart = false;
 	private static Vector2 viewStart = new Vector2(0, 0);
+	private static float smartPlaceTolerance = 128.0f;
 }
