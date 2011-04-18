@@ -20,6 +20,7 @@ import br.com.jera.towerdefenselib.Scenario;
 import br.com.jera.towerdefenselib.SortedDisplayableEntityList;
 import br.com.jera.towers.Tower;
 import br.com.jera.towers.TowerManager;
+import br.com.jera.towers.TowerProfile;
 import br.com.jera.util.BaseApplication;
 import br.com.jera.util.BitmapFont;
 import br.com.jera.util.Classic2DViewer;
@@ -31,15 +32,19 @@ import br.com.jera.weapons.ProjectileManager;
 
 public class GameLevel extends FadeEffect {
 
-	protected GameLevel(long fadeTime, ResourceIdRetriever resRet, int tilemapSizeX, int tilemapSizeY, Vector2 tileSize, int[] mainLayer, int[] pathLayer) {
+	protected GameLevel(long fadeTime, ResourceIdRetriever resRet, int tilemapSizeX, int tilemapSizeY, Vector2 tileSize, int[] mainLayer,
+			int[] pathLayer, TowerProfile[] towerProfiles) {
 		super(fadeTime, resRet);
 		this.resRet = resRet;
+		this.numTowers = towerProfiles.length;
 		this.tilemapSizeX = tilemapSizeX;
 		this.tilemapSizeY = tilemapSizeY;
 		this.tileSize = tileSize;
 		this.mainLayer = mainLayer;
 		this.pathLayer = pathLayer;
 		forceNextWave = new TouchButton(Sprite.zero, Sprite.zero, resRet.getBmpNextWaveButton(), 0, resRet.getSfxBack());
+		Tower.setTowerProfiles(towerProfiles); // TODO carregar profiles de
+												// arquivo e não via static
 	}
 
 	@Override
@@ -63,7 +68,6 @@ public class GameLevel extends FadeEffect {
 		}
 		isFirstTime = false;
 		requestingMainMenu = false;
-		Tower.createTowerProfiles(resRet); // TODO carregar profiles de arquivo
 	}
 
 	@Override
@@ -71,7 +75,7 @@ public class GameLevel extends FadeEffect {
 		super.loadResources();
 
 		// TODO carregar recursos específicos de forma automatica fora do código
-		sideBar = new SideBar(graphicDevice, input, viewer, vikingManager, scenario, spriteManager, player, audioPlayer, resRet);
+		sideBar = new SideBar(graphicDevice, input, viewer, vikingManager, scenario, spriteManager, player, audioPlayer, resRet, numTowers);
 		viking16 = new BitmapFont(graphicDevice, resRet.getBmpThemeFont16(), 8, 16);
 		spriteManager.loadResource(resRet.getBmpScenario(), 1, 1);
 		spriteManager.loadResource(resRet.getBmpTower01(), 4, 4);
@@ -152,11 +156,11 @@ public class GameLevel extends FadeEffect {
 		super.draw();
 		graphicDevice.endScene();
 	}
-	
+
 	private void putNextWaveButton() {
 		putNextWaveButton(Sprite.zero);
 	}
-	
+
 	private void putNextWaveButton(Vector2 pos) {
 		forceNextWave.setPos(pos);
 		forceNextWave.putButton(graphicDevice, audioPlayer, spriteManager, input);
@@ -204,8 +208,8 @@ public class GameLevel extends FadeEffect {
 			} else {
 				return false;
 			}
-		} 
-		return false; 
+		}
+		return false;
 	}
 
 	private boolean isInSceneArea(final Vector2 pos) {
@@ -223,7 +227,7 @@ public class GameLevel extends FadeEffect {
 	public String getStateName() {
 		return "game";
 	}
-	
+
 	public int getScore() {
 		return waveManager.getKilledEnemies();
 	}
@@ -250,9 +254,10 @@ public class GameLevel extends FadeEffect {
 	private EffectManager effectManager;
 	private ResourceIdRetriever resRet;
 
-	private int tilemapSizeX;
-	private int tilemapSizeY;
-	private Vector2 tileSize;
-	private int[] mainLayer;
-	private int[] pathLayer;
+	private final int numTowers;
+	private final int tilemapSizeX;
+	private final int tilemapSizeY;
+	private final Vector2 tileSize;
+	private final int[] mainLayer;
+	private final int[] pathLayer;
 }

@@ -22,7 +22,8 @@ import br.com.jera.util.SpriteResourceManager;
 public class TowerSelector {
 
 	public TowerSelector(SideBar sideBar, Classic2DViewer viewer, TowerManager manager, Scenario scene, SpriteResourceManager res,
-			Player player, AudioPlayer audioPlayer, ResourceIdRetriever resRet) {
+			Player player, AudioPlayer audioPlayer, ResourceIdRetriever resRet, int numTowers) {
+		this.selectableVikingPos = new Vector2[numTowers];
 		this.player = player;
 		this.sideBar = sideBar;
 		this.scene = scene;
@@ -181,5 +182,5 @@ public class TowerSelector {
 	private static Vector2 padding = new Vector2(16.0f, 16.0f);
 	private SideBar sideBar;
 	private ResourceIdRetriever resRet;
-	private Vector2[] selectableVikingPos = new Vector2[Tower.TOWER_PROFILES];
+	private Vector2[] selectableVikingPos;
 }

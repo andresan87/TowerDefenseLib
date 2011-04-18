@@ -4,13 +4,16 @@ import br.com.jera.audio.AudioPlayer;
 import br.com.jera.graphic.GraphicDevice;
 import br.com.jera.input.InputListener;
 import br.com.jera.resources.ResourceIdRetriever;
+import br.com.jera.towers.TowerProfile;
 import br.com.jera.util.BaseApplication;
 import br.com.jera.util.CommonMath.Vector2;
 
 public class StateManager implements BaseApplication {
 
-	public StateManager(String versionStr, ResourceIdRetriever resRet, int tilemapSizeX, int tilemapSizeY, Vector2 tileSize, int[] mainLayer, int[] pathLayer) {
-		level = new GameLevel(FADE_IN_TIME, resRet, tilemapSizeX, tilemapSizeY, tileSize, mainLayer, pathLayer);
+	public StateManager(String versionStr, ResourceIdRetriever resRet, int tilemapSizeX, int tilemapSizeY, Vector2 tileSize,
+			int[] mainLayer, int[] pathLayer, TowerProfile[] towerProfiles) {
+		level = new GameLevel(FADE_IN_TIME, resRet, tilemapSizeX, tilemapSizeY, tileSize, mainLayer, pathLayer, towerProfiles);
+		this.towerProfiles = towerProfiles;
 		this.versionStr = versionStr;
 		this.resRet = resRet;
 		this.tilemapSizeX = tilemapSizeX;
@@ -49,7 +52,7 @@ public class StateManager implements BaseApplication {
 		if (currentState instanceof MainMenu) {
 			switch (((MainMenu) (currentState)).getChosenState()) {
 			case NEW_GAME:
-				level = new GameLevel(FADE_IN_TIME, resRet, tilemapSizeX, tilemapSizeY, tileSize, mainLayer, pathLayer);
+				level = new GameLevel(FADE_IN_TIME, resRet, tilemapSizeX, tilemapSizeY, tileSize, mainLayer, pathLayer, towerProfiles);
 				currentState = level;
 				currentState.create(device, input, player);
 				currentState.loadResources();
@@ -73,7 +76,7 @@ public class StateManager implements BaseApplication {
 				currentState.create(device, input, player);
 				currentState.loadResources();
 				currentState.resetFrameBuffer((int) device.getScreenSize().x, (int) device.getScreenSize().y);
-				level = new GameLevel(FADE_IN_TIME, resRet, tilemapSizeX, tilemapSizeY, tileSize, mainLayer, pathLayer);
+				level = new GameLevel(FADE_IN_TIME, resRet, tilemapSizeX, tilemapSizeY, tileSize, mainLayer, pathLayer, towerProfiles);
 			}
 		} else if (currentState instanceof GameOver) {
 			if (((GameOver) (currentState)).isBackToMainMenu()) {
@@ -99,10 +102,11 @@ public class StateManager implements BaseApplication {
 	private BaseApplication currentState;
 	private static GameLevel level;
 	private ResourceIdRetriever resRet;
+	private TowerProfile[] towerProfiles;
 	GraphicDevice device;
 	InputListener input;
 	AudioPlayer player;
-	
+
 	private int tilemapSizeX;
 	private int tilemapSizeY;
 	private Vector2 tileSize;

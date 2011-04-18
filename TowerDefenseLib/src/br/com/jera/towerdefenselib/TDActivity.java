@@ -12,18 +12,19 @@ import br.com.jera.game.StateManager;
 import br.com.jera.platform.android.AndroidSurfaceView;
 import br.com.jera.resources.PropertyReader;
 import br.com.jera.resources.ResourceIdRetriever;
+import br.com.jera.towers.TowerProfile;
 import br.com.jera.util.CommonMath.Vector2;
 
 public class TDActivity extends Activity {
 
 	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event)  {
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
-	    	return true;
-	    }
+			return true;
+		}
 		if (keyCode == KeyEvent.KEYCODE_MENU && event.getRepeatCount() == 0) {
-	    	return true;
-	    }
+			return true;
+		}
 		return super.onKeyDown(keyCode, event);
 	}
 
@@ -46,13 +47,13 @@ public class TDActivity extends Activity {
 		toast.setGravity(Gravity.CENTER, toast.getXOffset() / 2, toast.getYOffset() / 2);
 		toast.show();
 	}
-	
-	public void startGame(ResourceIdRetriever resRet, int tilemapSizeX, int tilemapSizeY, Vector2 tileSize, int[] mainLayer, int[] pathLayer)
-	{
+
+	public void startGame(ResourceIdRetriever resRet, int tilemapSizeX, int tilemapSizeY, Vector2 tileSize, int[] mainLayer,
+			int[] pathLayer, TowerProfile[] towerProfiles) {
 		propertyReader = new PropertyReader(this);
-		
+
 		if (manager == null) {
-			manager = new StateManager(getVersion(), resRet, tilemapSizeX, tilemapSizeY, tileSize, mainLayer, pathLayer);
+			manager = new StateManager(getVersion(), resRet, tilemapSizeX, tilemapSizeY, tileSize, mainLayer, pathLayer, towerProfiles);
 		}
 
 		mGLSurfaceView = new AndroidSurfaceView(this, manager);
@@ -71,7 +72,7 @@ public class TDActivity extends Activity {
 		super.onPause();
 		mGLSurfaceView.onPause();
 	}
-	
+
 	protected PropertyReader propertyReader;
 	private AndroidSurfaceView mGLSurfaceView;
 	private static StateManager manager;
