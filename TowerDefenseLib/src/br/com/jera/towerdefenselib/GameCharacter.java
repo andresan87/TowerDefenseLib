@@ -36,7 +36,7 @@ public class GameCharacter implements DisplayableEntity {
 	protected float speed;
 	protected float hp;
 	protected float initialHp = 100;
-	private final Vector2 defaultFrameSize = new Vector2(32, 48);
+	private final Vector2 defaultFrameSize;
 	private FrameTimer frameTimer = new FrameTimer();
 	private long currentFrameStride = defaultFrameStride;
 	private int direction = MOVING_UP;
@@ -49,6 +49,7 @@ public class GameCharacter implements DisplayableEntity {
 		this.resourceId = resourceId;
 		this.pos = pos;
 		this.resRet = resRet;
+		this.defaultFrameSize = PropertyReader.getDefaultEnemySize();
 		setRandomDirection();
 	}
 
@@ -172,7 +173,7 @@ public class GameCharacter implements DisplayableEntity {
 			color.w = 0.7f;
 			sprite.setColor(color);
 			Vector2 barPos = pos.sub(viewer.getOrthogonalViewerPos()).sub(new Vector2(defaultFrameSize.x/2, defaultFrameSize.y));
-			sprite.draw(barPos, new Vector2(size, 4.0f), 0, Sprite.defaultOrigin, 0, false);
+			sprite.draw(barPos, new Vector2(size, PropertyReader.getHpBarHeight()), 0, Sprite.defaultOrigin, 0, false);
 		}
 	}
 

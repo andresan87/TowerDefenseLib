@@ -4,6 +4,7 @@ import br.com.jera.audio.AudioPlayer;
 import br.com.jera.effects.AnimatedParticle;
 import br.com.jera.effects.EffectManager;
 import br.com.jera.enemies.Enemy;
+import br.com.jera.resources.PropertyReader;
 import br.com.jera.resources.ResourceIdRetriever;
 import br.com.jera.towerdefenselib.GameCharacter;
 import br.com.jera.util.CommonMath;
@@ -22,7 +23,7 @@ public class Axe implements WeaponProfile {
 	}
 	
 	public float getRange() {
-		return 100.0f;
+		return 100.0f * PropertyReader.getTowerRangeScale();
 	}
 
 	public long getCoolDownTime() {

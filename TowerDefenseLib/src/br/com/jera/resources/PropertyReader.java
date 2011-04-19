@@ -23,6 +23,11 @@ public class PropertyReader {
 			viewStart.y = getFloat("viewStartY", properties, viewStart.y);
 			smartPlaceTolerance = getFloat("smartPlaceTolerance", properties, smartPlaceTolerance);
 			defaultFontSize = getInt("defaultFontSize", properties, defaultFontSize);
+			sideBarWidth = getFloat("sideBarWidth", properties, sideBarWidth);
+			towerRangeScale = getFloat("towerRangeScale", properties, towerRangeScale);
+			defaultEnemySize.x = getFloat("defaultEnemySizeX", properties, defaultEnemySize.x);
+			defaultEnemySize.y = getFloat("defaultEnemySizeY", properties, defaultEnemySize.y);
+			hpBarHeight = getFloat("hpBarHeight", properties, hpBarHeight);
 		} catch (IOException e) {
 			// no problem...
 		}
@@ -79,10 +84,30 @@ public class PropertyReader {
 		return defaultFontSize;
 	}
 
+	public static float getSideBarWidth() {
+		return sideBarWidth;
+	}
+	
+	public static float getTowerRangeScale() {
+		return towerRangeScale;
+	}
+
+	public static float getHpBarHeight() {
+		return hpBarHeight;
+	}
+
+	public static Vector2 getDefaultEnemySize() {
+		return new Vector2(defaultEnemySize);
+	}
+
 	private static Vector2 enemyStartOffset = new Vector2(0, 1);
 	private static boolean drawTowerShadow = true;
 	private static boolean customViewStart = false;
 	private static Vector2 viewStart = new Vector2(0, 0);
 	private static float smartPlaceTolerance = 128.0f;
 	private static int defaultFontSize = 16;
+	private static float sideBarWidth = 64.0f;
+	private static float towerRangeScale = 1.0f;
+	private static float hpBarHeight = 4.0f;
+	private static Vector2 defaultEnemySize = new Vector2(32, 48);
 }

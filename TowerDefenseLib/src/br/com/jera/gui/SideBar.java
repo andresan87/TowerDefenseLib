@@ -24,8 +24,9 @@ public class SideBar {
 	}
 
 	public SideBar(GraphicDevice device, InputListener input, Classic2DViewer viewer, TowerManager vikingManager, Scenario scene,
-			SpriteResourceManager res, Player player, AudioPlayer audioPlayer, ResourceIdRetriever resRet, int numTowers) {
+			SpriteResourceManager res, Player player, AudioPlayer audioPlayer, ResourceIdRetriever resRet, int numTowers, float sideBarWidth) {
 		this.input = input;
+		this.sideBarWidth = sideBarWidth;
 		selector = new TowerSelector(this, viewer, vikingManager, scene, res, player, audioPlayer, resRet, numTowers);
 		sideBarSprite = new Sprite(device, resRet.getBmpSideBar(), 1, 1);
 		sideBarExtend = new Sprite(device, resRet.getBmpSideBarExtend(), 1, 1);
@@ -81,6 +82,6 @@ public class SideBar {
 	private Sprite sideBarExtend;
 	private Sprite sideBarBottom;
 	private TouchButton backArrow;
-	private final float sideBarWidth = 64.0f;
+	private final float sideBarWidth;
 	private InputListener input;
 }

@@ -75,8 +75,10 @@ public class GameLevel extends FadeEffect {
 		super.loadResources();
 
 		// TODO carregar recursos específicos de forma automatica fora do código
-		sideBar = new SideBar(graphicDevice, input, viewer, vikingManager, scenario, spriteManager, player, audioPlayer, resRet, numTowers);
-		viking16 = new BitmapFont(graphicDevice, resRet.getBmpThemeFont16(), PropertyReader.getDefaultFontSize()/2, PropertyReader.getDefaultFontSize());
+		sideBar = new SideBar(graphicDevice, input, viewer, vikingManager, scenario, spriteManager, player, audioPlayer, resRet, numTowers,
+				PropertyReader.getSideBarWidth());
+		viking16 = new BitmapFont(graphicDevice, resRet.getBmpThemeFont16(), PropertyReader.getDefaultFontSize() / 2,
+				PropertyReader.getDefaultFontSize());
 		spriteManager.loadResource(resRet.getBmpScenario(), 1, 1);
 		spriteManager.loadResource(resRet.getBmpTower01(), 4, 4);
 		spriteManager.loadResource(resRet.getBmpTower02(), 4, 4);
