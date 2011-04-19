@@ -9,6 +9,7 @@ import br.com.jera.gui.GlobalSoundSwitch;
 import br.com.jera.gui.JeraSplash;
 import br.com.jera.gui.TouchButton;
 import br.com.jera.input.InputListener;
+import br.com.jera.resources.PropertyReader;
 import br.com.jera.resources.ResourceIdRetriever;
 import br.com.jera.util.BaseApplication;
 import br.com.jera.util.BitmapFont;
@@ -48,6 +49,10 @@ public class MainMenu extends FadeEffect {
 		resourceManager.loadResource(resRet.getBmpCompanyLogo(), 1, 1);
 		resourceManager.loadResource(resRet.getBmpSplashScreenBg(), 1, 1);
 
+		if (PropertyReader.hasHelp()) {
+			tutorial.loadResources(resourceManager, resRet);
+		}
+
 		audioPlayer.load(resRet.getSfxMenuButtonPressed());
 		soundSwitch = new GlobalSoundSwitch(new Vector2(0, 0), audioPlayer, resRet);
 		if (splash == null) {
@@ -60,7 +65,7 @@ public class MainMenu extends FadeEffect {
 		super.resetFrameBuffer(width, height);
 		device.setup2DView(width, height);
 		Sprite sprite = resourceManager.getSprite(resRet.getBmpMenuButtons());
-		Vector2 cursor = device.getScreenSize().sub(new Vector2(0, (menuButtons-1) * (sprite.getFrameSize().y + 16.0f)));
+		Vector2 cursor = device.getScreenSize().sub(new Vector2(0, (menuButtons - 1) * (sprite.getFrameSize().y + 16.0f)));
 		for (int n = 0; n < menuButtons; n++) {
 			buttons[n] = new TouchButton(cursor, buttonOrigin, resRet.getBmpMenuButtons(), n, new Integer(resRet.getSfxMenuButtonPressed()));
 			if (n != 1 || mayResume) {
@@ -72,20 +77,26 @@ public class MainMenu extends FadeEffect {
 	@Override
 	public STATE update(long lastFrameDeltaTimeMS) {
 		super.update(lastFrameDeltaTimeMS);
-		
+
 		if (splash != null) {
-			if (splash.isOver()) {
-				if (buttons[0].getStatus() == TouchButton.STATUS.ACTIVATED) {
-					chosenState = BUTTON.NEW_GAME;
-				} else if (buttons[1].getStatus() == TouchButton.STATUS.ACTIVATED) {
-					chosenState = BUTTON.CONTINUE;
-				} else if (buttons[2].getStatus() == TouchButton.STATUS.ACTIVATED) {
-					chosenState = BUTTON.EXIT;
-					splash = null;
-					return BaseApplication.STATE.EXIT;
-				} else if (buttons[3].getStatus() == TouchButton.STATUS.ACTIVATED) {
-					buttons[3].setStatus(TouchButton.STATUS.IDLE);
-					device.openUrl("http://games.jera.com.br/vvz/");
+			if (chosenState != BUTTON.TUTORIAL) {
+				if (splash.isOver()) {
+					if (buttons[0].getStatus() == TouchButton.STATUS.ACTIVATED) {
+						if (PropertyReader.hasHelp()) {
+							chosenState = BUTTON.TUTORIAL;
+						} else {
+							chosenState = BUTTON.NEW_GAME;
+						}
+					} else if (buttons[1].getStatus() == TouchButton.STATUS.ACTIVATED) {
+						chosenState = BUTTON.CONTINUE;
+					} else if (buttons[2].getStatus() == TouchButton.STATUS.ACTIVATED) {
+						chosenState = BUTTON.EXIT;
+						splash = null;
+						return BaseApplication.STATE.EXIT;
+					} else if (buttons[3].getStatus() == TouchButton.STATUS.ACTIVATED) {
+						buttons[3].setStatus(TouchButton.STATUS.IDLE);
+						device.openUrl("http://games.jera.com.br/vvz/");
+					}
 				}
 			}
 		}
@@ -93,7 +104,7 @@ public class MainMenu extends FadeEffect {
 	}
 
 	public BUTTON getChosenState() {
-		if (chosenState != BUTTON.NONE) {
+		if (chosenState != BUTTON.NONE && chosenState != BUTTON.TUTORIAL) {
 			if (super.doFadeOut() == FadeEffect.FADE_STATE.FADED_OUT)
 				return chosenState;
 			else
@@ -107,28 +118,36 @@ public class MainMenu extends FadeEffect {
 		device.beginScene();
 		device.setup2DView();
 		device.setDepthTest(false);
-		Sprite bg = resourceManager.getSprite(resRet.getBmpMenuBackground());
-		Vector2 bgSize;
-		if (bg != null) {
-			if (device.getScreenSize().x > device.getScreenSize().y) {
-				bgSize = CommonMath.resizeToMatchWidth(bg.getFrameSize(), device.getScreenSize().x);
-			} else {
-				bgSize = CommonMath.resizeToMatchHeight(bg.getFrameSize(), device.getScreenSize().y);
+
+		if (chosenState != BUTTON.TUTORIAL || !PropertyReader.hasHelp()) {
+			Sprite bg = resourceManager.getSprite(resRet.getBmpMenuBackground());
+			Vector2 bgSize;
+			if (bg != null) {
+				if (device.getScreenSize().x > device.getScreenSize().y) {
+					bgSize = CommonMath.resizeToMatchWidth(bg.getFrameSize(), device.getScreenSize().x);
+				} else {
+					bgSize = CommonMath.resizeToMatchHeight(bg.getFrameSize(), device.getScreenSize().y);
+				}
+				bg.draw(device.getScreenSize().multiply(0.5f), bgSize, Sprite.centerOrigin);
 			}
-			bg.draw(device.getScreenSize().multiply(0.5f), bgSize, Sprite.centerOrigin);
-		}
-		device.setAlphaMode(ALPHA_MODE.DEFAULT);
-		drawLogo();
-		for (int t = 0; t < menuButtons; t++) {
-			if (t != 1 || mayResume) {
-				buttons[t].putButton(device, audioPlayer, resourceManager, input);
+			device.setAlphaMode(ALPHA_MODE.DEFAULT);
+			drawLogo();
+			for (int t = 0; t < menuButtons; t++) {
+				if (t != 1 || mayResume) {
+					buttons[t].putButton(device, audioPlayer, resourceManager, input);
+				}
+			}
+			simsun16.draw(Sprite.zero, versionStr);
+			soundSwitch.putButton(new Vector2(0, device.getScreenSize().y - 32.0f), input, resourceManager, audioPlayer);
+			super.draw();
+			if (splash != null)
+				splash.draw(resourceManager);
+		} else {
+			tutorial.doTutorial(resourceManager, input, audioPlayer, resRet);
+			if (tutorial.isFinished()) {
+				chosenState = BUTTON.NEW_GAME;
 			}
 		}
-		simsun16.draw(Sprite.zero, versionStr);
-		soundSwitch.putButton(new Vector2(0, device.getScreenSize().y-32.0f), input, resourceManager, audioPlayer);
-		super.draw();
-		if (splash != null)
-			splash.draw(resourceManager);
 		device.endScene();
 	}
 
@@ -142,7 +161,7 @@ public class MainMenu extends FadeEffect {
 	}
 
 	public enum BUTTON {
-		NONE, NEW_GAME, CONTINUE, EXIT
+		NONE, NEW_GAME, CONTINUE, EXIT, TUTORIAL
 	}
 
 	@Override
@@ -162,4 +181,5 @@ public class MainMenu extends FadeEffect {
 	private AudioPlayer audioPlayer;
 	private GlobalSoundSwitch soundSwitch;
 	private ResourceIdRetriever resRet;
+	private GameTutorial tutorial = new GameTutorial();
 }

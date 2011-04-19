@@ -42,7 +42,12 @@ public interface ResourceIdRetriever {
 	public int getBmpSideBar();
 	public int getBmpSideBarExtend();
 	public int getBmpSideBarBottom();
-	
+	public int getBmpNextFrameButton();
+	public int getBmpSkipTutorialButton();
+	public int getBmpHelpFrame(int frame);
+
+	public int getNumHelpFrames();
+
 	public int getSfxEnemyDeath();
 	public int getSfxGameOver();
 	public int getSfxWeaponTrigger01();
@@ -51,4 +56,6 @@ public interface ResourceIdRetriever {
 	public int getSfxWeaponHit03();
 	public int getSfxBack();
 	public int getSfxMenuButtonPressed();
+	
+	
 }

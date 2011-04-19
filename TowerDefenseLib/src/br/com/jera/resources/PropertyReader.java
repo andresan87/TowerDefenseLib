@@ -19,6 +19,7 @@ public class PropertyReader {
 			enemyStartOffset.y = getFloat("enemyStartOffsetY", properties, enemyStartOffset.y);
 			drawTowerShadow = getBoolean("drawTowerShadow", properties, drawTowerShadow);
 			customViewStart = getBoolean("customViewStart", properties, customViewStart);
+			hasHelp = getBoolean("hasHelp", properties, hasHelp);
 			viewStart.x = getFloat("viewStartX", properties, viewStart.x);
 			viewStart.y = getFloat("viewStartY", properties, viewStart.y);
 			smartPlaceTolerance = getFloat("smartPlaceTolerance", properties, smartPlaceTolerance);
@@ -95,6 +96,10 @@ public class PropertyReader {
 	public static float getHpBarHeight() {
 		return hpBarHeight;
 	}
+	
+	public static boolean hasHelp() {
+		return hasHelp;
+	}
 
 	public static Vector2 getDefaultEnemySize() {
 		return new Vector2(defaultEnemySize);
@@ -103,6 +108,7 @@ public class PropertyReader {
 	private static Vector2 enemyStartOffset = new Vector2(0, 1);
 	private static boolean drawTowerShadow = true;
 	private static boolean customViewStart = false;
+	private static boolean hasHelp = false;
 	private static Vector2 viewStart = new Vector2(0, 0);
 	private static float smartPlaceTolerance = 128.0f;
 	private static int defaultFontSize = 16;
