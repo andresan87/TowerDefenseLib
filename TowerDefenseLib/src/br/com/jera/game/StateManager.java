@@ -93,7 +93,7 @@ public class StateManager implements BaseApplication {
 	}
 
 	public String getStateName() {
-		return "manager";
+		return currentState.getStateName();
 	}
 
 	private String versionStr;

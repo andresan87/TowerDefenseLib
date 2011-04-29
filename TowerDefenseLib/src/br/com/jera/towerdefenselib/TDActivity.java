@@ -5,11 +5,13 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.opengl.GLSurfaceView;
 import android.view.Gravity;
 import android.view.KeyEvent;
 import android.widget.Toast;
 import br.com.jera.game.StateManager;
 import br.com.jera.platform.android.AndroidSurfaceView;
+import br.com.jera.platform.android.JGRunnable;
 import br.com.jera.resources.PropertyReader;
 import br.com.jera.resources.ResourceIdRetriever;
 import br.com.jera.towers.TowerProfile;
@@ -48,17 +50,17 @@ public class TDActivity extends Activity {
 		toast.show();
 	}
 
-	public void startGame(ResourceIdRetriever resRet, int tilemapSizeX, int tilemapSizeY, Vector2 tileSize, int[] mainLayer,
-			int[] pathLayer, TowerProfile[] towerProfiles) {
+	public GLSurfaceView startGame(ResourceIdRetriever resRet, int tilemapSizeX, int tilemapSizeY, Vector2 tileSize, int[] mainLayer,
+			int[] pathLayer, TowerProfile[] towerProfiles, JGRunnable runnable) {
 		propertyReader = new PropertyReader(this);
 
 		if (manager == null) {
 			manager = new StateManager(getVersion(), resRet, tilemapSizeX, tilemapSizeY, tileSize, mainLayer, pathLayer, towerProfiles);
 		}
 
-		mGLSurfaceView = new AndroidSurfaceView(this, manager);
+		mGLSurfaceView = new AndroidSurfaceView(this, manager, runnable);
 		setContentView(mGLSurfaceView);
-
+		return mGLSurfaceView;
 	}
 
 	@Override
