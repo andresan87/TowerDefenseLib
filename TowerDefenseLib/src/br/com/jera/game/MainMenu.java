@@ -54,6 +54,7 @@ public class MainMenu extends FadeEffect {
 		}
 
 		audioPlayer.load(resRet.getSfxMenuButtonPressed());
+		audioPlayer.load(resRet.getSfxBack());
 		soundSwitch = new GlobalSoundSwitch(new Vector2(0, 0), audioPlayer, resRet);
 		if (splash == null) {
 			splash = new JeraSplash(resRet);

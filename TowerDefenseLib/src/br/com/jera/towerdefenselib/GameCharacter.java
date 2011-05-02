@@ -172,8 +172,9 @@ public class GameCharacter implements DisplayableEntity {
 			Vector4 color = GraphicDevice.COLOR_RED.interpolate(GraphicDevice.COLOR_GREEN, bias);
 			color.w = 0.7f;
 			sprite.setColor(color);
-			Vector2 barPos = pos.sub(viewer.getOrthogonalViewerPos()).sub(new Vector2(defaultFrameSize.x/2, defaultFrameSize.y));
-			sprite.draw(barPos, new Vector2(size, PropertyReader.getHpBarHeight()), 0, Sprite.defaultOrigin, 0, false);
+			float hpBarHeight = PropertyReader.getHpBarHeight();
+			Vector2 barPos = pos.sub(viewer.getOrthogonalViewerPos()).sub(new Vector2(defaultFrameSize.x/2, defaultFrameSize.y + (hpBarHeight * 2)));
+			sprite.draw(barPos, new Vector2(size, hpBarHeight), 0, Sprite.defaultOrigin, 0, false);
 		}
 	}
 

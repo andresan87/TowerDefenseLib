@@ -57,5 +57,5 @@ public interface ResourceIdRetriever {
 	public int getSfxBack();
 	public int getSfxMenuButtonPressed();
 	
-	
+	public int getSfxMenuSong();
 }

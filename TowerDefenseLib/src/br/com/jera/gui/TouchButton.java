@@ -51,6 +51,7 @@ public class TouchButton {
 			if (status == STATUS.PRESSED) {
 				device.setAlphaMode(ALPHA_MODE.ADD);
 				sprite.draw(pos, origin, buttonFrame);
+				device.setAlphaMode(ALPHA_MODE.DEFAULT);
 			} else if (status == STATUS.SACTIVATED) {
 				if (soundId != null)
 					player.play(soundId);

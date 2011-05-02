@@ -32,6 +32,7 @@ public class GameTutorial {
 	private void putButtons(SpriteResourceManager res, InputListener input, AudioPlayer player, ResourceIdRetriever resRet) {
 		if (nextPage.getStatus() == STATUS.ACTIVATED) {
 			goToNextPage(resRet);
+			player.play(resRet.getSfxMenuButtonPressed());
 			nextPage.setStatus(STATUS.IDLE);
 		}
 
@@ -43,6 +44,7 @@ public class GameTutorial {
 		skipTutorial.putButton(res.getGraphicDevice(), player, res, input);
 
 		if (skipTutorial.getStatus() == STATUS.ACTIVATED) {
+			player.play(resRet.getSfxBack());
 			finished = true;
 		}
 	}

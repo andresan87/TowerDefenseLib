@@ -6,6 +6,7 @@ import br.com.jera.graphic.GraphicDevice;
 import br.com.jera.graphic.GraphicDevice.ALPHA_MODE;
 import br.com.jera.graphic.Sprite;
 import br.com.jera.input.InputListener;
+import br.com.jera.resources.PropertyReader;
 import br.com.jera.resources.ResourceIdRetriever;
 import br.com.jera.towerdefenselib.Player;
 import br.com.jera.towerdefenselib.Scenario;
@@ -57,14 +58,15 @@ public class SideBar {
 
 	public void draw(SpriteResourceManager res, EnemyRoad road, BitmapFont font, AudioPlayer audioPlayer) {
 		GraphicDevice device = res.getGraphicDevice();
-		device.setAlphaMode(ALPHA_MODE.ALPHA_TEST_ONLY);
+		device.setAlphaMode(ALPHA_MODE.DEFAULT);
 		final Vector2 screenSize = device.getScreenSize();
 		sideBarSprite.draw(new Vector2(screenSize.x - sideBarWidth, 0), new Vector2(0, 0));
 		if (screenSize.y > sideBarSprite.getFrameSize().y) {
 			sideBarExtend.draw(new Vector2(screenSize.x - sideBarWidth, sideBarSprite.getFrameSize().y), new Vector2(0, 0));
 		}
-		device.setAlphaMode(ALPHA_MODE.DEFAULT);
-		sideBarBottom.draw(device.getScreenSize().sub(new Vector2(sideBarWidth, 0)), new Vector2(0.0f, 1.0f));
+		if (!PropertyReader.isHideBottomBar()) {
+			sideBarBottom.draw(device.getScreenSize().sub(new Vector2(sideBarWidth, 0)), new Vector2(0.0f, 1.0f));
+		}
 		backArrow.putButton(device, audioPlayer, res, input);
 		selector.draw(input, res, road, font);
 	}

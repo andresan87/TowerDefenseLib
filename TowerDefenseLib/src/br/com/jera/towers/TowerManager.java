@@ -7,6 +7,7 @@ import br.com.jera.audio.AudioPlayer;
 import br.com.jera.enemies.Enemy;
 import br.com.jera.graphic.Sprite;
 import br.com.jera.input.InputListener;
+import br.com.jera.resources.PropertyReader;
 import br.com.jera.resources.ResourceIdRetriever;
 import br.com.jera.towerdefenselib.OutputData;
 import br.com.jera.towerdefenselib.SortedDisplayableEntityList;
@@ -74,7 +75,9 @@ public class TowerManager implements OutputData.Data {
 		while (iter.hasNext()) {
 			displayList.sortAdd(viewer, iter.next(), clientRect);
 		}
-		controller.putButtons(res, audioPlayer, input);
+		if (!PropertyReader.isHideBehaviourController()) {
+			controller.putButtons(res, audioPlayer, input);
+		}
 	}
 
 	public boolean addViking(TowerProfile profile, Vector2 pos, AudioPlayer audioPlayer) {

@@ -26,6 +26,7 @@ import br.com.jera.util.BitmapFont;
 import br.com.jera.util.Classic2DViewer;
 import br.com.jera.util.CommonMath.Rectangle2D;
 import br.com.jera.util.CommonMath.Vector2;
+import br.com.jera.util.CommonMath.Vector4;
 import br.com.jera.util.DisplayableEntity;
 import br.com.jera.util.SpriteResourceManager;
 import br.com.jera.weapons.ProjectileManager;
@@ -141,7 +142,9 @@ public class GameLevel extends FadeEffect {
 		final Rectangle2D clientRect = sideBar.getClientRect(graphicDevice);
 		listOutputData();
 
+		graphicDevice.setBackgroundColor(new Vector4(228.0f/255.0f, 243.0f/255.0f, 242.0f/255.0f, 1.0f)); // TODO feio
 		graphicDevice.beginScene();
+		graphicDevice.setBackgroundColor(new Vector4(0.0f, 0.0f, 0.0f, 1.0f)); // TODO feio [2]
 		graphicDevice.setup2DView();
 		graphicDevice.setDepthTest(false);
 		graphicDevice.setAlphaMode(ALPHA_MODE.DEFAULT);
