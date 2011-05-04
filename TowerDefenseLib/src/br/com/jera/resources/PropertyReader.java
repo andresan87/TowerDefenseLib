@@ -32,6 +32,13 @@ public class PropertyReader {
 			hpBarHeight = getFloat("hpBarHeight", properties, hpBarHeight);
 			hideBehaviourController = getBoolean("hideBehaviourController", properties, hideBehaviourController);
 			hideBottomBar = getBoolean("hideBottomBar", properties, hideBottomBar);
+			hasClock = getBoolean("hasClock", properties, hasClock);
+			numLevels = getInt("numLevels", properties, numLevels);
+			levelTime = getLong("levelTime", properties, levelTime);
+			showNextWaveTime = getBoolean("showNextWaveTime", properties, showNextWaveTime);
+			startMoney = getInt("startMoney", properties, startMoney);
+			hasSnapshotFX = getBoolean("hasSnapshotFX", properties, hasSnapshotFX);
+			useDragDropSFX = getBoolean("useDragDropSFX", properties, useDragDropSFX);
 		} catch (IOException e) {
 			// no problem...
 		}
@@ -50,6 +57,15 @@ public class PropertyReader {
 		String value = properties.getProperty(name);
 		if (value != null) {
 			return Integer.parseInt(value);
+		} else {
+			return defaultValue;
+		}
+	}
+
+	private long getLong(String name, Properties properties, long defaultValue) {
+		String value = properties.getProperty(name);
+		if (value != null) {
+			return Long.parseLong(value);
 		} else {
 			return defaultValue;
 		}
@@ -91,7 +107,7 @@ public class PropertyReader {
 	public static float getSideBarWidth() {
 		return sideBarWidth;
 	}
-	
+
 	public static float getTowerRangeScale() {
 		return towerRangeScale;
 	}
@@ -99,7 +115,7 @@ public class PropertyReader {
 	public static float getHpBarHeight() {
 		return hpBarHeight;
 	}
-	
+
 	public static boolean hasMenuSong() {
 		return hasMenuSong;
 	}
@@ -111,13 +127,37 @@ public class PropertyReader {
 	public static Vector2 getDefaultEnemySize() {
 		return new Vector2(defaultEnemySize);
 	}
-	
+
 	public static boolean isHideBehaviourController() {
 		return hideBehaviourController;
 	}
 
 	public static boolean isHideBottomBar() {
 		return hideBottomBar;
+	}
+
+	public static boolean hasClock() {
+		return hasClock;
+	}
+
+	public static long getLevelTime() {
+		return levelTime;
+	}
+
+	public static boolean isShowNextWaveTime() {
+		return showNextWaveTime;
+	}
+
+	public static int getStartMoney() {
+		return startMoney;
+	}
+
+	public static boolean hasSnapshotFX() {
+		return hasSnapshotFX;
+	}
+
+	public static boolean isUseDragDropSFX() {
+		return useDragDropSFX;
 	}
 
 	private static Vector2 enemyStartOffset = new Vector2(0, 1);
@@ -134,4 +174,11 @@ public class PropertyReader {
 	private static float towerRangeScale = 1.0f;
 	private static float hpBarHeight = 4.0f;
 	private static Vector2 defaultEnemySize = new Vector2(32, 48);
+	private static boolean hasClock = false;
+	private static int numLevels = 0;
+	private static long levelTime = 0;
+	private static boolean showNextWaveTime = true;
+	private static int startMoney = 50;
+	private static boolean hasSnapshotFX = false;
+	private static boolean useDragDropSFX = false;
 }

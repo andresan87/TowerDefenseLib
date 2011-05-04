@@ -55,6 +55,7 @@ public class GameLevel extends FadeEffect {
 		this.input = input;
 		this.audioPlayer = audioPlayer;
 		spriteManager = new SpriteResourceManager(device);
+		gameClock = new GameClock(resRet);
 
 		if (isFirstTime) {
 			scenario = new Scenario(resRet.getBmpScenario(), new Vector2(0, 0), resRet);
@@ -108,13 +109,28 @@ public class GameLevel extends FadeEffect {
 		spriteManager.loadResource(resRet.getBmpNextWaveButton(), 1, 1);
 		spriteManager.loadResource(resRet.getBmpBehaveButtons(), 1, 4);
 
+		if (PropertyReader.hasSnapshotFX()) {
+			spriteManager.loadResource(resRet.getBmpSnapshotFX(), 4, 1);
+		}
+
+		if (PropertyReader.hasClock()) {
+			spriteManager.loadResource(resRet.getBmpClockHelpCharacter(), 1, 1);
+		}
+
 		audioPlayer.load(resRet.getSfxGameOver());
 		audioPlayer.load(resRet.getSfxWeaponTrigger01());
+		audioPlayer.load(resRet.getSfxWeaponTrigger02());
 		audioPlayer.load(resRet.getSfxWeaponHit01());
+		audioPlayer.load(resRet.getSfxWeaponHit02());
 		audioPlayer.load(resRet.getSfxWeaponTrigger03());
 		audioPlayer.load(resRet.getSfxWeaponHit03());
 		audioPlayer.load(resRet.getSfxEnemyDeath());
 		audioPlayer.load(resRet.getSfxBack());
+
+		if (PropertyReader.isUseDragDropSFX()) {
+			audioPlayer.load(resRet.getSfxTowerDrop());
+			audioPlayer.load(resRet.getSfxTowerDrag());
+		}
 	}
 
 	@Override
@@ -128,12 +144,16 @@ public class GameLevel extends FadeEffect {
 	public STATE update(final long lastFrameDeltaTimeMS) {
 		scrollView();
 		effectManager.update(lastFrameDeltaTimeMS, audioPlayer);
-		projectileManager.update(lastFrameDeltaTimeMS, effectManager, audioPlayer, spriteManager);
+		projectileManager.update(lastFrameDeltaTimeMS, effectManager, audioPlayer, spriteManager, road);
 		waveManager.update(lastFrameDeltaTimeMS, effectManager, player, audioPlayer);
 		vikingManager.update(lastFrameDeltaTimeMS, waveManager.getEnemies(), projectileManager, audioPlayer);
 		requestingMainMenu = sideBar.isRequestingMainMenu();
 		sideBar.update(road, spriteManager, vikingManager, audioPlayer, lastFrameDeltaTimeMS);
 		infiniteWaveManager.updateWaveManager(audioPlayer, waveManager, spriteManager.getSprite(resRet.getBmpEnemy01()).getFrameSize().x);
+
+		if (PropertyReader.hasClock()) {
+			gameClock.update(lastFrameDeltaTimeMS);
+		}
 		return BaseApplication.STATE.CONTINUE;
 	}
 
@@ -142,9 +162,16 @@ public class GameLevel extends FadeEffect {
 		final Rectangle2D clientRect = sideBar.getClientRect(graphicDevice);
 		listOutputData();
 
-		graphicDevice.setBackgroundColor(new Vector4(228.0f/255.0f, 243.0f/255.0f, 242.0f/255.0f, 1.0f)); // TODO feio
+		// TODO feio
+		if (PropertyReader.isHideBottomBar()) {
+			graphicDevice.setBackgroundColor(new Vector4(228.0f / 255.0f, 243.0f / 255.0f, 242.0f / 255.0f, 1.0f));
+		}
 		graphicDevice.beginScene();
-		graphicDevice.setBackgroundColor(new Vector4(0.0f, 0.0f, 0.0f, 1.0f)); // TODO feio [2]
+
+		// TODO feio [2]
+		if (PropertyReader.isHideBottomBar()) {
+			graphicDevice.setBackgroundColor(new Vector4(0.0f, 0.0f, 0.0f, 1.0f));
+		}
 		graphicDevice.setup2DView();
 		graphicDevice.setDepthTest(false);
 		graphicDevice.setAlphaMode(ALPHA_MODE.DEFAULT);
@@ -178,8 +205,16 @@ public class GameLevel extends FadeEffect {
 	private void listOutputData() {
 		outputData.add(vikingManager);
 		outputData.add(player);
-		outputData.add(infiniteWaveManager);
-		outputData.add(waveManager);
+
+		if (PropertyReader.hasClock()) {
+			outputData.add(gameClock);
+		} else {
+			outputData.add(infiniteWaveManager);
+		}
+
+		if (PropertyReader.isShowNextWaveTime()) {
+			outputData.add(waveManager);
+		}
 	}
 
 	private void resetScrollBounds(DisplayableEntity scene) {
@@ -258,6 +293,7 @@ public class GameLevel extends FadeEffect {
 	private EnemyWaveManager waveManager;
 	private EffectManager effectManager;
 	private ResourceIdRetriever resRet;
+	private GameClock gameClock;
 
 	private final int numTowers;
 	private final int tilemapSizeX;

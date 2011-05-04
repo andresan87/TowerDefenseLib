@@ -2,6 +2,7 @@
 
 import br.com.jera.audio.AudioPlayer;
 import br.com.jera.effects.EffectManager;
+import br.com.jera.enemies.EnemyRoad;
 import br.com.jera.towerdefenselib.GameCharacter;
 import br.com.jera.util.SceneViewer;
 import br.com.jera.util.SpriteResourceManager;
@@ -26,7 +27,7 @@ public abstract class HarmEffect {
 
 	public abstract boolean isUnique();
 
-	public abstract void applyEffect(GameCharacter target, AudioPlayer audioPlayer);
+	public abstract void applyEffect(GameCharacter target, AudioPlayer audioPlayer, EnemyRoad road);
 
 	public abstract void drawHarmEffect(GameCharacter target, SceneViewer viewer, SpriteResourceManager res);
 

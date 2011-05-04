@@ -6,6 +6,7 @@ import java.util.ListIterator;
 import br.com.jera.audio.AudioPlayer;
 import br.com.jera.effects.EffectManager;
 import br.com.jera.enemies.Enemy;
+import br.com.jera.enemies.EnemyRoad;
 import br.com.jera.graphic.Sprite;
 import br.com.jera.towerdefenselib.GameCharacter;
 import br.com.jera.towerdefenselib.SortedDisplayableEntityList;
@@ -25,7 +26,7 @@ public class ProjectileManager {
 				WeaponProfile parentWeapon, GameCharacter actor) {
 			this.actor = actor;
 			this.pos = pos;
-			this.targetZombie = targetZombie;
+			this.targetEnemy = targetZombie;
 			this.speed = speed;
 			this.rotationSpeed = rotationSpeed;
 			this.resourceId = resourceId;
@@ -37,7 +38,7 @@ public class ProjectileManager {
 
 		public void update(final long lastFrameDeltaTimeMS, AudioPlayer audioPlayer) {
 			final float bias = (float) ((double) lastFrameDeltaTimeMS / 1000.0);
-			final Vector2 dir = targetZombie.get2DPos().sub(pos).normalize();
+			final Vector2 dir = targetEnemy.get2DPos().sub(pos).normalize();
 			pos = pos.add(dir.multiply(speed * bias));
 
 			if (rotationSpeed != 0.0f) {
@@ -53,7 +54,7 @@ public class ProjectileManager {
 
 		public boolean hasHit(SpriteResourceManager res) {
 			float x = res.getSprite(resourceId).getFrameSize().x;
-			if (actor.get2DPos().squaredDistance(pos) >= actor.get2DPos().squaredDistance(targetZombie.get2DPos())
+			if (actor.get2DPos().squaredDistance(pos) >= actor.get2DPos().squaredDistance(targetEnemy.get2DPos())
 					- x * x) {
 				dead = true;
 				return true;
@@ -99,7 +100,7 @@ public class ProjectileManager {
 		}
 
 		public Enemy getTargetZombie() {
-			return targetZombie;
+			return targetEnemy;
 		}
 
 		public WeaponProfile getParentWeapon() {
@@ -109,7 +110,7 @@ public class ProjectileManager {
 		private WeaponProfile parentWeapon;
 		private boolean dead = false;
 		private Vector2 pos;
-		private Enemy targetZombie;
+		private Enemy targetEnemy;
 		private float rotationSpeed;
 		private float speed;
 		private float angle;
@@ -121,7 +122,7 @@ public class ProjectileManager {
 		projectiles.add(projectile);
 	}
 
-	public void update(final long lastFrameDeltaTimeMS, EffectManager effectManager, AudioPlayer audioPlayer, SpriteResourceManager res) {
+	public void update(final long lastFrameDeltaTimeMS, EffectManager effectManager, AudioPlayer audioPlayer, SpriteResourceManager res, EnemyRoad road) {
 		ListIterator<Projectile> iter = projectiles.listIterator();
 		while (iter.hasNext()) {
 			Projectile projectile = iter.next();
@@ -131,7 +132,7 @@ public class ProjectileManager {
 			}
 			if (projectile.hasHit(res)) {
 				projectile.getTargetZombie().addHarmEffect(
-						projectile.getParentWeapon().getHarmEffect(effectManager, projectile.getActor()), audioPlayer);
+						projectile.getParentWeapon().getHarmEffect(effectManager, projectile.getActor()), audioPlayer, road);
 				remove = true;
 			}
 			if (remove) {

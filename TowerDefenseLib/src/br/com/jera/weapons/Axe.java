@@ -4,6 +4,7 @@ import br.com.jera.audio.AudioPlayer;
 import br.com.jera.effects.AnimatedParticle;
 import br.com.jera.effects.EffectManager;
 import br.com.jera.enemies.Enemy;
+import br.com.jera.enemies.EnemyRoad;
 import br.com.jera.resources.PropertyReader;
 import br.com.jera.resources.ResourceIdRetriever;
 import br.com.jera.towerdefenselib.GameCharacter;
@@ -55,7 +56,7 @@ public class Axe implements WeaponProfile {
 	public HarmEffect getHarmEffect(EffectManager effectManager, GameCharacter actor) {
 		return new HarmEffect(0, effectManager, actor) {
 
-			public void applyEffect(GameCharacter target, AudioPlayer audioPlayer) {
+			public void applyEffect(GameCharacter target, AudioPlayer audioPlayer, EnemyRoad road) {
 				target.addToHp(Axe.DAMAGE);
 				if (!target.isDead()) {
 					audioPlayer.play(Axe.resRet.getSfxWeaponHit03());

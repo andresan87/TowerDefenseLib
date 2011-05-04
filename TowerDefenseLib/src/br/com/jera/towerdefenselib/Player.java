@@ -1,6 +1,7 @@
 ﻿package br.com.jera.towerdefenselib;
 
 import br.com.jera.graphic.Sprite;
+import br.com.jera.resources.PropertyReader;
 import br.com.jera.resources.ResourceIdRetriever;
 import br.com.jera.util.BitmapFont;
 import br.com.jera.util.CommonMath.Vector2;
@@ -27,7 +28,7 @@ public class Player implements OutputData.Data {
 		return money;
 	}
 
-	private int money = 50;
+	private int money = PropertyReader.getStartMoney();
 
 	public Vector2 drawData(Vector2 pos, SpriteResourceManager res, BitmapFont font) {
 		Sprite sprite = res.getSprite(resRet.getBmpMoneySymbol());

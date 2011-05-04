@@ -5,6 +5,7 @@ import java.util.ListIterator;
 
 import br.com.jera.audio.AudioPlayer;
 import br.com.jera.enemies.Enemy;
+import br.com.jera.enemies.EnemyRoad;
 import br.com.jera.graphic.GraphicDevice;
 import br.com.jera.graphic.GraphicDevice.ALPHA_MODE;
 import br.com.jera.graphic.Sprite;
@@ -53,8 +54,8 @@ public class GameCharacter implements DisplayableEntity {
 		setRandomDirection();
 	}
 
-	public void addHarmEffect(HarmEffect he, AudioPlayer audioPlayer) {
-		he.applyEffect(this, audioPlayer);
+	public void addHarmEffect(HarmEffect he, AudioPlayer audioPlayer, EnemyRoad road) {
+		he.applyEffect(this, audioPlayer, road);
 		harmEffects.add(he);
 	}
 
@@ -154,7 +155,7 @@ public class GameCharacter implements DisplayableEntity {
 
 		final Vector2 absolutePos = pos.sub(viewer.getOrthogonalViewerPos());
 		res.getGraphicDevice().setAlphaMode(ALPHA_MODE.MODULATE);
-		
+
 		if (!(this instanceof Enemy) && PropertyReader.isDrawTowerShadow()) {
 			Sprite shadow = res.getSprite(resRet.getBmpShadow());
 			shadow.draw(absolutePos, new Vector2(0.5f, 0.65f));
@@ -166,14 +167,15 @@ public class GameCharacter implements DisplayableEntity {
 
 	public void drawHpBar(SceneViewer viewer, SpriteResourceManager res, final int barId) {
 		Sprite sprite = res.getSprite(barId);
-		final float bias = Math.max(0, Math.min(hp/initialHp, 1));
-		final float size = bias*defaultFrameSize.x;
+		final float bias = Math.max(0, Math.min(hp / initialHp, 1));
+		final float size = bias * defaultFrameSize.x;
 		if (size > 1) {
 			Vector4 color = GraphicDevice.COLOR_RED.interpolate(GraphicDevice.COLOR_GREEN, bias);
 			color.w = 0.7f;
 			sprite.setColor(color);
 			float hpBarHeight = PropertyReader.getHpBarHeight();
-			Vector2 barPos = pos.sub(viewer.getOrthogonalViewerPos()).sub(new Vector2(defaultFrameSize.x/2, defaultFrameSize.y + (hpBarHeight * 2)));
+			Vector2 barPos = pos.sub(viewer.getOrthogonalViewerPos()).sub(
+					new Vector2(defaultFrameSize.x / 2, defaultFrameSize.y + (hpBarHeight * 2)));
 			sprite.draw(barPos, new Vector2(size, hpBarHeight), 0, Sprite.defaultOrigin, 0, false);
 		}
 	}
@@ -237,5 +239,9 @@ public class GameCharacter implements DisplayableEntity {
 		assert (viewer instanceof Classic2DViewer);
 		final Vector2 absolutePos = ((Classic2DViewer) viewer).computeAbsolutePosition(pos);
 		return clientRect.isIntersecting(new Rectangle2D(absolutePos, defaultFrameSize, defaultSpriteOrigin));
+	}
+
+	public void setPos(Vector2 pos) {
+		this.pos = pos;
 	}
 }

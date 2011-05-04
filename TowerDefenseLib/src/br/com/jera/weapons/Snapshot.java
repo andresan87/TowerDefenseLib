@@ -1,6 +1,7 @@
-ï»¿package br.com.jera.weapons;
+package br.com.jera.weapons;
 
 import br.com.jera.audio.AudioPlayer;
+import br.com.jera.effects.AnimatedParticle;
 import br.com.jera.effects.EffectManager;
 import br.com.jera.enemies.Enemy;
 import br.com.jera.enemies.EnemyRoad;
@@ -14,29 +15,30 @@ import br.com.jera.util.SceneViewer;
 import br.com.jera.util.SpriteResourceManager;
 import br.com.jera.weapons.ProjectileManager.Projectile;
 
-public class Net implements WeaponProfile {
+public class Snapshot implements WeaponProfile {
 
 	private static final float DAMAGE = 0;
 	private static ResourceIdRetriever resRet;
+	private static final String SNAPSHOT_EFFECT_NAME = "SnapshotTrapped";
 
-	public Net(ResourceIdRetriever resRet) {
-		Net.resRet = resRet;
+	public Snapshot(ResourceIdRetriever resRet) {
+		Snapshot.resRet = resRet;
 	}
-
+	
 	public float getRange() {
-		return 100.0f * PropertyReader.getTowerRangeScale();
+		return 70.0f * PropertyReader.getTowerRangeScale();
 	}
 
 	public long getCoolDownTime() {
-		return 5000;
+		return 10000;
 	}
 
 	public int getResourceId() {
-		return Net.resRet.getBmpWeaponProjectile02();
+		return Snapshot.resRet.getBmpWeaponProjectile02();
 	}
 
 	public boolean shoot(GameCharacter actor, Vector2 pos, Enemy targetTower, ProjectileManager manager, AudioPlayer audioPlayer) {
-		if (!targetTower.hasHarmEffect(TRAP_EFFECT_NAME)) {
+		if (!targetTower.hasHarmEffect(SNAPSHOT_EFFECT_NAME)) {
 			manager.addProjectile(new Projectile(getResourceId(), pos, targetTower, getSpeed(), getRotationSpeed(), this, actor));
 			targetTower.setNetLaunched(true);
 			return true;
@@ -53,27 +55,31 @@ public class Net implements WeaponProfile {
 		return 360.0f;
 	}
 
-	public int getPrice() {
-		return 70;
-	}
-
 	public HarmEffect getHarmEffect(EffectManager effectManager, GameCharacter actor) {
-		return new HarmEffect(4500, effectManager, actor) {
+		return new HarmEffect(3600000, effectManager, actor) {
 
 			public void applyEffect(GameCharacter target, AudioPlayer audioPlayer, EnemyRoad road) {
-				previousSpeed = target.getSpeed();
-				target.setSpeed(0.0f);
+				if (!target.isDead()) {
+					audioPlayer.play(Snapshot.resRet.getSfxWeaponHit02());
+					final Vector2 targetPos = target.get2DPos();
+					final Vector2 effectPos = targetPos.add(ProjectileManager.HEIGHT_OFFSET);
+					target.setPos(road.getTilePos(1));
+					((Enemy) target).setNextTile(2);
+					super.effectManager.addEffect(new AnimatedParticle(200, 0.0f, Snapshot.resRet.getBmpSnapshotFX(), effectPos, 4, 1, 854.0f));
+				}
 			}
 
 			public void removeEffect(GameCharacter target, AudioPlayer audioPlayer) {
-				target.addToSpeed(previousSpeed);
-				((Enemy) target).setNetLaunched(false);
+				// inimigos que receberam snapshot só podem receber uma vez
+				// ((Enemy) target).setNetLaunched(false);
 			}
 
 			public void drawHarmEffect(GameCharacter target, SceneViewer viewer, SpriteResourceManager res) {
-				Sprite sprite = res.getSprite(Net.resRet.getBmpWeaponHitEffect02());
+				Sprite sprite = res.getSprite(Snapshot.resRet.getBmpWeaponHitEffect02());
 				res.getGraphicDevice().setAlphaMode(ALPHA_MODE.DEFAULT);
-				sprite.draw(target.get2DPos().sub(viewer.getOrthogonalViewerPos().add(netOffset)), GameCharacter.defaultSpriteOrigin);
+				// sprite.draw(.add(netOffset), GameCharacter.defaultSpriteOrigin);
+				sprite.draw(target.get2DPos().sub(viewer.getOrthogonalViewerPos()), new Vector2(32,32).add(netOffset),
+						0.0f, GameCharacter.defaultSpriteOrigin, 0, false);
 			}
 
 			public boolean isUnique() {
@@ -81,17 +87,19 @@ public class Net implements WeaponProfile {
 			}
 
 			public String getHarmEffectName() {
-				return TRAP_EFFECT_NAME;
+				return SNAPSHOT_EFFECT_NAME;
 			}
 
-			private final Vector2 netOffset = new Vector2(0, 16);
-			private float previousSpeed;
+			private final Vector2 netOffset = new Vector2(0,0);
 		};
 	}
 
-	private static final String TRAP_EFFECT_NAME = "NetTrapped";
+	public int getPrice() {
+		return 100;
+	}
 
 	public float getDamage() {
-		return Net.DAMAGE;
+		return DAMAGE;
 	}
+
 }

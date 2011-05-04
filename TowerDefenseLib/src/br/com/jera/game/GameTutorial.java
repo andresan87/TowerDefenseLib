@@ -45,6 +45,7 @@ public class GameTutorial {
 
 		if (skipTutorial.getStatus() == STATUS.ACTIVATED) {
 			player.play(resRet.getSfxBack());
+			skipTutorial.setStatus(STATUS.IDLE);
 			finished = true;
 		}
 	}

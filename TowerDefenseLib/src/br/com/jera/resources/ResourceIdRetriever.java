@@ -44,18 +44,24 @@ public interface ResourceIdRetriever {
 	public int getBmpSideBarBottom();
 	public int getBmpNextFrameButton();
 	public int getBmpSkipTutorialButton();
-	public int getBmpHelpFrame(int frame);
+	public int getBmpSnapshotFX();
+	public int getBmpClockHelpCharacter();
 
+	public int getBmpHelpFrame(int frame);
 	public int getNumHelpFrames();
 
 	public int getSfxEnemyDeath();
 	public int getSfxGameOver();
 	public int getSfxWeaponTrigger01();
+	public int getSfxWeaponTrigger02();
 	public int getSfxWeaponTrigger03();
 	public int getSfxWeaponHit01();
+	public int getSfxWeaponHit02();
 	public int getSfxWeaponHit03();
 	public int getSfxBack();
 	public int getSfxMenuButtonPressed();
+	public int getSfxTowerDrag();
+	public int getSfxTowerDrop();
 	
 	public int getSfxMenuSong();
 }

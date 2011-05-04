@@ -22,6 +22,10 @@ public class EnemyRoad {
 		pathMap = new TileMap(tilemapSizeX, tilemapSizeY, pathLayer, tileSize);
 	}
 	
+	public Vector2 getTilePos(int t) {
+		return pathMap.getTilePos(t);
+	}
+
 	public boolean isPointOnRoad(Vector2 p) {
 		return (pathMap.isPointOnRoad(p) || tileMap.isPointOnRoad(p));
 	}

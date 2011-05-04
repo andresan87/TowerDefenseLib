@@ -82,6 +82,10 @@ public class TowerSelector {
 				final int price = profile.getWeapon().getPrice();
 				if (player.getMoney() >= price) {
 					if (CommonMath.isPointInRect(selectableVikingPos[t].sub(buttonPadding), spriteSize.add(buttonPadding), lastTouch)) {
+						if (PropertyReader.isUseDragDropSFX()) {
+							if (currentVikingGrabbed == null)
+								audioPlayer.play(resRet.getSfxTowerDrag());
+						}
 						currentVikingGrabbed = new Integer(t);
 						anySelected = true;
 						break;
@@ -97,6 +101,9 @@ public class TowerSelector {
 			if (player.getMoney() >= price) {
 				if (manager.addViking(profile, relativePos, audioPlayer)) {
 					player.pay(price);
+					if (PropertyReader.isUseDragDropSFX()) {
+						audioPlayer.play(resRet.getSfxTowerDrop());
+					}
 				}
 			}
 		}

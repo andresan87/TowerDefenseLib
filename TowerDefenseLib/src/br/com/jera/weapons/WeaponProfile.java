@@ -10,7 +10,7 @@ public interface WeaponProfile {
 	public float getRange();
 	public long getCoolDownTime();
 	public int getResourceId();
-	public boolean shoot(GameCharacter actor, Vector2 pos, Enemy targetZombie, ProjectileManager manager, AudioPlayer audioPlayer);
+	public boolean shoot(GameCharacter actor, Vector2 pos, Enemy targetTower, ProjectileManager manager, AudioPlayer audioPlayer);
 	public float getSpeed();
 	public float getRotationSpeed();
 	public HarmEffect getHarmEffect(EffectManager effectManager, GameCharacter actor);

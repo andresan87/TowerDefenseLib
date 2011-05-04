@@ -84,7 +84,6 @@ public class Enemy extends GameCharacter {
 		return damageReceived;
 	}
 
-
 	// TODO criar profiles de zumbis em arquivo resource, não no código
 	static public class Zombie01 extends EnemyProfile {
 		public Zombie01(float level) {
@@ -188,5 +187,9 @@ public class Enemy extends GameCharacter {
 		public long getFrameStride() {
 			return 130;
 		}
+	}
+
+	public void setNextTile(int i) {
+		nextTile = i;
 	}
 }
