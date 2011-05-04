@@ -46,6 +46,8 @@ public interface ResourceIdRetriever {
 	public int getBmpSkipTutorialButton();
 	public int getBmpSnapshotFX();
 	public int getBmpClockHelpCharacter();
+	public int getBmpClockHelpBalloon();
+	public int getBmpClockHelpTexts();
 
 	public int getBmpHelpFrame(int frame);
 	public int getNumHelpFrames();

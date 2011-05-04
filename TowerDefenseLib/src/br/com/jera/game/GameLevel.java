@@ -115,6 +115,8 @@ public class GameLevel extends FadeEffect {
 
 		if (PropertyReader.hasClock()) {
 			spriteManager.loadResource(resRet.getBmpClockHelpCharacter(), 1, 1);
+			spriteManager.loadResource(resRet.getBmpClockHelpBalloon(), 1, 1);
+			spriteManager.loadResource(resRet.getBmpClockHelpTexts(), 4, 2);
 		}
 
 		audioPlayer.load(resRet.getSfxGameOver());
@@ -152,7 +154,7 @@ public class GameLevel extends FadeEffect {
 		infiniteWaveManager.updateWaveManager(audioPlayer, waveManager, spriteManager.getSprite(resRet.getBmpEnemy01()).getFrameSize().x);
 
 		if (PropertyReader.hasClock()) {
-			gameClock.update(lastFrameDeltaTimeMS);
+			gameClock.update(lastFrameDeltaTimeMS, spriteManager);
 		}
 		return BaseApplication.STATE.CONTINUE;
 	}
@@ -185,6 +187,9 @@ public class GameLevel extends FadeEffect {
 		sideBar.draw(spriteManager, road, viking16, audioPlayer);
 		outputData.draw(new Vector2(0, 32), viking16, spriteManager);
 		putNextWaveButton();
+		if (PropertyReader.hasClock()) {
+			gameClock.drawHelper(spriteManager);
+		}
 		super.draw();
 		graphicDevice.endScene();
 	}
@@ -203,14 +208,16 @@ public class GameLevel extends FadeEffect {
 	}
 
 	private void listOutputData() {
-		outputData.add(vikingManager);
+		if (PropertyReader.isLimitTowers()) {
+			outputData.add(vikingManager);
+		}
+
 		outputData.add(player);
 
 		if (PropertyReader.hasClock()) {
 			outputData.add(gameClock);
-		} else {
-			outputData.add(infiniteWaveManager);
 		}
+		outputData.add(infiniteWaveManager);
 
 		if (PropertyReader.isShowNextWaveTime()) {
 			outputData.add(waveManager);

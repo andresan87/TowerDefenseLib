@@ -17,7 +17,7 @@ public class InfiniteWaveManager implements OutputData.Data {
 	private int waveChain = 0;
 	private EnemyWaveManager waveManager;
 	private EnemyRoad road;
-	private int currentWave = 1;
+	// private int currentWave = 1;
 	private ResourceIdRetriever resRet;
 	
 	public InfiniteWaveManager(EnemyWaveManager waveManager, EnemyRoad road, ResourceIdRetriever resRet) {
@@ -32,7 +32,7 @@ public class InfiniteWaveManager implements OutputData.Data {
 
 	public void updateWaveManager(AudioPlayer audioPlayer, EnemyWaveManager waveManager, float offset) {
 		Vector2 offsetDir = PropertyReader.getEnemyStartOffset();
-		currentWave = waveManager.getCurrentWave();
+		// currentWave = waveManager.getCurrentWave();
 		if (!waveManager.hasWaves(level)) {
 			level *= 2.0f;
 			waveChain++;
@@ -132,7 +132,7 @@ public class InfiniteWaveManager implements OutputData.Data {
 		Sprite sprite = res.getSprite(resRet.getBmpScoreSymbol());
 		sprite.draw(pos, Sprite.defaultOrigin);
 		final Vector2 frameSize = sprite.getFrameSize();
-		String str = (new Integer(currentWave).toString()) + " - " + (new Integer(waveManager.getKilledEnemies()).toString());
+		String str = (/* new Integer(currentWave).toString()) + " - " + ( */new Integer(waveManager.getKilledEnemies()).toString());
 		font.draw(new Vector2(frameSize.x, 0).add(pos), str);
 		return new Vector2(0, frameSize.y);
 	}

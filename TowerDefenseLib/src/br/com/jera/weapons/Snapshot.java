@@ -95,7 +95,7 @@ public class Snapshot implements WeaponProfile {
 	}
 
 	public int getPrice() {
-		return 100;
+		return 200;
 	}
 
 	public float getDamage() {

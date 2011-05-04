@@ -16,7 +16,8 @@ import br.com.jera.weapons.ProjectileManager.Projectile;
 
 public class Axe implements WeaponProfile {
 
-	private static final float DAMAGE = -230;
+	//private static final float DAMAGE = -230;
+	private static final float DAMAGE = -2;
 	private static ResourceIdRetriever resRet;
 
 	public Axe(ResourceIdRetriever resRet) {

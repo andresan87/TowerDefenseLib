@@ -81,7 +81,7 @@ public class TowerManager implements OutputData.Data {
 	}
 
 	public boolean addViking(TowerProfile profile, Vector2 pos, AudioPlayer audioPlayer) {
-		if (vikings.size() < MAXIMUM_VIKINGS) {
+		if (vikings.size() < MAXIMUM_VIKINGS || !PropertyReader.isLimitTowers()) {
 			vikings.add(new Tower(profile, pos, audioPlayer, resRet));
 			return true;
 		} else {

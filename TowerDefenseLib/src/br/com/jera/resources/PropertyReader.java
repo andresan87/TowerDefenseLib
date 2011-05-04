@@ -39,6 +39,7 @@ public class PropertyReader {
 			startMoney = getInt("startMoney", properties, startMoney);
 			hasSnapshotFX = getBoolean("hasSnapshotFX", properties, hasSnapshotFX);
 			useDragDropSFX = getBoolean("useDragDropSFX", properties, useDragDropSFX);
+			limitTowers = getBoolean("limitTowers", properties, limitTowers);
 		} catch (IOException e) {
 			// no problem...
 		}
@@ -160,6 +161,10 @@ public class PropertyReader {
 		return useDragDropSFX;
 	}
 
+	public static boolean isLimitTowers() {
+		return limitTowers;
+	}
+
 	private static Vector2 enemyStartOffset = new Vector2(0, 1);
 	private static boolean drawTowerShadow = true;
 	private static boolean customViewStart = false;
@@ -181,4 +186,5 @@ public class PropertyReader {
 	private static int startMoney = 50;
 	private static boolean hasSnapshotFX = false;
 	private static boolean useDragDropSFX = false;
+	private static boolean limitTowers = true;
 }

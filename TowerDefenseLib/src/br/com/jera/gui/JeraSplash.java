@@ -47,8 +47,8 @@ public class JeraSplash {
 		return (!isOver() && isShowing());
 	}
 
-	private long SPLASH_LENGTH = 4000;
-	private long FADE_OUT_LENGTH = 2000;
+	private static final long SPLASH_LENGTH = 4000;
+	private static final long FADE_OUT_LENGTH = 2000;
 	private ResourceIdRetriever resRet;
 
 	private final long start = System.currentTimeMillis();
