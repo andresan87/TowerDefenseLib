@@ -16,14 +16,14 @@ import br.com.jera.weapons.ProjectileManager.Projectile;
 
 public class Axe implements WeaponProfile {
 
-	//private static final float DAMAGE = -230;
-	private static final float DAMAGE = -2;
+	private static final float DAMAGE = -230;
+	//private static final float DAMAGE = -2;
 	private static ResourceIdRetriever resRet;
 
 	public Axe(ResourceIdRetriever resRet) {
 		Axe.resRet = resRet;
 	}
-	
+
 	public float getRange() {
 		return 100.0f * PropertyReader.getTowerRangeScale();
 	}
@@ -43,7 +43,7 @@ public class Axe implements WeaponProfile {
 	}
 
 	public float getSpeed() {
-		return 120.0f;
+		return 120.0f * PropertyReader.getProjectileSpeedFactor();
 	}
 
 	public float getRotationSpeed() {
@@ -62,10 +62,14 @@ public class Axe implements WeaponProfile {
 				if (!target.isDead()) {
 					audioPlayer.play(Axe.resRet.getSfxWeaponHit03());
 					final Vector2 targetPos = target.get2DPos();
-					final Vector2 effectPos = targetPos.add(ProjectileManager.HEIGHT_OFFSET);
-					final float angle = CommonMath.getAngle(super.actor.get2DPos().sub(targetPos).normalize());
-					super.effectManager.addEffect(new AnimatedParticle(600, -CommonMath.radianToDegree(angle) + 90.0f,
-							Axe.resRet.getBmpWeaponHitEffect03(), effectPos, 6, 1, 52.0f));
+					final Vector2 effectPos = targetPos.add(new Vector2(0, PropertyReader.getHitEffectHeightOffset()));
+					float angle = 0.0f;
+					if (PropertyReader.isRotateHitEffects()) {
+						angle = CommonMath.getAngle(super.actor.get2DPos().sub(targetPos).normalize());
+						angle = -CommonMath.radianToDegree(angle) + 90.0f;
+					}
+					super.effectManager.addEffect(new AnimatedParticle(600, angle, Axe.resRet.getBmpWeaponHitEffect03(), effectPos, 6, 1,
+							PropertyReader.getAxeHitEffectRadius()));
 				}
 			}
 

@@ -8,6 +8,7 @@ import br.com.jera.effects.EffectManager;
 import br.com.jera.enemies.Enemy;
 import br.com.jera.enemies.EnemyRoad;
 import br.com.jera.graphic.Sprite;
+import br.com.jera.resources.PropertyReader;
 import br.com.jera.towerdefenselib.GameCharacter;
 import br.com.jera.towerdefenselib.SortedDisplayableEntityList;
 import br.com.jera.util.Classic2DViewer;
@@ -73,7 +74,7 @@ public class ProjectileManager {
 
 		public void draw(SceneViewer viewer, SpriteResourceManager res) {
 			Sprite sprite = res.getSprite(resourceId);
-			sprite.draw(pos.sub(viewer.getOrthogonalViewerPos()).add(HEIGHT_OFFSET), angle, Sprite.centerOrigin);
+			sprite.draw(pos.sub(viewer.getOrthogonalViewerPos()).add(new Vector2(0, PropertyReader.getHitEffectHeightOffset())), angle, Sprite.centerOrigin);
 		}
 
 		public int compareTo(DisplayableEntity another) {
@@ -152,5 +153,4 @@ public class ProjectileManager {
 
 	private LinkedList<Projectile> projectiles = new LinkedList<Projectile>();
 	private static final float FORWARD_OFFSET_LENGTH = 8.0f;
-	public static final Vector2 HEIGHT_OFFSET = new Vector2(0, -24);
 }

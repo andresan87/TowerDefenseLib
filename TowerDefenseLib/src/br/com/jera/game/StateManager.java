@@ -71,8 +71,8 @@ public class StateManager implements BaseApplication {
 		} else if (currentState instanceof GameLevel) {
 			if (level.isRequestingMainMenu()) {
 				callMainMenu();
-			} else if (level.callGameOver()) {
-				currentState = new GameOver(GAMEOVER_FADE_IN_TIME, level.getScore(), resRet);
+			} else if (level.callGameOver() != GameLevel.GAME_STATUS.RUNNING) {
+				currentState = new GameOver(GAMEOVER_FADE_IN_TIME, level.getScore(), resRet, level.callGameOver());
 				currentState.create(device, input, player);
 				currentState.loadResources();
 				currentState.resetFrameBuffer((int) device.getScreenSize().x, (int) device.getScreenSize().y);

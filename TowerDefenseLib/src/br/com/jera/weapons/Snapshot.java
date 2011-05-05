@@ -48,7 +48,7 @@ public class Snapshot implements WeaponProfile {
 	}
 
 	public float getSpeed() {
-		return 50.0f;
+		return 50.0f * PropertyReader.getProjectileSpeedFactor();
 	}
 
 	public float getRotationSpeed() {
@@ -62,7 +62,7 @@ public class Snapshot implements WeaponProfile {
 				if (!target.isDead()) {
 					audioPlayer.play(Snapshot.resRet.getSfxWeaponHit02());
 					final Vector2 targetPos = target.get2DPos();
-					final Vector2 effectPos = targetPos.add(ProjectileManager.HEIGHT_OFFSET);
+					final Vector2 effectPos = targetPos.add(new Vector2(0, PropertyReader.getHitEffectHeightOffset()));
 					target.setPos(road.getTilePos(1));
 					((Enemy) target).setNextTile(2);
 					super.effectManager.addEffect(new AnimatedParticle(200, 0.0f, Snapshot.resRet.getBmpSnapshotFX(), effectPos, 4, 1, 854.0f));

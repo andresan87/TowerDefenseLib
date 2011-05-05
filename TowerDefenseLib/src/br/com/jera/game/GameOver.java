@@ -12,9 +12,10 @@ import br.com.jera.util.SpriteResourceManager;
 
 public class GameOver extends FadeEffect {
 
-	protected GameOver(long fadeTime, int score, ResourceIdRetriever resRet) {
+	protected GameOver(long fadeTime, int score, ResourceIdRetriever resRet, GameLevel.GAME_STATUS status) {
 		super(fadeTime, resRet);
 		this.resRet = resRet;
+		this.status = status;
 		gameOverStartTime = System.currentTimeMillis();
 		GameOver.score = new Integer(score);
 	}
@@ -30,7 +31,11 @@ public class GameOver extends FadeEffect {
 	@Override
 	public void loadResources() {
 		super.loadResources();
-		gameOver = new Sprite(device, resRet.getBmpGameOver(), 1, 1);
+		if (status == GameLevel.GAME_STATUS.WON) {
+			gameOver = new Sprite(device, resRet.getBmpGameWon(), 1, 1);	
+		} else {
+			gameOver = new Sprite(device, resRet.getBmpGameOver(), 1, 1);
+		}
 		res.loadResource(resRet.getBmpForwarButton(), 1, 1);
 		res.loadResource(resRet.getBmpThemeFont16(), 16, 16);
 		audioPlayer.load(resRet.getSfxBack());
@@ -76,6 +81,8 @@ public class GameOver extends FadeEffect {
 
 	public static int score; // TODO tirar isso logo daqui e passar o score
 							 // certinho via Bundle!
+	
+	private final GameLevel.GAME_STATUS status;
 	private final long gameOverDuration = 5000;
 	private final long gameOverStartTime;
 	private boolean backToMainMenu = false;

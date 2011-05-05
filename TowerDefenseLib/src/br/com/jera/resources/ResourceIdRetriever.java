@@ -31,6 +31,7 @@ public interface ResourceIdRetriever {
 	public int getBmpBackButton();
 	public int getBmpBehaveButtons();
 	public int getBmpGameOver();
+	public int getBmpGameWon();
 	public int getBmpForwarButton();
 	public int getBmpDefaultFont16();
 	public int getBmpMenuButtons();
@@ -54,6 +55,7 @@ public interface ResourceIdRetriever {
 
 	public int getSfxEnemyDeath();
 	public int getSfxGameOver();
+	public int getSfxGameWon();
 	public int getSfxWeaponTrigger01();
 	public int getSfxWeaponTrigger02();
 	public int getSfxWeaponTrigger03();
@@ -64,6 +66,9 @@ public interface ResourceIdRetriever {
 	public int getSfxMenuButtonPressed();
 	public int getSfxTowerDrag();
 	public int getSfxTowerDrop();
-	
+	public int getSfxNextLevel();
+
 	public int getSfxMenuSong();
+	public int getSfxVirusAppear01();
+	public int getSfxVirusAppear02();
 }

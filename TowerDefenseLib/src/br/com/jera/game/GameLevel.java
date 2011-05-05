@@ -33,6 +33,10 @@ import br.com.jera.weapons.ProjectileManager;
 
 public class GameLevel extends FadeEffect {
 
+	public enum GAME_STATUS {
+		LOST, WON, RUNNING
+	}
+
 	protected GameLevel(long fadeTime, ResourceIdRetriever resRet, int tilemapSizeX, int tilemapSizeY, Vector2 tileSize, int[] mainLayer,
 			int[] pathLayer, TowerProfile[] towerProfiles) {
 		super(fadeTime, resRet);
@@ -133,6 +137,16 @@ public class GameLevel extends FadeEffect {
 			audioPlayer.load(resRet.getSfxTowerDrop());
 			audioPlayer.load(resRet.getSfxTowerDrag());
 		}
+
+		if (PropertyReader.hasClock()) {
+			audioPlayer.load(resRet.getSfxNextLevel());
+			audioPlayer.load(resRet.getSfxGameWon());
+		}
+
+		if (PropertyReader.hasShowUpSfx()) {
+			audioPlayer.load(resRet.getSfxVirusAppear01());
+			audioPlayer.load(resRet.getSfxVirusAppear02());
+		}
 	}
 
 	@Override
@@ -154,7 +168,7 @@ public class GameLevel extends FadeEffect {
 		infiniteWaveManager.updateWaveManager(audioPlayer, waveManager, spriteManager.getSprite(resRet.getBmpEnemy01()).getFrameSize().x);
 
 		if (PropertyReader.hasClock()) {
-			gameClock.update(lastFrameDeltaTimeMS, spriteManager);
+			gameClock.update(lastFrameDeltaTimeMS, spriteManager, audioPlayer);
 		}
 		return BaseApplication.STATE.CONTINUE;
 	}
@@ -214,10 +228,11 @@ public class GameLevel extends FadeEffect {
 
 		outputData.add(player);
 
+		outputData.add(infiniteWaveManager);
+
 		if (PropertyReader.hasClock()) {
 			outputData.add(gameClock);
 		}
-		outputData.add(infiniteWaveManager);
 
 		if (PropertyReader.isShowNextWaveTime()) {
 			outputData.add(waveManager);
@@ -247,16 +262,23 @@ public class GameLevel extends FadeEffect {
 		}
 	}
 
-	public boolean callGameOver() {
-		if (waveManager.hasReachedLastNode()) {
+	public GAME_STATUS callGameOver() {
+		if (gameClock.isGameWon()) {
+			if (super.doFadeOut() == FadeEffect.FADE_STATE.FADED_OUT) {
+				audioPlayer.play(resRet.getSfxGameWon());
+				return GAME_STATUS.WON;
+			} else {
+				return GAME_STATUS.RUNNING;
+			}
+		} else if (waveManager.hasReachedLastNode()) {
 			if (super.doFadeOut() == FadeEffect.FADE_STATE.FADED_OUT) {
 				audioPlayer.play(resRet.getSfxGameOver());
-				return true;
+				return GAME_STATUS.LOST;
 			} else {
-				return false;
+				return GAME_STATUS.RUNNING;
 			}
 		}
-		return false;
+		return GAME_STATUS.RUNNING;
 	}
 
 	private boolean isInSceneArea(final Vector2 pos) {

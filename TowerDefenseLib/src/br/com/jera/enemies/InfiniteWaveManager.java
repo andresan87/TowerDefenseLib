@@ -19,13 +19,13 @@ public class InfiniteWaveManager implements OutputData.Data {
 	private EnemyRoad road;
 	// private int currentWave = 1;
 	private ResourceIdRetriever resRet;
-	
+
 	public InfiniteWaveManager(EnemyWaveManager waveManager, EnemyRoad road, ResourceIdRetriever resRet) {
 		this.waveManager = waveManager;
 		this.resRet = resRet;
 		this.road = road;
 	}
-	
+
 	public int getWaveChain() {
 		return waveChain;
 	}
@@ -37,27 +37,33 @@ public class InfiniteWaveManager implements OutputData.Data {
 			level *= 2.0f;
 			waveChain++;
 
+			Integer soundFx1 = null, soundFx2 = null;
+			if (PropertyReader.hasShowUpSfx()) {
+				soundFx1 = new Integer(resRet.getSfxVirusAppear01());
+				soundFx2 = new Integer(resRet.getSfxVirusAppear02());
+			}
+
 			// TODO criar waves em arquivo resource, não em código
 			if (level <= 1.0f) {
 				{
 					OffsetGenerator og = new OffsetGenerator();
 					ArrayList<Enemy> wave = new ArrayList<Enemy>();
 					wave.add(new Enemy(new Enemy.Zombie01(level), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
-					waveManager.addWave(wave, 5000);
+					waveManager.addWave(wave, 5000, soundFx1);
 				}
 				{
 					OffsetGenerator og = new OffsetGenerator();
 					ArrayList<Enemy> wave = new ArrayList<Enemy>();
 					wave.add(new Enemy(new Enemy.Zombie01(level), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
 					wave.add(new Enemy(new Enemy.Zombie01(level), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
-					waveManager.addWave(wave, 20000);
+					waveManager.addWave(wave, 20000, soundFx1);
 				}
 				{
 					OffsetGenerator og = new OffsetGenerator();
 					ArrayList<Enemy> wave = new ArrayList<Enemy>();
 					wave.add(new Enemy(new Enemy.Zombie01(level), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
 					wave.add(new Enemy(new Enemy.Zombie01(level), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
-					waveManager.addWave(wave, 20000);
+					waveManager.addWave(wave, 20000, soundFx1);
 				}
 				{
 					OffsetGenerator og = new OffsetGenerator();
@@ -65,7 +71,7 @@ public class InfiniteWaveManager implements OutputData.Data {
 					wave.add(new Enemy(new Enemy.Zombie01(level), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
 					wave.add(new Enemy(new Enemy.Zombie01(level), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
 					wave.add(new Enemy(new Enemy.Zombie01(level), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
-					waveManager.addWave(wave, 20000);
+					waveManager.addWave(wave, 20000, soundFx1);
 				}
 			}
 			{
@@ -74,7 +80,7 @@ public class InfiniteWaveManager implements OutputData.Data {
 				wave.add(new Enemy(new Enemy.Zombie01(level), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
 				wave.add(new Enemy(new Enemy.Zombie02(level), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
 				wave.add(new Enemy(new Enemy.Zombie01(level), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
-				waveManager.addWave(wave, 30000);
+				waveManager.addWave(wave, 30000, soundFx1);
 			}
 			{
 				OffsetGenerator og = new OffsetGenerator();
@@ -83,7 +89,7 @@ public class InfiniteWaveManager implements OutputData.Data {
 				wave.add(new Enemy(new Enemy.Zombie02(level), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
 				wave.add(new Enemy(new Enemy.Zombie02(level), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
 				wave.add(new Enemy(new Enemy.Zombie01(level), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
-				waveManager.addWave(wave, 30000);
+				waveManager.addWave(wave, 30000, soundFx1);
 			}
 			{
 				OffsetGenerator og = new OffsetGenerator();
@@ -93,7 +99,7 @@ public class InfiniteWaveManager implements OutputData.Data {
 				wave.add(new Enemy(new Enemy.Zombie02(level), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
 				wave.add(new Enemy(new Enemy.Zombie02(level), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
 				wave.add(new Enemy(new Enemy.Zombie02(level), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
-				waveManager.addWave(wave, 35000);
+				waveManager.addWave(wave, 35000, soundFx1);
 			}
 			{
 				OffsetGenerator og = new OffsetGenerator();
@@ -103,7 +109,7 @@ public class InfiniteWaveManager implements OutputData.Data {
 				wave.add(new Enemy(new Enemy.Zombie02(level), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
 				wave.add(new Enemy(new Enemy.Zombie03(level), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
 				wave.add(new Enemy(new Enemy.Zombie03(level), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
-				waveManager.addWave(wave, 40000);
+				waveManager.addWave(wave, 40000, soundFx2);
 			}
 			{
 				OffsetGenerator og = new OffsetGenerator();
@@ -112,7 +118,7 @@ public class InfiniteWaveManager implements OutputData.Data {
 				wave.add(new Enemy(new Enemy.Zombie03(level), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
 				wave.add(new Enemy(new Enemy.Zombie04(level), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
 				wave.add(new Enemy(new Enemy.Zombie04(level), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
-				waveManager.addWave(wave, 40000);
+				waveManager.addWave(wave, 40000, soundFx2);
 			}
 			{
 				OffsetGenerator og = new OffsetGenerator();
@@ -123,7 +129,7 @@ public class InfiniteWaveManager implements OutputData.Data {
 				wave.add(new Enemy(new Enemy.Zombie04(level), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
 				wave.add(new Enemy(new Enemy.Zombie04(level), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
 				wave.add(new Enemy(new Enemy.Zombie04(level), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
-				waveManager.addWave(wave, 40000);
+				waveManager.addWave(wave, 40000, soundFx2);
 			}
 		}
 	}

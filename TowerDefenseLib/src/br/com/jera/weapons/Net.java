@@ -46,7 +46,7 @@ public class Net implements WeaponProfile {
 	}
 
 	public float getSpeed() {
-		return 50.0f;
+		return 50.0f * PropertyReader.getProjectileSpeedFactor();
 	}
 
 	public float getRotationSpeed() {

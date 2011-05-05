@@ -1,5 +1,6 @@
 package br.com.jera.game;
 
+import br.com.jera.audio.AudioPlayer;
 import br.com.jera.graphic.Sprite;
 import br.com.jera.resources.PropertyReader;
 import br.com.jera.resources.ResourceIdRetriever;
@@ -15,7 +16,7 @@ public class GameClock implements OutputData.Data {
 	private ResourceIdRetriever resRet;
 	private int currentLevel = 1;
 	private static final long HELP_FRAME_DURATION = 20000;
-	private static final long FADE_OUT_DURATION = 2000;
+	private static final long FADE_OUT_DURATION = 1000;
 
 	public GameClock(ResourceIdRetriever resRet) {
 		this.resRet = resRet;
@@ -24,8 +25,19 @@ public class GameClock implements OutputData.Data {
 	public int getCurrentLevel() {
 		return currentLevel;
 	}
+	
+	public boolean isGameWon() {
+		if (currentLevel > PropertyReader.getNumLevels()) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
-	public void update(final long lastFrameDeltaTimeMS, SpriteResourceManager res) {
+	public void update(final long lastFrameDeltaTimeMS, SpriteResourceManager res, AudioPlayer audioPlayer) {
+		if (elapsedTime == 0) {
+			audioPlayer.play(resRet.getSfxNextLevel());
+		}
 		elapsedTime += lastFrameDeltaTimeMS;
 		if (elapsedTime > PropertyReader.getLevelTime()) {
 			goToNextLevel(res);
@@ -49,7 +61,7 @@ public class GameClock implements OutputData.Data {
 		long elapsedTimeMS = elapsedTime;
 		long timeLeft = (PropertyReader.getLevelTime() - elapsedTimeMS) / 1000;
 		long tls = timeLeft % 60;
-		return new Long(timeLeft / 60).toString() + ":" + (tls < 10 ? "0" : "") + new Long(tls).toString();
+		return new Long(timeLeft / 60).toString() + ":" + (tls < 10 ? "0" : "") + new Long(tls).toString() + "\nLevel" + new Integer(currentLevel);
 	}
 
 	public void drawHelper(SpriteResourceManager res) {
@@ -72,7 +84,9 @@ public class GameClock implements OutputData.Data {
 
 			character.draw(screenSize, rightEdge);
 			balloon.draw(balloonPos, rightEdge);
-			text.draw(balloonPos, rightEdge, currentLevel - 1);
+			if (currentLevel < text.getNumFrames()) {
+				text.draw(balloonPos, rightEdge, currentLevel - 1);
+			}
 		}
 	}
 

@@ -42,7 +42,7 @@ public class Spear implements WeaponProfile {
 	}
 
 	public float getSpeed() {
-		return 170.0f;
+		return 170.0f * PropertyReader.getProjectileSpeedFactor();
 	}
 
 	public float getRotationSpeed() {
@@ -62,10 +62,10 @@ public class Spear implements WeaponProfile {
 				if (!target.isDead()) {
 					audioPlayer.play(Spear.resRet.getSfxWeaponHit01());
 					final Vector2 targetPos = target.get2DPos();
-					final Vector2 effectPos = targetPos.add(ProjectileManager.HEIGHT_OFFSET);
+					final Vector2 effectPos = targetPos.add(new Vector2(0, PropertyReader.getHitEffectHeightOffset()));
 					final float angle = CommonMath.getAngle(super.actor.get2DPos().sub(targetPos).normalize());
 					super.effectManager.addEffect(new AnimatedParticle(600, -CommonMath.radianToDegree(angle) + 90.0f,
-							Spear.resRet.getBmpWeaponHitEffect01(), effectPos, 6, 1, 46.0f));
+							Spear.resRet.getBmpWeaponHitEffect01(), effectPos, 6, 1, PropertyReader.getSpearHitEffectRadius()));
 				}
 			}
 

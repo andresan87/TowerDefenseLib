@@ -59,6 +59,10 @@ public class MainMenu extends FadeEffect {
 		if (splash == null) {
 			splash = new JeraSplash(resRet);
 		}
+
+		if (PropertyReader.hasClock()) {
+			audioPlayer.load(resRet.getSfxNextLevel());
+		}	
 	}
 
 	@Override

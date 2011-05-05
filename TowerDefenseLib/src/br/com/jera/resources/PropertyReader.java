@@ -40,6 +40,14 @@ public class PropertyReader {
 			hasSnapshotFX = getBoolean("hasSnapshotFX", properties, hasSnapshotFX);
 			useDragDropSFX = getBoolean("useDragDropSFX", properties, useDragDropSFX);
 			limitTowers = getBoolean("limitTowers", properties, limitTowers);
+			axeHitEffectRadius = getFloat("axeHitEffectRadius", properties, axeHitEffectRadius);
+			spearHitEffectRadius = getFloat("spearHitEffectRadius", properties, spearHitEffectRadius);
+			rotateHitEffects = getBoolean("rotateHitEffects", properties, rotateHitEffects);
+			hitEffectDuration = getLong("hitEffectDuration", properties, hitEffectDuration);
+			hitEffectHeightOffset = getFloat("hitEffectHeightOffset", properties, hitEffectHeightOffset);
+			alphaAddHitEffects = getBoolean("alphaAddHitEffects", properties, alphaAddHitEffects);
+			hasShowUpSfx = getBoolean("hasShowUpSfx", properties, hasShowUpSfx);
+			projectileSpeedFactor = getFloat("projectileSpeedFactor", properties, projectileSpeedFactor);
 		} catch (IOException e) {
 			// no problem...
 		}
@@ -145,6 +153,10 @@ public class PropertyReader {
 		return levelTime;
 	}
 
+	public static long getHitEffectDuration() {
+		return hitEffectDuration;
+	}
+
 	public static boolean isShowNextWaveTime() {
 		return showNextWaveTime;
 	}
@@ -165,6 +177,38 @@ public class PropertyReader {
 		return limitTowers;
 	}
 
+	public static float getAxeHitEffectRadius() {
+		return axeHitEffectRadius;
+	}
+
+	public static float getSpearHitEffectRadius() {
+		return spearHitEffectRadius;
+	}
+
+	public static boolean isRotateHitEffects() {
+		return rotateHitEffects;
+	}
+
+	public static float getHitEffectHeightOffset() {
+		return hitEffectHeightOffset;
+	}
+
+	public static boolean isAlphaAddHitEffects() {
+		return alphaAddHitEffects;
+	}
+
+	public static boolean hasShowUpSfx() {
+		return hasShowUpSfx;
+	}
+
+	public static float getProjectileSpeedFactor() {
+		return projectileSpeedFactor;
+	}
+
+	public static int getNumLevels() {
+		return numLevels;
+	}
+
 	private static Vector2 enemyStartOffset = new Vector2(0, 1);
 	private static boolean drawTowerShadow = true;
 	private static boolean customViewStart = false;
@@ -182,9 +226,17 @@ public class PropertyReader {
 	private static boolean hasClock = false;
 	private static int numLevels = 0;
 	private static long levelTime = 0;
+	private static long hitEffectDuration = 600;
 	private static boolean showNextWaveTime = true;
 	private static int startMoney = 50;
 	private static boolean hasSnapshotFX = false;
 	private static boolean useDragDropSFX = false;
 	private static boolean limitTowers = true;
+	private static float axeHitEffectRadius = 52.0f;
+	private static float spearHitEffectRadius = 46.0f;
+	private static boolean rotateHitEffects = true;
+	private static float hitEffectHeightOffset = -24.0f;
+	private static boolean alphaAddHitEffects = false;
+	private static boolean hasShowUpSfx = false;
+	private static float projectileSpeedFactor = 1.0f;
 }
