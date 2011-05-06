@@ -3,6 +3,7 @@
 import br.com.jera.audio.AudioPlayer;
 import br.com.jera.graphic.GraphicDevice.ALPHA_MODE;
 import br.com.jera.graphic.Sprite;
+import br.com.jera.resources.PropertyReader;
 import br.com.jera.resources.ResourceIdRetriever;
 import br.com.jera.util.CommonMath;
 import br.com.jera.util.CommonMath.Rectangle2D;
@@ -29,8 +30,13 @@ public class Scenario implements DisplayableEntity {
 		res.getGraphicDevice().setAlphaMode(ALPHA_MODE.ALPHA_TEST_ONLY);
 		Sprite sprite = res.getSprite(resourceId);
 		sprite.draw(pos.sub(viewer.getOrthogonalViewerPos()), normalizedOrigin);
-		Sprite iceSprite = res.getSprite(resRet.getBmpScenarioSeam());
-		iceSprite.draw(pos.sub(viewer.getOrthogonalViewerPos()).add(new Vector2(0, getMax(res).y)), normalizedOrigin);
+		
+		Sprite seamSprite = res.getSprite(resRet.getBmpScenarioSeam());
+		if (!PropertyReader.getHorizontalSceneWrapSprite()) {
+			seamSprite.draw(pos.sub(viewer.getOrthogonalViewerPos()).add(new Vector2(0, getMax(res).y)), normalizedOrigin);
+		} else {
+			seamSprite.draw(pos.sub(viewer.getOrthogonalViewerPos()).add(new Vector2(getMax(res).x, 0)), normalizedOrigin);
+		}
 	}
 
 	public Vector2 getMin(SpriteResourceManager res) {

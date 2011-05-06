@@ -48,6 +48,7 @@ public class PropertyReader {
 			alphaAddHitEffects = getBoolean("alphaAddHitEffects", properties, alphaAddHitEffects);
 			hasShowUpSfx = getBoolean("hasShowUpSfx", properties, hasShowUpSfx);
 			projectileSpeedFactor = getFloat("projectileSpeedFactor", properties, projectileSpeedFactor);
+			horizontalSceneWrapSprite = getBoolean("horizontalSceneWrapSprite", properties, horizontalSceneWrapSprite);
 		} catch (IOException e) {
 			// no problem...
 		}
@@ -208,6 +209,10 @@ public class PropertyReader {
 	public static int getNumLevels() {
 		return numLevels;
 	}
+	
+	public static boolean getHorizontalSceneWrapSprite() {
+		return horizontalSceneWrapSprite;
+	}
 
 	private static Vector2 enemyStartOffset = new Vector2(0, 1);
 	private static boolean drawTowerShadow = true;
@@ -239,4 +244,5 @@ public class PropertyReader {
 	private static boolean alphaAddHitEffects = false;
 	private static boolean hasShowUpSfx = false;
 	private static float projectileSpeedFactor = 1.0f;
+	private static boolean horizontalSceneWrapSprite = false;
 }

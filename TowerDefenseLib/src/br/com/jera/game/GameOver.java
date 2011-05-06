@@ -83,7 +83,7 @@ public class GameOver extends FadeEffect {
 							 // certinho via Bundle!
 	
 	private final GameLevel.GAME_STATUS status;
-	private final long gameOverDuration = 5000;
+	private final long gameOverDuration = 8000;
 	private final long gameOverStartTime;
 	private boolean backToMainMenu = false;
 	private Sprite gameOver;

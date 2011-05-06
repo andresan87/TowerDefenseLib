@@ -59,7 +59,6 @@ public class GameLevel extends FadeEffect {
 		this.input = input;
 		this.audioPlayer = audioPlayer;
 		spriteManager = new SpriteResourceManager(device);
-		gameClock = new GameClock(resRet);
 
 		if (isFirstTime) {
 			scenario = new Scenario(resRet.getBmpScenario(), new Vector2(0, 0), resRet);
@@ -71,6 +70,7 @@ public class GameLevel extends FadeEffect {
 			infiniteWaveManager = new InfiniteWaveManager(waveManager, road, resRet);
 			outputData = new OutputData();
 			player = new Player(resRet);
+			gameClock = new GameClock(resRet);
 		}
 		isFirstTime = false;
 		requestingMainMenu = false;
