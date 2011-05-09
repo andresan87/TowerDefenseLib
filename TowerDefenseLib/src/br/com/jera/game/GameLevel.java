@@ -120,7 +120,7 @@ public class GameLevel extends FadeEffect {
 		if (PropertyReader.hasClock()) {
 			spriteManager.loadResource(resRet.getBmpClockHelpCharacter(), 1, 1);
 			spriteManager.loadResource(resRet.getBmpClockHelpBalloon(), 1, 1);
-			spriteManager.loadResource(resRet.getBmpClockHelpTexts(), 4, 2);
+			spriteManager.loadResource(resRet.getBmpClockHelpTexts(), 2, 2);
 		}
 
 		audioPlayer.load(resRet.getSfxGameOver());

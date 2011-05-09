@@ -30,7 +30,7 @@ public class Snapshot implements WeaponProfile {
 	}
 
 	public long getCoolDownTime() {
-		return 10000;
+		return 6000;
 	}
 
 	public int getResourceId() {

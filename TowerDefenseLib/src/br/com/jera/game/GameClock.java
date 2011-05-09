@@ -61,7 +61,8 @@ public class GameClock implements OutputData.Data {
 		long elapsedTimeMS = elapsedTime;
 		long timeLeft = (PropertyReader.getLevelTime() - elapsedTimeMS) / 1000;
 		long tls = timeLeft % 60;
-		return new Long(timeLeft / 60).toString() + ":" + (tls < 10 ? "0" : "") + new Long(tls).toString() + "\nLevel" + new Integer(currentLevel);
+		return new Long(timeLeft / 60).toString() + ":" + (tls < 10 ? "0" : "") + new Long(tls).toString() + "\nLevel" + new Integer(currentLevel)
+			+ "-" + new Integer(PropertyReader.getNumLevels());
 	}
 
 	public void drawHelper(SpriteResourceManager res) {
@@ -72,7 +73,7 @@ public class GameClock implements OutputData.Data {
 
 			Vector2 screenSize = res.getGraphicDevice().getScreenSize();
 			Vector2 rightEdge = new Vector2(1, 1);
-			Vector2 balloonPos = screenSize.add(new Vector2(-balloon.getFrameSize().x + 26.0f, 0));
+			Vector2 balloonPos = screenSize.add(new Vector2(-character.getFrameSize().x + 16.0f, 0));
 
 			if (elapsedTime > HELP_FRAME_DURATION && elapsedTime < HELP_FRAME_DURATION + FADE_OUT_DURATION) {
 				final float alpha = (1.0f - (((float) (elapsedTime - HELP_FRAME_DURATION)) / (float) FADE_OUT_DURATION));
