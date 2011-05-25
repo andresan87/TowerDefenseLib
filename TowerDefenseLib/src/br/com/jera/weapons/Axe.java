@@ -47,7 +47,7 @@ public class Axe implements WeaponProfile {
 	}
 
 	public float getRotationSpeed() {
-		return 530.0f;
+		return (PropertyReader.isSpinAxe()) ? 530.0f : 0.0f;
 	}
 
 	public int getPrice() {

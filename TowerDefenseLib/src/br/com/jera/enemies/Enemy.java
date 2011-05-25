@@ -56,7 +56,7 @@ public class Enemy extends GameCharacter {
 	public float getNormalizedHp() {
 		return (this.getInitialHp() + this.getDamageReceived()) / this.getInitialHp();
 	}
-	
+
 	public void setNetLaunched(boolean netLaunched) {
 		this.netLaunched = netLaunched;
 	}
@@ -66,12 +66,12 @@ public class Enemy extends GameCharacter {
 	}
 
 	private boolean netLaunched;
-	
+
 	private float damageReceived = 0;
 	private EnemyRoad road;
 	private int nextTile = 0;
 	private ResourceIdRetriever resRet;
-	
+
 	public int getNextTile() {
 		return this.nextTile;
 	}
@@ -86,13 +86,13 @@ public class Enemy extends GameCharacter {
 
 	// TODO criar profiles de zumbis em arquivo resource, não no código
 	static public class Zombie01 extends EnemyProfile {
-		public Zombie01(float level) {
-			super(level);
+		public Zombie01(float level, float enemySpeedScale) {
+			super(level, enemySpeedScale);
 		}
 
 		@Override
 		public float getSpeed() {
-			return 10.0f;
+			return (10.0f * enemySpeedScale) + super.getSpeedBoost();
 		}
 
 		@Override
@@ -112,13 +112,13 @@ public class Enemy extends GameCharacter {
 	}
 
 	static public class Zombie02 extends EnemyProfile {
-		public Zombie02(float level) {
-			super(level);
+		public Zombie02(float level, float enemySpeedScale) {
+			super(level, enemySpeedScale);
 		}
 
 		@Override
 		public float getSpeed() {
-			return 15.0f;
+			return (15.0f * enemySpeedScale) + super.getSpeedBoost();
 		}
 
 		@Override
@@ -138,13 +138,13 @@ public class Enemy extends GameCharacter {
 	}
 
 	static public class Zombie03 extends EnemyProfile {
-		public Zombie03(float level) {
-			super(level);
+		public Zombie03(float level, float enemySpeedScale) {
+			super(level, enemySpeedScale);
 		}
 
 		@Override
 		public float getSpeed() {
-			return 18.0f;
+			return (18.0f * enemySpeedScale) + super.getSpeedBoost();
 		}
 
 		@Override
@@ -164,13 +164,13 @@ public class Enemy extends GameCharacter {
 	}
 
 	static public class Zombie04 extends EnemyProfile {
-		public Zombie04(float level) {
-			super(level);
+		public Zombie04(float level, float enemySpeedScale) {
+			super(level, enemySpeedScale);
 		}
 
 		@Override
 		public float getSpeed() {
-			return 17.0f;
+			return (17.0f * enemySpeedScale) + super.getSpeedBoost();
 		}
 
 		@Override

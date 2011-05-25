@@ -1,13 +1,11 @@
 package br.com.jera.towerdefenselib;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.opengl.GLSurfaceView;
 import android.view.Gravity;
-import android.view.KeyEvent;
 import android.widget.Toast;
 import br.com.jera.game.StateManager;
 import br.com.jera.platform.android.AndroidSurfaceView;
@@ -19,7 +17,7 @@ import br.com.jera.util.CommonMath.Vector2;
 
 public class TDActivity extends Activity {
 
-	@Override
+	/*@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
 			return true;
@@ -28,7 +26,7 @@ public class TDActivity extends Activity {
 			return true;
 		}
 		return super.onKeyDown(keyCode, event);
-	}
+	}*/
 
 	public String getVersion() {
 		String versionStr = "";
@@ -44,10 +42,24 @@ public class TDActivity extends Activity {
 		return versionStr;
 	}
 
-	public static void toast(int id, Context context) {
-		Toast toast = Toast.makeText(context, id, Toast.LENGTH_LONG);
-		toast.setGravity(Gravity.CENTER, toast.getXOffset() / 2, toast.getYOffset() / 2);
-		toast.show();
+	public static void toast(final int id, final Activity context) {
+		context.runOnUiThread(new Runnable() {
+
+			public void run() {
+				Toast toast = Toast.makeText(context, id, Toast.LENGTH_LONG);
+				toast.setGravity(Gravity.CENTER, toast.getXOffset() / 2, toast.getYOffset() / 2);
+				toast.show();
+			} });
+	}
+
+	public static void toast(final String str, final Activity context) {
+		context.runOnUiThread(new Runnable() {
+
+			public void run() {
+				Toast toast = Toast.makeText(context, str, Toast.LENGTH_LONG);
+				toast.setGravity(Gravity.CENTER, toast.getXOffset() / 2, toast.getYOffset() / 2);
+				toast.show();
+			} });
 	}
 
 	public GLSurfaceView startGame(ResourceIdRetriever resRet, int tilemapSizeX, int tilemapSizeY, Vector2 tileSize, int[] mainLayer,

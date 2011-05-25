@@ -18,6 +18,7 @@ public class GameOver extends FadeEffect {
 		this.status = status;
 		gameOverStartTime = System.currentTimeMillis();
 		GameOver.score = new Integer(score);
+		GameOver.gameWon = (status == GameLevel.GAME_STATUS.WON);
 	}
 
 	@Override
@@ -79,8 +80,8 @@ public class GameOver extends FadeEffect {
 		return "gameOver";
 	}
 
-	public static int score; // TODO tirar isso logo daqui e passar o score
-							 // certinho via Bundle!
+	public static int score;		// TODO tirar isso logo daqui e passar o score
+	public static boolean gameWon;	// certinho via Bundle!
 	
 	private final GameLevel.GAME_STATUS status;
 	private final long gameOverDuration = 8000;

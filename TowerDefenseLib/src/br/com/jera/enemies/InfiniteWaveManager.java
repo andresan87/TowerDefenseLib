@@ -43,92 +43,93 @@ public class InfiniteWaveManager implements OutputData.Data {
 				soundFx2 = new Integer(resRet.getSfxVirusAppear02());
 			}
 
+			final float enemySpeedScale = PropertyReader.getEnemySpeedScale();
 			// TODO criar waves em arquivo resource, não em código
 			if (level <= 1.0f) {
 				{
 					OffsetGenerator og = new OffsetGenerator();
 					ArrayList<Enemy> wave = new ArrayList<Enemy>();
-					wave.add(new Enemy(new Enemy.Zombie01(level), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
-					waveManager.addWave(wave, 5000, soundFx1);
+					wave.add(new Enemy(new Enemy.Zombie01(level, enemySpeedScale), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
+					waveManager.addWave(wave, 0, soundFx1);
 				}
 				{
 					OffsetGenerator og = new OffsetGenerator();
 					ArrayList<Enemy> wave = new ArrayList<Enemy>();
-					wave.add(new Enemy(new Enemy.Zombie01(level), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
-					wave.add(new Enemy(new Enemy.Zombie01(level), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
-					waveManager.addWave(wave, 20000, soundFx1);
+					wave.add(new Enemy(new Enemy.Zombie01(level, enemySpeedScale), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
+					wave.add(new Enemy(new Enemy.Zombie01(level, enemySpeedScale), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
+					waveManager.addWave(wave, 12000, soundFx1);
 				}
 				{
 					OffsetGenerator og = new OffsetGenerator();
 					ArrayList<Enemy> wave = new ArrayList<Enemy>();
-					wave.add(new Enemy(new Enemy.Zombie01(level), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
-					wave.add(new Enemy(new Enemy.Zombie01(level), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
-					waveManager.addWave(wave, 20000, soundFx1);
+					wave.add(new Enemy(new Enemy.Zombie01(level, enemySpeedScale), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
+					wave.add(new Enemy(new Enemy.Zombie01(level, enemySpeedScale), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
+					waveManager.addWave(wave, 12000, soundFx1);
 				}
 				{
 					OffsetGenerator og = new OffsetGenerator();
 					ArrayList<Enemy> wave = new ArrayList<Enemy>();
-					wave.add(new Enemy(new Enemy.Zombie01(level), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
-					wave.add(new Enemy(new Enemy.Zombie01(level), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
-					wave.add(new Enemy(new Enemy.Zombie01(level), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
-					waveManager.addWave(wave, 20000, soundFx1);
+					wave.add(new Enemy(new Enemy.Zombie01(level, enemySpeedScale), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
+					wave.add(new Enemy(new Enemy.Zombie01(level, enemySpeedScale), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
+					wave.add(new Enemy(new Enemy.Zombie01(level, enemySpeedScale), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
+					waveManager.addWave(wave, 12000, soundFx1);
 				}
 			}
 			{
 				OffsetGenerator og = new OffsetGenerator();
 				ArrayList<Enemy> wave = new ArrayList<Enemy>();
-				wave.add(new Enemy(new Enemy.Zombie01(level), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
-				wave.add(new Enemy(new Enemy.Zombie02(level), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
-				wave.add(new Enemy(new Enemy.Zombie01(level), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
+				wave.add(new Enemy(new Enemy.Zombie01(level, enemySpeedScale), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
+				wave.add(new Enemy(new Enemy.Zombie02(level, enemySpeedScale), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
+				wave.add(new Enemy(new Enemy.Zombie01(level, enemySpeedScale), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
 				waveManager.addWave(wave, 30000, soundFx1);
 			}
 			{
 				OffsetGenerator og = new OffsetGenerator();
 				ArrayList<Enemy> wave = new ArrayList<Enemy>();
-				wave.add(new Enemy(new Enemy.Zombie01(level), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
-				wave.add(new Enemy(new Enemy.Zombie02(level), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
-				wave.add(new Enemy(new Enemy.Zombie02(level), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
-				wave.add(new Enemy(new Enemy.Zombie01(level), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
+				wave.add(new Enemy(new Enemy.Zombie01(level, enemySpeedScale), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
+				wave.add(new Enemy(new Enemy.Zombie02(level, enemySpeedScale), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
+				wave.add(new Enemy(new Enemy.Zombie02(level, enemySpeedScale), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
+				wave.add(new Enemy(new Enemy.Zombie01(level, enemySpeedScale), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
 				waveManager.addWave(wave, 30000, soundFx1);
 			}
 			{
 				OffsetGenerator og = new OffsetGenerator();
 				ArrayList<Enemy> wave = new ArrayList<Enemy>();
-				wave.add(new Enemy(new Enemy.Zombie02(level), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
-				wave.add(new Enemy(new Enemy.Zombie02(level), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
-				wave.add(new Enemy(new Enemy.Zombie02(level), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
-				wave.add(new Enemy(new Enemy.Zombie02(level), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
-				wave.add(new Enemy(new Enemy.Zombie02(level), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
+				wave.add(new Enemy(new Enemy.Zombie02(level, enemySpeedScale), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
+				wave.add(new Enemy(new Enemy.Zombie02(level, enemySpeedScale), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
+				wave.add(new Enemy(new Enemy.Zombie02(level, enemySpeedScale), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
+				wave.add(new Enemy(new Enemy.Zombie02(level, enemySpeedScale), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
+				wave.add(new Enemy(new Enemy.Zombie02(level, enemySpeedScale), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
 				waveManager.addWave(wave, 35000, soundFx1);
 			}
 			{
 				OffsetGenerator og = new OffsetGenerator();
 				ArrayList<Enemy> wave = new ArrayList<Enemy>();
-				wave.add(new Enemy(new Enemy.Zombie02(level), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
-				wave.add(new Enemy(new Enemy.Zombie02(level), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
-				wave.add(new Enemy(new Enemy.Zombie02(level), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
-				wave.add(new Enemy(new Enemy.Zombie03(level), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
-				wave.add(new Enemy(new Enemy.Zombie03(level), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
+				wave.add(new Enemy(new Enemy.Zombie02(level, enemySpeedScale), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
+				wave.add(new Enemy(new Enemy.Zombie02(level, enemySpeedScale), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
+				wave.add(new Enemy(new Enemy.Zombie02(level, enemySpeedScale), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
+				wave.add(new Enemy(new Enemy.Zombie03(level, enemySpeedScale), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
+				wave.add(new Enemy(new Enemy.Zombie03(level, enemySpeedScale), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
 				waveManager.addWave(wave, 40000, soundFx2);
 			}
 			{
 				OffsetGenerator og = new OffsetGenerator();
 				ArrayList<Enemy> wave = new ArrayList<Enemy>();
-				wave.add(new Enemy(new Enemy.Zombie03(level), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
-				wave.add(new Enemy(new Enemy.Zombie03(level), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
-				wave.add(new Enemy(new Enemy.Zombie04(level), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
-				wave.add(new Enemy(new Enemy.Zombie04(level), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
+				wave.add(new Enemy(new Enemy.Zombie03(level, enemySpeedScale), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
+				wave.add(new Enemy(new Enemy.Zombie03(level, enemySpeedScale), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
+				wave.add(new Enemy(new Enemy.Zombie04(level, enemySpeedScale), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
+				wave.add(new Enemy(new Enemy.Zombie04(level, enemySpeedScale), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
 				waveManager.addWave(wave, 40000, soundFx2);
 			}
 			{
 				OffsetGenerator og = new OffsetGenerator();
 				ArrayList<Enemy> wave = new ArrayList<Enemy>();
-				wave.add(new Enemy(new Enemy.Zombie02(level), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
-				wave.add(new Enemy(new Enemy.Zombie02(level), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
-				wave.add(new Enemy(new Enemy.Zombie02(level), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
-				wave.add(new Enemy(new Enemy.Zombie04(level), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
-				wave.add(new Enemy(new Enemy.Zombie04(level), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
-				wave.add(new Enemy(new Enemy.Zombie04(level), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
+				wave.add(new Enemy(new Enemy.Zombie02(level, enemySpeedScale), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
+				wave.add(new Enemy(new Enemy.Zombie02(level, enemySpeedScale), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
+				wave.add(new Enemy(new Enemy.Zombie02(level, enemySpeedScale), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
+				wave.add(new Enemy(new Enemy.Zombie04(level, enemySpeedScale), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
+				wave.add(new Enemy(new Enemy.Zombie04(level, enemySpeedScale), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
+				wave.add(new Enemy(new Enemy.Zombie04(level, enemySpeedScale), road, og.getVerticalOffset(offset, offsetDir), audioPlayer, resRet));
 				waveManager.addWave(wave, 40000, soundFx2);
 			}
 		}

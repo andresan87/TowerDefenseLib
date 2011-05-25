@@ -27,6 +27,7 @@ public class EnemyWaveManager implements OutputData.Data {
 	public EnemyWaveManager(EnemyRoad road, long startTime, ResourceIdRetriever resRet) {
 		this.road = road;
 		this.resRet = resRet;
+		this.MAXIMUM_MONEY_PER_ENEMY = PropertyReader.getMaxMoneyGain();
 	}
 
 	public void addWave(ArrayList<Enemy> enemies, final long time, Integer soundFx) {
@@ -48,7 +49,7 @@ public class EnemyWaveManager implements OutputData.Data {
 				final Vector2 effectPos = enemy.get2DPos().add(new Vector2(0, PropertyReader.getHitEffectHeightOffset()));
 				effectManager.addEffect(new AnimatedParticle(600, -90.0f, resRet.getBmpDeathAnim(), effectPos, 6, 1, 72.0f));
 				effectManager.addEffect(new AnimatedParticle(600, 90.0f, resRet.getBmpDeathAnim(), effectPos, 6, 1, 72.0f));
-				player.addMoney((int) Math.min(enemy.getInitialHp() / 8, MAXIMUM_MONEY_PER_ENEMY));
+				player.addMoney((int) Math.min(enemy.getInitialHp() / PropertyReader.getMoneyDiv(), MAXIMUM_MONEY_PER_ENEMY));
 				audioPlayer.play(resRet.getSfxEnemyDeath());
 				killedEnemies++;
 				iter.remove();
@@ -136,7 +137,7 @@ public class EnemyWaveManager implements OutputData.Data {
 
 	private int currentWave = 0;
 	private int killedEnemies = 0;
-	private static final int MAXIMUM_MONEY_PER_ENEMY = 35;
+	private final int MAXIMUM_MONEY_PER_ENEMY;
 	private long nextWaveTime = 0;
 	private boolean reachedLastNode = false;
 	private LinkedList<Enemy> enemies = new LinkedList<Enemy>();

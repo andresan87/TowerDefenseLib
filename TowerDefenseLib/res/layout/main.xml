@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_main"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" android:orientation="vertical">
-    <TextView android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/quitQuestion" android:text="@string/quitConfirm"></TextView>
-    <Button android:layout_height="wrap_content" android:id="@+id/button1" android:layout_width="fill_parent" android:text="@string/cancel"></Button>
-    <Button android:id="@+id/button2" android:layout_height="wrap_content" android:layout_width="fill_parent" android:text="@string/confirm"></Button>
-</LinearLayout>
+    android:layout_height="fill_parent">
+</FrameLayout>

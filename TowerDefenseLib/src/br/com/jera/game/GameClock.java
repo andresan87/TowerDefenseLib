@@ -83,16 +83,16 @@ public class GameClock implements OutputData.Data {
 				balloon.setColor(color);
 			}
 
-			character.draw(screenSize, rightEdge);
-			balloon.draw(balloonPos, rightEdge);
-			if (currentLevel < text.getNumFrames()) {
+			if (currentLevel - 1 < text.getNumFrames()) {
+				character.draw(screenSize, rightEdge);
+				balloon.draw(balloonPos, rightEdge);
 				text.draw(balloonPos, rightEdge, currentLevel - 1);
 			}
 		}
 	}
 
 	public Vector2 drawData(Vector2 pos, SpriteResourceManager res, BitmapFont font) {
-		Sprite sprite = res.getSprite(resRet.getBmpScoreSymbol());
+		Sprite sprite = res.getSprite(resRet.getBmpClockSymbol());
 		sprite.draw(pos, Sprite.defaultOrigin);
 		final Vector2 frameSize = sprite.getFrameSize();
 		font.draw(new Vector2(frameSize.x, 0).add(pos), this.toString());

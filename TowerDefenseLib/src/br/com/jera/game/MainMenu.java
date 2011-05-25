@@ -6,6 +6,7 @@ import br.com.jera.graphic.GraphicDevice;
 import br.com.jera.graphic.GraphicDevice.ALPHA_MODE;
 import br.com.jera.graphic.Sprite;
 import br.com.jera.gui.GlobalSoundSwitch;
+import br.com.jera.gui.HyperlinkList;
 import br.com.jera.gui.JeraSplash;
 import br.com.jera.gui.TouchButton;
 import br.com.jera.input.InputListener;
@@ -49,6 +50,12 @@ public class MainMenu extends FadeEffect {
 		resourceManager.loadResource(resRet.getBmpCompanyLogo(), 1, 1);
 		resourceManager.loadResource(resRet.getBmpSplashScreenBg(), 1, 1);
 
+		if (PropertyReader.isShowMenuLinks()) {
+			resourceManager.loadResource(resRet.getBmpTwitterButton(), 1, 1);
+			resourceManager.loadResource(resRet.getBmpFacebookButton(), 1, 1);
+			hyperlinks = new HyperlinkList(resourceManager, resRet, new Vector2(1.0f, 0.0f));
+		}
+
 		if (PropertyReader.hasHelp()) {
 			tutorial.loadResources(resourceManager, resRet);
 		}
@@ -62,7 +69,7 @@ public class MainMenu extends FadeEffect {
 
 		if (PropertyReader.hasClock()) {
 			audioPlayer.load(resRet.getSfxNextLevel());
-		}	
+		}
 	}
 
 	@Override
@@ -100,7 +107,7 @@ public class MainMenu extends FadeEffect {
 						return BaseApplication.STATE.EXIT;
 					} else if (buttons[3].getStatus() == TouchButton.STATUS.ACTIVATED) {
 						buttons[3].setStatus(TouchButton.STATUS.IDLE);
-						device.openUrl("http://games.jera.com.br/vvz/");
+						device.openUrl(PropertyReader.getScoreUrl());
 					}
 				}
 			}
@@ -144,6 +151,11 @@ public class MainMenu extends FadeEffect {
 			}
 			simsun16.draw(Sprite.zero, versionStr);
 			soundSwitch.putButton(new Vector2(0, device.getScreenSize().y - 32.0f), input, resourceManager, audioPlayer);
+
+			if (PropertyReader.isShowMenuLinks()) {
+				hyperlinks.putButtons(resourceManager, audioPlayer, input, new Vector2(device.getScreenSize().x, 0.0f), false);
+			}
+
 			super.draw();
 			if (splash != null)
 				splash.draw(resourceManager);
@@ -159,7 +171,7 @@ public class MainMenu extends FadeEffect {
 	private void drawLogo() {
 		Sprite logo = resourceManager.getSprite(resRet.getBmpMenuLogo());
 		if (logo != null) {
-			Vector2 pos = device.getScreenSize().multiply(0.5f);
+			Vector2 pos = device.getScreenSize().multiply(new Vector2(PropertyReader.getMenuLogoOffsetMulX(), PropertyReader.getMenuLogoOffsetMulY()));
 			pos.y = Math.max(pos.y, logo.getFrameSize().y);
 			logo.draw(pos, new Vector2(0.5f, 1.0f));
 		}
@@ -186,5 +198,6 @@ public class MainMenu extends FadeEffect {
 	private AudioPlayer audioPlayer;
 	private GlobalSoundSwitch soundSwitch;
 	private ResourceIdRetriever resRet;
+	private HyperlinkList hyperlinks;
 	private GameTutorial tutorial = new GameTutorial();
 }

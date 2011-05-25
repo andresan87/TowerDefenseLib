@@ -1,7 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="hello">Hello World!</string>
-    <string name="quitConfirm">Quit application?</string>
-    <string name="cancel">Cancel</string>
-    <string name="confirm">Confirm</string>
+	<string name="app_name">Locaweb Cloud Defense</string>
+	<string name="twitter_account">Esté é meu Twitter</string>
+	<string name="send_score">Acha que mandou bem? Envie sua pontuação para a Locaweb!</string>
+	<string name="submit_hint">Nome completo ou conta no Twitter</string>
+	<string name="send">Enviar</string>
+	<string name="cancel">Cancelar</string>
+	<string name="game_over">Quantidade de vírus eliminados: </string>
+	<string name="submit_title"> ameaças eliminadas</string>
+	<string name="submit_fail">Falha ao enviar! Você está conectado à internet?</string>
+	<string name="submit_success">Pontuação enviada!</string>
+	<string name="ue">Erro inesperado</string>
+	<string name="valid_name">Entre com um nome válido!</string>
 </resources>

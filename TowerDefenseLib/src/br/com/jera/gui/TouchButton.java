@@ -83,6 +83,10 @@ public class TouchButton {
 	public int getButtonFrame() {
 		return buttonFrame;
 	}
+	
+	public Vector2 getSize(SpriteResourceManager res) {
+		return res.getSprite(buttonSpriteId).getFrameSize();
+	}
 
 	private Vector2 hitPos = new Vector2(-30, -30);
 	private Vector2 lastTouch = new Vector2();

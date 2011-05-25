@@ -263,7 +263,7 @@ public class GameLevel extends FadeEffect {
 	}
 
 	public GAME_STATUS callGameOver() {
-		if (gameClock.isGameWon()) {
+		if (gameClock.isGameWon() && PropertyReader.hasClock()) {
 			if (super.doFadeOut() == FadeEffect.FADE_STATE.FADED_OUT) {
 				audioPlayer.play(resRet.getSfxGameWon());
 				return GAME_STATUS.WON;

@@ -49,6 +49,18 @@ public class PropertyReader {
 			hasShowUpSfx = getBoolean("hasShowUpSfx", properties, hasShowUpSfx);
 			projectileSpeedFactor = getFloat("projectileSpeedFactor", properties, projectileSpeedFactor);
 			horizontalSceneWrapSprite = getBoolean("horizontalSceneWrapSprite", properties, horizontalSceneWrapSprite);
+			spinAxe = getBoolean("spinAxe", properties, spinAxe);
+			enemySpeedScale = getFloat("enemySpeedScale", properties, enemySpeedScale);
+			moneyDiv = getInt("moneyDiv", properties, moneyDiv);
+			maxMoneyGain = getInt("maxMoneyGain", properties, maxMoneyGain);
+			increaseEnemySpeed = getBoolean("increaseEnemySpeed", properties, increaseEnemySpeed);
+			officialSiteUrl = getString("officialSiteUrl", properties, officialSiteUrl);
+			scoreUrl = getString("scoreUrl", properties, scoreUrl);
+			twitterUrl = getString("twitterUrl", properties, twitterUrl);
+			facebookUrl = getString("facebookUrl", properties, facebookUrl);
+			showMenuLinks = getBoolean("showMenuLinks", properties, showMenuLinks);
+			menuLogoOffsetMulX = getFloat("menuLogoOffsetMulX", properties, menuLogoOffsetMulX);
+			menuLogoOffsetMulY = getFloat("menuLogoOffsetMulY", properties, menuLogoOffsetMulY);
 		} catch (IOException e) {
 			// no problem...
 		}
@@ -85,6 +97,15 @@ public class PropertyReader {
 		String value = properties.getProperty(name);
 		if (value != null) {
 			return value.equals("0") ? false : true;
+		} else {
+			return defaultValue;
+		}
+	}
+
+	private String getString(String name, Properties properties, String defaultValue) {
+		String value = properties.getProperty(name);
+		if (value != null) {
+			return value;
 		} else {
 			return defaultValue;
 		}
@@ -209,10 +230,63 @@ public class PropertyReader {
 	public static int getNumLevels() {
 		return numLevels;
 	}
-	
+
 	public static boolean getHorizontalSceneWrapSprite() {
 		return horizontalSceneWrapSprite;
 	}
+
+	public static boolean isSpinAxe() {
+		return spinAxe;
+	}
+
+	public static float getEnemySpeedScale() {
+		return enemySpeedScale;
+	}
+
+	public static int getMoneyDiv() {
+		return moneyDiv;
+	}
+
+	public static int getMaxMoneyGain() {
+		return maxMoneyGain;
+	}
+
+	public static boolean isIncreaseEnemySpeed() {
+		return increaseEnemySpeed;
+	}
+
+	public static String getOfficialSiteUrl() {
+		return officialSiteUrl;
+	}
+
+	public static String getScoreUrl() {
+		return scoreUrl;
+	}
+
+	public static String getTwitterUrl() {
+		return twitterUrl;
+	}
+
+	public static String getFacebookUrl() {
+		return facebookUrl;
+	}
+	
+	public static boolean isShowMenuLinks() {
+		return showMenuLinks;
+	}
+	
+	public static float getMenuLogoOffsetMulX() {
+		return menuLogoOffsetMulX;
+	}
+
+	public static float getMenuLogoOffsetMulY() {
+		return menuLogoOffsetMulY;
+	}
+
+	private static String officialSiteUrl = "http://games.jera.com.br/vvz/";
+	private static String scoreUrl = "http://games.jera.com.br/vvz/";
+	private static String twitterUrl = "http://twitter.com/Locaweb";
+	private static String facebookUrl = "http://www.facebook.com/group.php?gid=102501228423";
 
 	private static Vector2 enemyStartOffset = new Vector2(0, 1);
 	private static boolean drawTowerShadow = true;
@@ -245,4 +319,12 @@ public class PropertyReader {
 	private static boolean hasShowUpSfx = false;
 	private static float projectileSpeedFactor = 1.0f;
 	private static boolean horizontalSceneWrapSprite = false;
+	private static boolean spinAxe = true;
+	private static float enemySpeedScale = 1.0f;
+	private static int moneyDiv = 8;
+	private static int maxMoneyGain = 35;
+	private static boolean increaseEnemySpeed = false;
+	private static boolean showMenuLinks = false;
+	private static float menuLogoOffsetMulX = 0.5f;
+	private static float menuLogoOffsetMulY = 0.5f;
 }

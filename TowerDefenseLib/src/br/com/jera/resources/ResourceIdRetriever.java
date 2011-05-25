@@ -52,6 +52,9 @@ public interface ResourceIdRetriever {
 
 	public int getBmpHelpFrame(int frame);
 	public int getNumHelpFrames();
+	
+	public int getBmpTwitterButton();
+	public int getBmpFacebookButton();
 
 	public int getSfxEnemyDeath();
 	public int getSfxGameOver();
@@ -71,4 +74,5 @@ public interface ResourceIdRetriever {
 	public int getSfxMenuSong();
 	public int getSfxVirusAppear01();
 	public int getSfxVirusAppear02();
+	public int getBmpClockSymbol();
 }
