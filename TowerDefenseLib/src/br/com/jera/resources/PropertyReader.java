@@ -61,6 +61,10 @@ public class PropertyReader {
 			showMenuLinks = getBoolean("showMenuLinks", properties, showMenuLinks);
 			menuLogoOffsetMulX = getFloat("menuLogoOffsetMulX", properties, menuLogoOffsetMulX);
 			menuLogoOffsetMulY = getFloat("menuLogoOffsetMulY", properties, menuLogoOffsetMulY);
+			mainMenuButtonStride = getFloat("mainMenuButtonStride", properties, mainMenuButtonStride);
+			mainMenuButtonOffset = getFloat("mainMenuButtonOffset", properties, mainMenuButtonOffset);
+			showMenuLinks = getBoolean("showMenuLinks", properties, showMenuLinks);
+			stretchGameOverScreens = getBoolean("stretchGameOverScreens", properties, stretchGameOverScreens);
 		} catch (IOException e) {
 			// no problem...
 		}
@@ -283,6 +287,18 @@ public class PropertyReader {
 		return menuLogoOffsetMulY;
 	}
 
+	public static float getMainMenuButtonStride() {
+		return mainMenuButtonStride;
+	}
+
+	public static float getMainMenuButtonOffset() {
+		return mainMenuButtonOffset;
+	}
+	
+	public static boolean isStretchGameOverScreens() {
+		return stretchGameOverScreens;
+	}
+
 	private static String officialSiteUrl = "http://games.jera.com.br/vvz/";
 	private static String scoreUrl = "http://games.jera.com.br/vvz/";
 	private static String twitterUrl = "http://twitter.com/Locaweb";
@@ -327,4 +343,7 @@ public class PropertyReader {
 	private static boolean showMenuLinks = false;
 	private static float menuLogoOffsetMulX = 0.5f;
 	private static float menuLogoOffsetMulY = 0.5f;
+	private static float mainMenuButtonStride = 16.0f;
+	private static float mainMenuButtonOffset = 16.0f;
+	private static boolean stretchGameOverScreens = false;
 }

@@ -5,6 +5,7 @@ import br.com.jera.effects.FadeEffect;
 import br.com.jera.graphic.GraphicDevice;
 import br.com.jera.graphic.Sprite;
 import br.com.jera.input.InputListener;
+import br.com.jera.resources.PropertyReader;
 import br.com.jera.resources.ResourceIdRetriever;
 import br.com.jera.util.BaseApplication;
 import br.com.jera.util.CommonMath.Vector2;
@@ -70,7 +71,8 @@ public class GameOver extends FadeEffect {
 		device.beginScene();
 		final Vector2 screenSize = device.getScreenSize();
 		final Vector2 screenMiddle = screenSize.multiply(0.5f);
-		gameOver.draw(screenMiddle, new Vector2(0.5f, 0.5f));
+		// gameOver.draw(screenMiddle, new Vector2(0.5f, 0.5f));
+		gameOver.draw(screenMiddle, (PropertyReader.isStretchGameOverScreens()) ? screenSize : gameOver.getFrameSize(), Sprite.centerOrigin);
 		super.draw();
 		device.endScene();
 	}

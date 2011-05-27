@@ -20,8 +20,8 @@ public class GameTutorial {
 		res.loadResource(resRet.getBmpNextFrameButton(), 1, 1);
 		res.loadResource(resRet.getBmpSkipTutorialButton(), 1, 1);
 
-		nextPage = new TouchButton(Sprite.defaultOrigin, new Vector2(1.0f, 0.5f), resRet.getBmpNextFrameButton(), 0, null);
-		skipTutorial = new TouchButton(Sprite.defaultOrigin, new Vector2(0.5f, 0.0f), resRet.getBmpSkipTutorialButton(), 0, null);
+		nextPage = new TouchButton(Sprite.defaultOrigin, new Vector2(1.0f, 0.0f), resRet.getBmpNextFrameButton(), 0, null);
+		skipTutorial = new TouchButton(Sprite.defaultOrigin, new Vector2(0.0f, 1.0f), resRet.getBmpSkipTutorialButton(), 0, null);
 	}
 
 	private void updateTutorial(SpriteResourceManager res, InputListener input, AudioPlayer player, ResourceIdRetriever resRet) {
@@ -37,10 +37,10 @@ public class GameTutorial {
 		}
 
 		Vector2 screenSize = res.getGraphicDevice().getScreenSize();
-		nextPage.setPos(screenSize.multiply(new Vector2(1.0f, 0.5f)));
+		nextPage.setPos(screenSize.multiply(new Vector2(1.0f, 0.0f)));
 		nextPage.putButton(res.getGraphicDevice(), player, res, input);
 		
-		skipTutorial.setPos(screenSize.multiply(new Vector2(0.5f, 0.0f)));
+		skipTutorial.setPos(screenSize.multiply(new Vector2(0.0f, 1.0f)));
 		skipTutorial.putButton(res.getGraphicDevice(), player, res, input);
 
 		if (skipTutorial.getStatus() == STATUS.ACTIVATED) {

@@ -14,7 +14,6 @@ import br.com.jera.resources.PropertyReader;
 import br.com.jera.resources.ResourceIdRetriever;
 import br.com.jera.util.BaseApplication;
 import br.com.jera.util.BitmapFont;
-import br.com.jera.util.CommonMath;
 import br.com.jera.util.CommonMath.Vector2;
 import br.com.jera.util.SpriteResourceManager;
 
@@ -77,11 +76,11 @@ public class MainMenu extends FadeEffect {
 		super.resetFrameBuffer(width, height);
 		device.setup2DView(width, height);
 		Sprite sprite = resourceManager.getSprite(resRet.getBmpMenuButtons());
-		Vector2 cursor = device.getScreenSize().sub(new Vector2(0, (menuButtons - 1) * (sprite.getFrameSize().y + 16.0f)));
+		Vector2 cursor = device.getScreenSize().sub(new Vector2(0, (menuButtons - 1) * (sprite.getFrameSize().y + PropertyReader.getMainMenuButtonOffset())));
 		for (int n = 0; n < menuButtons; n++) {
 			buttons[n] = new TouchButton(cursor, buttonOrigin, resRet.getBmpMenuButtons(), n, new Integer(resRet.getSfxMenuButtonPressed()));
 			if (n != 1 || mayResume) {
-				cursor = cursor.add(new Vector2(0, (sprite.getFrameSize().y + 16.0f)));
+				cursor = cursor.add(new Vector2(0, (sprite.getFrameSize().y + PropertyReader.getMainMenuButtonStride())));
 			}
 		}
 	}
@@ -134,14 +133,9 @@ public class MainMenu extends FadeEffect {
 		if (chosenState != BUTTON.TUTORIAL || !PropertyReader.hasHelp()) {
 			Sprite bg = resourceManager.getSprite(resRet.getBmpMenuBackground());
 			Vector2 bgSize;
-			if (bg != null) {
-				if (device.getScreenSize().x > device.getScreenSize().y) {
-					bgSize = CommonMath.resizeToMatchWidth(bg.getFrameSize(), device.getScreenSize().x);
-				} else {
-					bgSize = CommonMath.resizeToMatchHeight(bg.getFrameSize(), device.getScreenSize().y);
-				}
-				bg.draw(device.getScreenSize().multiply(0.5f), bgSize, Sprite.centerOrigin);
-			}
+			bgSize = device.getScreenSize();
+			bg.draw(Sprite.zero, bgSize, Sprite.zero);
+
 			device.setAlphaMode(ALPHA_MODE.DEFAULT);
 			drawLogo();
 			for (int t = 0; t < menuButtons; t++) {
