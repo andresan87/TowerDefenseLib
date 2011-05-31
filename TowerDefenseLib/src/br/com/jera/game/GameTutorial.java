@@ -6,7 +6,6 @@ import br.com.jera.gui.TouchButton;
 import br.com.jera.gui.TouchButton.STATUS;
 import br.com.jera.input.InputListener;
 import br.com.jera.resources.ResourceIdRetriever;
-import br.com.jera.util.CommonMath;
 import br.com.jera.util.CommonMath.Vector2;
 import br.com.jera.util.CommonMath.Vector4;
 import br.com.jera.util.SpriteResourceManager;
@@ -53,7 +52,8 @@ public class GameTutorial {
 	private void showPage(SpriteResourceManager res, InputListener input, AudioPlayer player, ResourceIdRetriever resRet) {
 		Vector2 screenSize = res.getGraphicDevice().getScreenSize();
 		Sprite frame = res.getSprite(resRet.getBmpHelpFrame(currentPage));
-		Vector2 frameSize = CommonMath.resizeToMatchHeight(frame.getFrameSize(), screenSize.y);
+		// Vector2 frameSize = CommonMath.resizeToMatchHeight(frame.getFrameSize(), screenSize.y);
+		Vector2 frameSize = screenSize;
 		frame.draw(screenSize.multiply(0.5f), frameSize, Sprite.centerOrigin);
 
 		if (previousPage != -1) {
