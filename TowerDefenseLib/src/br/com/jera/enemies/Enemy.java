@@ -61,11 +61,22 @@ public class Enemy extends GameCharacter {
 		this.netLaunched = netLaunched;
 	}
 
+	public void setTeleported(boolean teleported) {
+		this.teleported = teleported;
+	}
+
+	
 	public boolean isNetLaunched() {
 		return netLaunched;
 	}
 
+	public boolean isTeleported() {
+		return teleported;
+	}
+	
 	private boolean netLaunched;
+	
+	private boolean teleported;
 
 	private float damageReceived = 0;
 	private EnemyRoad road;
@@ -97,12 +108,12 @@ public class Enemy extends GameCharacter {
 
 		@Override
 		public float getHp() {
-			return 100 * super.level;
+			return 100 * super.level * 0.6f;
 		}
 
 		@Override
 		public int getResourceId(ResourceIdRetriever resRet) {
-			return resRet.getBmpEnemy01();
+			return resRet.getBmpEnemy(1);
 		}
 
 		@Override
@@ -128,7 +139,7 @@ public class Enemy extends GameCharacter {
 
 		@Override
 		public int getResourceId(ResourceIdRetriever resRet) {
-			return resRet.getBmpEnemy02();
+			return resRet.getBmpEnemy(2);
 		}
 
 		@Override
@@ -154,7 +165,7 @@ public class Enemy extends GameCharacter {
 
 		@Override
 		public int getResourceId(ResourceIdRetriever resRet) {
-			return resRet.getBmpEnemy03();
+			return resRet.getBmpEnemy(3);
 		}
 
 		@Override
@@ -180,7 +191,7 @@ public class Enemy extends GameCharacter {
 
 		@Override
 		public int getResourceId(ResourceIdRetriever resRet) {
-			return resRet.getBmpEnemy04();
+			return resRet.getBmpEnemy(4);
 		}
 
 		@Override

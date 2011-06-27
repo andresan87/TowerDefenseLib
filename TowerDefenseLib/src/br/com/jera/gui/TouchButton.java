@@ -24,6 +24,10 @@ public class TouchButton {
 	}
 
 	public void putButton(GraphicDevice device, AudioPlayer player, SpriteResourceManager res, InputListener input) {
+		putButton(device, player, res, input, true);
+	}
+
+	public void putButton(GraphicDevice device, AudioPlayer player, SpriteResourceManager res, InputListener input, boolean activated) {
 		Sprite sprite = res.getSprite(buttonSpriteId);
 		Vector2 currentTouch = input.getCurrentTouch();
 		if (input.getTouchState(0) == InputListener.KEY_STATE.HIT && currentTouch != null)
@@ -38,22 +42,23 @@ public class TouchButton {
 			}
 		}
 		if (input.getTouchState(0) == InputListener.KEY_STATE.RELEASE) {
-			if (CommonMath.isPointInRect(pos, sprite.getFrameSize(), origin, lastTouch)
-					&& CommonMath.isPointInRect(pos, sprite.getFrameSize(), origin, hitPos)) {
+			if (CommonMath.isPointInRect(pos, sprite.getFrameSize(), origin, lastTouch) && CommonMath.isPointInRect(pos, sprite.getFrameSize(), origin, hitPos)) {
 				status = STATUS.SACTIVATED;
 			}
 		}
 
-		device.setAlphaMode(ALPHA_MODE.DEFAULT);
+		device.setAlphaMode(activated ? ALPHA_MODE.DEFAULT:ALPHA_MODE.MODULATE);
 		if (sprite != null) {
 			sprite.draw(pos, origin, buttonFrame);
-	
+
 			if (status == STATUS.PRESSED) {
-				device.setAlphaMode(ALPHA_MODE.ADD);
-				sprite.draw(pos, origin, buttonFrame);
-				device.setAlphaMode(ALPHA_MODE.DEFAULT);
+				if (activated) {
+					device.setAlphaMode(ALPHA_MODE.ADD);
+					sprite.draw(pos, origin, buttonFrame);
+					device.setAlphaMode(ALPHA_MODE.DEFAULT);
+				}
 			} else if (status == STATUS.SACTIVATED) {
-				if (soundId != null)
+				if (soundId != null && activated)
 					player.play(soundId);
 				status = STATUS.ACTIVATED;
 			}
@@ -83,7 +88,7 @@ public class TouchButton {
 	public int getButtonFrame() {
 		return buttonFrame;
 	}
-	
+
 	public Vector2 getSize(SpriteResourceManager res) {
 		return res.getSprite(buttonSpriteId).getFrameSize();
 	}

@@ -3,4 +3,5 @@
     <string name="quitConfirm">Fechar aplicativo?</string>
     <string name="cancel">Cancela</string>
     <string name="confirm">Confirma</string>
+    <string name="buy_vvzstore">Você precisa comprar isso na VvZ Store antes! Acesse pelo menu principal</string>
 </resources>

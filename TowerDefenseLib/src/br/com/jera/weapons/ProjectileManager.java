@@ -23,8 +23,8 @@ import br.com.jera.util.SpriteResourceManager;
 public class ProjectileManager {
 
 	static class Projectile implements DisplayableEntity {
-		Projectile(final int resourceId, Vector2 pos, Enemy targetZombie, final float speed, final float rotationSpeed,
-				WeaponProfile parentWeapon, GameCharacter actor) {
+		Projectile(final int resourceId, Vector2 pos, Enemy targetZombie, final float speed, final float rotationSpeed, WeaponProfile parentWeapon,
+				GameCharacter actor) {
 			this.actor = actor;
 			this.pos = pos;
 			this.targetEnemy = targetZombie;
@@ -55,8 +55,7 @@ public class ProjectileManager {
 
 		public boolean hasHit(SpriteResourceManager res) {
 			float x = res.getSprite(resourceId).getFrameSize().x;
-			if (actor.get2DPos().squaredDistance(pos) >= actor.get2DPos().squaredDistance(targetEnemy.get2DPos())
-					- x * x) {
+			if (actor.get2DPos().squaredDistance(pos) >= actor.get2DPos().squaredDistance(targetEnemy.get2DPos()) - x * x) {
 				dead = true;
 				return true;
 			} else {
@@ -132,8 +131,7 @@ public class ProjectileManager {
 				remove = true;
 			}
 			if (projectile.hasHit(res)) {
-				projectile.getTargetZombie().addHarmEffect(
-						projectile.getParentWeapon().getHarmEffect(effectManager, projectile.getActor()), audioPlayer, road);
+				projectile.getTargetZombie().addHarmEffect(projectile.getParentWeapon().getHarmEffect(effectManager, projectile.getActor()), audioPlayer, road);
 				remove = true;
 			}
 			if (remove) {

@@ -9,8 +9,9 @@ import br.com.jera.util.SpriteResourceManager;
 
 public class GlobalSoundSwitch {
 
-	public GlobalSoundSwitch(Vector2 pos, AudioPlayer audioPlayer, ResourceIdRetriever resRet) {
-		icon = new TouchButton(pos, new Vector2(0, 1), resRet.getBmpSoundToggle(), getButtonFrame(audioPlayer), null);
+	public GlobalSoundSwitch(Vector2 pos, AudioPlayer audioPlayer, ResourceIdRetriever resRet, int customIcon) {
+		icon = new TouchButton(pos, new Vector2(0, 0), customIcon, getButtonFrame(audioPlayer), null);
+		this.pos = pos;
 		// audioPlayer.setGlobalVolume(status ? 1.0f : 0.0f);
 	}
 
@@ -30,13 +31,14 @@ public class GlobalSoundSwitch {
 		return audioPlayer.getGlobalVolume() == 0.0f ? false : true;
 	}
 
+	public boolean putButton(InputListener input, SpriteResourceManager res, AudioPlayer audioPlayer) {
+		return putButton(this.pos, input, res, audioPlayer);
+	}
+
 	private void updateVolumeStatus(AudioPlayer audioPlayer) {
-		if (icon.getButtonFrame() == 0) {
-			audioPlayer.setGlobalVolume(1.0f);
-		} else {
-			audioPlayer.setGlobalVolume(0.0f);
-		}
+		audioPlayer.setGlobalVolume((icon.getButtonFrame() == 0) ? 1.0f : 0.0f);
 	}
 
 	private TouchButton icon;
+	private Vector2 pos;
 }

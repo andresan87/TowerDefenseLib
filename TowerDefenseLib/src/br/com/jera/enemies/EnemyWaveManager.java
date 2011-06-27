@@ -90,15 +90,20 @@ public class EnemyWaveManager implements OutputData.Data {
 			}
 		}
 	}
+	
+	public boolean verifyForceNextWave() {
+		return (System.currentTimeMillis() - this.timeForcedWave > NEXT_WAVE_LOCK_TIME); 
+	}
 
 	public void forceNextWave() {
+		this.timeForcedWave = System.currentTimeMillis();
 		final long nextWaveTime = getNextWaveRemainingTime();
 		Collection<Long> c = waves.keySet();
 		Iterator<Long> iter = c.iterator();
 		LinkedHashMap<Long, EnemyWave> newWaves = new LinkedHashMap<Long, EnemyWave>();
 		while (iter.hasNext()) {
 			final long currentKey = iter.next();
-			newWaves.put(currentKey - nextWaveTime + 1500, waves.get(currentKey));
+			newWaves.put(currentKey - nextWaveTime, waves.get(currentKey));
 		}
 		waves = newWaves;
 	}
@@ -146,4 +151,6 @@ public class EnemyWaveManager implements OutputData.Data {
 	private EnemyRoad road;
 	private long elapsedTime = 0;
 	private long timeOffset = 0;
+	private long timeForcedWave = 0;
+	private static final long NEXT_WAVE_LOCK_TIME = 3000;
 }

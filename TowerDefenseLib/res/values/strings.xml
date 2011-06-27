@@ -12,4 +12,5 @@
 	<string name="submit_success">Pontuação enviada!</string>
 	<string name="ue">Erro inesperado</string>
 	<string name="valid_name">Entre com um nome válido!</string>
+	<string name="buy_vvzstore">Você precisa comprar isso na VvZ Store antes, confira pelo menu principal</string>
 </resources>

@@ -24,22 +24,19 @@ public class TowerManager implements OutputData.Data {
 
 	public TowerManager(ResourceIdRetriever resRet) {
 		this.resRet = resRet;
-		controller = new BehaviourController(resRet);
 	}
 
-	public void update(final long lastFrameDeltaTimeMS, LinkedList<Enemy> zombies, ProjectileManager projectileManager,
-			AudioPlayer audioPlayer) {
+	public void update(final long lastFrameDeltaTimeMS, LinkedList<Enemy> zombies, ProjectileManager projectileManager, AudioPlayer audioPlayer) {
 		ListIterator<Tower> iter = vikings.listIterator();
 		while (iter.hasNext()) {
 			Tower viking = iter.next();
-			this.shootPriority = controller.getCurrentState();
+			this.shootPriority = ShootPriority.FURTHEST;
 			ListIterator<Enemy> ziter = zombies.listIterator();
 			Enemy zombieToShoot = null;
 			while (ziter.hasNext()) {
 				Enemy zombie = ziter.next();
 				WeaponProfile weapon = viking.getWeapon();
-				if (viking.get2DPos().distance(zombie.get2DPos()) < weapon.getRange()
-						&& zombie.getInitialHp() + zombie.getDamageReceived() > 0) {
+				if (viking.get2DPos().distance(zombie.get2DPos()) < weapon.getRange() && zombie.getInitialHp() + zombie.getDamageReceived() > 0) {
 					if (viking.getWeapon() instanceof Net && zombie.isNetLaunched()) {
 						continue;
 					}
@@ -50,13 +47,10 @@ public class TowerManager implements OutputData.Data {
 							if (zombie.getNormalizedHp() < zombieToShoot.getNormalizedHp()) {
 								zombieToShoot = zombie;
 							}
-						} else if (ShootPriority.FURTHEST.equals(this.shootPriority)) {
+						} else {
 							if (zombie.getNextTile() > zombieToShoot.getNextTile()) {
 								zombieToShoot = zombie;
 							}
-						} else if (ShootPriority.FIFO.equals(this.shootPriority)) {
-							zombieToShoot = zombie;
-							break;
 						}
 					}
 				}
@@ -74,9 +68,6 @@ public class TowerManager implements OutputData.Data {
 		ListIterator<Tower> iter = vikings.listIterator();
 		while (iter.hasNext()) {
 			displayList.sortAdd(viewer, iter.next(), clientRect);
-		}
-		if (!PropertyReader.isHideBehaviourController()) {
-			controller.putButtons(res, audioPlayer, input);
 		}
 	}
 
@@ -113,12 +104,11 @@ public class TowerManager implements OutputData.Data {
 	}
 
 	private LinkedList<Tower> vikings = new LinkedList<Tower>();
-	private static final int MAXIMUM_VIKINGS = 45;
+	private static final int MAXIMUM_VIKINGS = 50;
 	private ShootPriority shootPriority;
 	private ResourceIdRetriever resRet;
-	private BehaviourController controller;
 
 	protected enum ShootPriority {
-		FIFO, WEAKEST, FURTHEST
+		WEAKEST, FURTHEST
 	}
 }

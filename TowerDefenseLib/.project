@@ -32,9 +32,19 @@
 	</natures>
 	<linkedResources>
 		<link>
+			<name>TapjoyConnect_src</name>
+			<type>2</type>
+			<locationURI>_android_TapjoyConnect_76cc3e39/src</locationURI>
+		</link>
+		<link>
 			<name>jeraGame_src</name>
 			<type>2</type>
 			<locationURI>_android_jeraGame_aa1313bc/src</locationURI>
+		</link>
+		<link>
+			<name>src-2</name>
+			<type>2</type>
+			<location>/home/duke/projetos/android/jeraGame/jeraGame/src</location>
 		</link>
 	</linkedResources>
 </projectDescription>

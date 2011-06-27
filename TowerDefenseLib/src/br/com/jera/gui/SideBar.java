@@ -20,26 +20,31 @@ import br.com.jera.util.SpriteResourceManager;
 
 public class SideBar {
 
-	private void updateArrowPos(GraphicDevice device) {
-		backArrow.setPos(new Vector2(0, device.getScreenSize().y));
+	private void updateArrowPos(GraphicDevice device, SpriteResourceManager res, ResourceIdRetriever resRet) {
+		Sprite sprite = res.getSprite(resRet.getBmpSpeedButtons());
+		backArrow.setPos(new Vector2(sprite.getFrameSize().x + sprite.getBitmapSize().x, 0));
 	}
 
-	public SideBar(GraphicDevice device, InputListener input, Classic2DViewer viewer, TowerManager vikingManager, Scenario scene,
-			SpriteResourceManager res, Player player, AudioPlayer audioPlayer, ResourceIdRetriever resRet, int numTowers, float sideBarWidth) {
+	public SideBar(GraphicDevice device, InputListener input, Classic2DViewer viewer, TowerManager vikingManager, Scenario scene, SpriteResourceManager res,
+			Player player, AudioPlayer audioPlayer, ResourceIdRetriever resRet, int numTowers, float sideBarWidth) {
 		this.input = input;
 		this.sideBarWidth = sideBarWidth;
 		selector = new TowerSelector(this, viewer, vikingManager, scene, res, player, audioPlayer, resRet, numTowers);
 		sideBarSprite = new Sprite(device, resRet.getBmpSideBar(), 1, 1);
 		sideBarExtend = new Sprite(device, resRet.getBmpSideBarExtend(), 1, 1);
 		sideBarBottom = new Sprite(device, resRet.getBmpSideBarBottom(), 1, 1);
-		backArrow = new TouchButton(new Vector2(0, device.getScreenSize().y), new Vector2(0, 1), resRet.getBmpBackButton(), 0, new Integer(resRet.getSfxBack()));
-		updateArrowPos(device);
+		backArrow = new TouchButton(new Vector2(0, 0), new Vector2(0, 0), resRet.getBmpBackButton(), 0, new Integer(resRet.getSfxBack()));
+		Sprite sprite = res.getSprite(resRet.getBmpBackButton());
+		updateArrowPos(device, res, resRet);
+		sound = new GlobalSoundSwitch(new Vector2(backArrow.getPos().x + sprite.getFrameSize().x, 0), audioPlayer, resRet, resRet.getBmpMenu(4));
+		detail = new Sprite(device, resRet.getBmpMenu(5), 1, 1);
+		updateArrowPos(device, res, resRet);
 	}
 
 	public boolean isRequestingMainMenu() {
 		return backArrow.getStatus() == TouchButton.STATUS.ACTIVATED;
 	}
-
+	
 	public float getSideBarWidth() {
 		return sideBarWidth;
 	}
@@ -51,12 +56,13 @@ public class SideBar {
 			return false;
 	}
 
-	public void update(EnemyRoad road, SpriteResourceManager res, TowerManager manager, AudioPlayer audioPlayer, final long lastFrameDeltaTimeMS) {
-		updateArrowPos(res.getGraphicDevice());
+	public void update(EnemyRoad road, SpriteResourceManager res, TowerManager manager, AudioPlayer audioPlayer, ResourceIdRetriever resRet,
+			final long lastFrameDeltaTimeMS) {
+		updateArrowPos(res.getGraphicDevice(), res, resRet);
 		selector.update(input, res, getClientRect(res.getGraphicDevice()), lastFrameDeltaTimeMS, road, audioPlayer);
 	}
 
-	public void draw(SpriteResourceManager res, EnemyRoad road, BitmapFont font, AudioPlayer audioPlayer) {
+	public void draw(SpriteResourceManager res, EnemyRoad road, BitmapFont font, AudioPlayer audioPlayer, ResourceIdRetriever resRet) {
 		GraphicDevice device = res.getGraphicDevice();
 		device.setAlphaMode(ALPHA_MODE.DEFAULT);
 		final Vector2 screenSize = device.getScreenSize();
@@ -68,9 +74,12 @@ public class SideBar {
 			sideBarBottom.draw(device.getScreenSize().sub(new Vector2(sideBarWidth, 0)), new Vector2(0.0f, 1.0f));
 		}
 		backArrow.putButton(device, audioPlayer, res, input);
+		Sprite sprite = res.getSprite(resRet.getBmpMenu(4));
+		sound.putButton(input, res, audioPlayer);
+		//detail.draw(new Vector2(sound.getPos().x + sprite.getFrameSize().x, 0), new Vector2(0, 0));
 		selector.draw(input, res, road, font);
 	}
-	
+
 	public Rectangle2D getClientRect(GraphicDevice device) {
 		return new Rectangle2D(new Vector2(0, 0), device.getScreenSize().sub(new Vector2(sideBarWidth, 0)));
 	}
@@ -84,6 +93,8 @@ public class SideBar {
 	private Sprite sideBarExtend;
 	private Sprite sideBarBottom;
 	private TouchButton backArrow;
+	private GlobalSoundSwitch sound;
+	private Sprite detail;
 	private final float sideBarWidth;
 	private InputListener input;
 }

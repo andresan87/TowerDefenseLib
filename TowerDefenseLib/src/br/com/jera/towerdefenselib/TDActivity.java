@@ -43,10 +43,14 @@ public class TDActivity extends Activity {
 	}
 
 	public static void toast(final int id, final Activity context) {
+		toast(id, context, Toast.LENGTH_LONG);
+	}
+	
+	public static void toast(final int id, final Activity context, final int length) {
 		context.runOnUiThread(new Runnable() {
 
 			public void run() {
-				Toast toast = Toast.makeText(context, id, Toast.LENGTH_LONG);
+				Toast toast = Toast.makeText(context, id, length);
 				toast.setGravity(Gravity.CENTER, toast.getXOffset() / 2, toast.getYOffset() / 2);
 				toast.show();
 			} });
@@ -62,12 +66,11 @@ public class TDActivity extends Activity {
 			} });
 	}
 
-	public GLSurfaceView startGame(ResourceIdRetriever resRet, int tilemapSizeX, int tilemapSizeY, Vector2 tileSize, int[] mainLayer,
-			int[] pathLayer, TowerProfile[] towerProfiles, JGRunnable runnable) {
+	public GLSurfaceView startGame(ResourceIdRetriever resRet, TowerProfile[] towerProfiles, JGRunnable runnable) {
 		propertyReader = new PropertyReader(this);
 
 		if (manager == null) {
-			manager = new StateManager(getVersion(), resRet, tilemapSizeX, tilemapSizeY, tileSize, mainLayer, pathLayer, towerProfiles);
+			manager = new StateManager(getVersion(), resRet, towerProfiles);
 		}
 
 		mGLSurfaceView = new AndroidSurfaceView(this, manager, runnable);

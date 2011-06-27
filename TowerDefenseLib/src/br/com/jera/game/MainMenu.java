@@ -1,5 +1,6 @@
 ﻿package br.com.jera.game;
 
+import android.app.Activity;
 import br.com.jera.audio.AudioPlayer;
 import br.com.jera.effects.FadeEffect;
 import br.com.jera.graphic.GraphicDevice;
@@ -17,11 +18,17 @@ import br.com.jera.util.BitmapFont;
 import br.com.jera.util.CommonMath;
 import br.com.jera.util.CommonMath.Vector2;
 import br.com.jera.util.SpriteResourceManager;
+import br.com.jera.util.VirtualGoods;
 
 public class MainMenu extends FadeEffect {
 
 	protected static boolean mayResume = false;
 	private static JeraSplash splash;
+
+	/*
+	 * @author unknown
+	 */
+	private final int SELECT_MAP_DIALOG = 666;
 
 	protected MainMenu(long fadeTime, String versionStr, ResourceIdRetriever resRet) {
 		super(fadeTime, resRet);
@@ -35,7 +42,7 @@ public class MainMenu extends FadeEffect {
 		this.device = device;
 		this.input = input;
 		this.audioPlayer = player;
-		chosenState = BUTTON.NONE;
+		setChosenState(BUTTON.NONE);
 	}
 
 	@Override
@@ -43,7 +50,7 @@ public class MainMenu extends FadeEffect {
 		super.loadResources();
 		simsun16 = new BitmapFont(device, resRet.getBmpDefaultFont16(), 7, 16);
 		resourceManager = new SpriteResourceManager(device);
-		resourceManager.loadResource(resRet.getBmpMenuButtons(), 1, 4);
+		resourceManager.loadResource(resRet.getBmpMenuButtons(), 1, 8);
 		resourceManager.loadResource(resRet.getBmpMenuBackground(), 1, 1);
 		resourceManager.loadResource(resRet.getBmpMenuLogo(), 1, 1);
 		resourceManager.loadResource(resRet.getBmpSoundToggle(), 2, 1);
@@ -62,7 +69,7 @@ public class MainMenu extends FadeEffect {
 
 		audioPlayer.load(resRet.getSfxMenuButtonPressed());
 		audioPlayer.load(resRet.getSfxBack());
-		soundSwitch = new GlobalSoundSwitch(new Vector2(0, 0), audioPlayer, resRet);
+		soundSwitch = new GlobalSoundSwitch(new Vector2(0, 0), audioPlayer, resRet, resRet.getBmpSoundToggle());
 		if (splash == null) {
 			splash = new JeraSplash(resRet);
 		}
@@ -91,23 +98,27 @@ public class MainMenu extends FadeEffect {
 		super.update(lastFrameDeltaTimeMS);
 
 		if (splash != null) {
-			if (chosenState != BUTTON.TUTORIAL) {
+			if (getChosenState() != BUTTON.TUTORIAL) {
 				if (splash.isOver()) {
 					if (buttons[0].getStatus() == TouchButton.STATUS.ACTIVATED) {
 						if (PropertyReader.hasHelp()) {
-							chosenState = BUTTON.TUTORIAL;
+							setChosenState(BUTTON.TUTORIAL);
 						} else {
-							chosenState = BUTTON.NEW_GAME;
+							device.callDialog(SELECT_MAP_DIALOG);
 						}
+						buttons[0].setStatus(TouchButton.STATUS.IDLE);
 					} else if (buttons[1].getStatus() == TouchButton.STATUS.ACTIVATED) {
-						chosenState = BUTTON.CONTINUE;
+						setChosenState(BUTTON.CONTINUE);
 					} else if (buttons[2].getStatus() == TouchButton.STATUS.ACTIVATED) {
-						chosenState = BUTTON.EXIT;
-						splash = null;
-						return BaseApplication.STATE.EXIT;
-					} else if (buttons[3].getStatus() == TouchButton.STATUS.ACTIVATED) {
 						buttons[3].setStatus(TouchButton.STATUS.IDLE);
 						device.openUrl(PropertyReader.getScoreUrl());
+					} else if (buttons[3].getStatus() == TouchButton.STATUS.ACTIVATED) {
+						VirtualGoods goods = new VirtualGoods();
+						goods.openStore((Activity) device.getContext());
+					} else if (buttons[4].getStatus() == TouchButton.STATUS.ACTIVATED) {
+						setChosenState(BUTTON.EXIT);
+						splash = null;
+						return BaseApplication.STATE.EXIT;
 					}
 				}
 			}
@@ -131,7 +142,7 @@ public class MainMenu extends FadeEffect {
 		device.setup2DView();
 		device.setDepthTest(false);
 
-		if (chosenState != BUTTON.TUTORIAL || !PropertyReader.hasHelp()) {
+		if (getChosenState() != BUTTON.TUTORIAL || !PropertyReader.hasHelp()) {
 			Sprite bg = resourceManager.getSprite(resRet.getBmpMenuBackground());
 			Vector2 bgSize;
 			if (bg != null) {
@@ -143,7 +154,7 @@ public class MainMenu extends FadeEffect {
 				bg.draw(device.getScreenSize().multiply(0.5f), bgSize, Sprite.centerOrigin);
 			}
 			device.setAlphaMode(ALPHA_MODE.DEFAULT);
-			drawLogo();
+			//drawLogo();
 			for (int t = 0; t < menuButtons; t++) {
 				if (t != 1 || mayResume) {
 					buttons[t].putButton(device, audioPlayer, resourceManager, input);
@@ -162,19 +173,10 @@ public class MainMenu extends FadeEffect {
 		} else {
 			tutorial.doTutorial(resourceManager, input, audioPlayer, resRet);
 			if (tutorial.isFinished()) {
-				chosenState = BUTTON.NEW_GAME;
+				setChosenState(BUTTON.NEW_GAME);
 			}
 		}
 		device.endScene();
-	}
-
-	private void drawLogo() {
-		Sprite logo = resourceManager.getSprite(resRet.getBmpMenuLogo());
-		if (logo != null) {
-			Vector2 pos = device.getScreenSize().multiply(new Vector2(PropertyReader.getMenuLogoOffsetMulX(), PropertyReader.getMenuLogoOffsetMulY()));
-			pos.y = Math.max(pos.y, logo.getFrameSize().y);
-			logo.draw(pos, new Vector2(0.5f, 1.0f));
-		}
 	}
 
 	public enum BUTTON {
@@ -186,11 +188,15 @@ public class MainMenu extends FadeEffect {
 		return "mainMenu";
 	}
 
+	public static void setChosenState(BUTTON chosenState) {
+		MainMenu.chosenState = chosenState;
+	}
+
 	private String versionStr;
 	private final Vector2 buttonOrigin = new Vector2(1, 1);
-	private BUTTON chosenState = BUTTON.NONE;
+	private static BUTTON chosenState = BUTTON.NONE;
 	private InputListener input;
-	private final int menuButtons = 4;
+	private final int menuButtons = 5;
 	private BitmapFont simsun16;
 	private TouchButton[] buttons = new TouchButton[menuButtons];
 	private GraphicDevice device;

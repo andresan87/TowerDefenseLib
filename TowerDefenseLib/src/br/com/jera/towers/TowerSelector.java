@@ -1,5 +1,8 @@
 ﻿package br.com.jera.towers;
 
+import android.app.Activity;
+import android.widget.Toast;
+import br.com.jera.android.R;
 import br.com.jera.audio.AudioPlayer;
 import br.com.jera.enemies.EnemyRoad;
 import br.com.jera.graphic.GraphicDevice;
@@ -12,6 +15,7 @@ import br.com.jera.resources.ResourceIdRetriever;
 import br.com.jera.towerdefenselib.GameCharacter;
 import br.com.jera.towerdefenselib.Player;
 import br.com.jera.towerdefenselib.Scenario;
+import br.com.jera.towerdefenselib.TDActivity;
 import br.com.jera.util.BitmapFont;
 import br.com.jera.util.Classic2DViewer;
 import br.com.jera.util.CommonMath;
@@ -19,11 +23,14 @@ import br.com.jera.util.CommonMath.Rectangle2D;
 import br.com.jera.util.CommonMath.Vector2;
 import br.com.jera.util.CommonMath.Vector4;
 import br.com.jera.util.SpriteResourceManager;
+import br.com.jera.util.VirtualGoods;
 
 public class TowerSelector {
 
-	public TowerSelector(SideBar sideBar, Classic2DViewer viewer, TowerManager manager, Scenario scene, SpriteResourceManager res,
-			Player player, AudioPlayer audioPlayer, ResourceIdRetriever resRet, int numTowers) {
+	private static boolean toasted = false;
+
+	public TowerSelector(SideBar sideBar, Classic2DViewer viewer, TowerManager manager, Scenario scene, SpriteResourceManager res, Player player,
+			AudioPlayer audioPlayer, ResourceIdRetriever resRet, int numTowers) {
 		this.selectableVikingPos = new Vector2[numTowers];
 		this.player = player;
 		this.sideBar = sideBar;
@@ -33,8 +40,8 @@ public class TowerSelector {
 		this.resRet = resRet;
 	}
 
-	public void update(InputListener input, SpriteResourceManager res, Rectangle2D clientRect, final long lastFrameDeltaTimeMS,
-			EnemyRoad road, AudioPlayer audioPlayer) {
+	public void update(InputListener input, SpriteResourceManager res, Rectangle2D clientRect, final long lastFrameDeltaTimeMS, EnemyRoad road,
+			AudioPlayer audioPlayer) {
 		GraphicDevice device = res.getGraphicDevice();
 		final Vector2 startPoint = sideBar.getSideBarOrigin(device).add(padding);
 		Vector2 cursor = new Vector2(startPoint);
@@ -59,7 +66,7 @@ public class TowerSelector {
 			TowerProfile profile = Tower.getTowerProfiles()[t];
 			final int price = profile.getWeapon().getPrice();
 			Sprite sprite = res.getSprite(profile.getResourceId());
-			if (player.getMoney() < price) {
+			if (player.getMoney() < price || !VirtualGoods.purchasedTowers.contains(t)) {
 				device.setAlphaMode(ALPHA_MODE.MODULATE);
 			} else {
 				device.setAlphaMode(ALPHA_MODE.DEFAULT);
@@ -70,10 +77,9 @@ public class TowerSelector {
 		}
 		drawGrabber(device, input, res, road);
 	}
-	
 
-	private void doGrabber(SpriteResourceManager res, AudioPlayer audioPlayer, EnemyRoad road, InputListener input, final Vector2 spriteSize, Rectangle2D clientRect,
-			final long lastFrameDeltaTimeMS) {
+	private void doGrabber(SpriteResourceManager res, AudioPlayer audioPlayer, EnemyRoad road, InputListener input, final Vector2 spriteSize,
+			Rectangle2D clientRect, final long lastFrameDeltaTimeMS) {
 		boolean anySelected = false;
 		for (int t = 0; t < selectableVikingPos.length; t++) {
 			Vector2 lastTouch = input.getLastTouch();
@@ -82,13 +88,20 @@ public class TowerSelector {
 				final int price = profile.getWeapon().getPrice();
 				if (player.getMoney() >= price) {
 					if (CommonMath.isPointInRect(selectableVikingPos[t].sub(buttonPadding), spriteSize.add(buttonPadding), lastTouch)) {
-						if (PropertyReader.isUseDragDropSFX()) {
-							if (currentVikingGrabbed == null)
-								audioPlayer.play(resRet.getSfxTowerDrag());
+						if (!VirtualGoods.purchasedTowers.contains(t)) {
+							if (!toasted) {
+								TDActivity.toast(R.string.buy_vvzstore, (Activity) res.getGraphicDevice().getContext(), Toast.LENGTH_SHORT);
+								toasted = true;
+							}
+						} else {
+							if (PropertyReader.isUseDragDropSFX()) {
+								if (currentVikingGrabbed == null)
+									audioPlayer.play(resRet.getSfxTowerDrag());
+							}
+							currentVikingGrabbed = new Integer(t);
+							anySelected = true;
+							break;
 						}
-						currentVikingGrabbed = new Integer(t);
-						anySelected = true;
-						break;
 					}
 				}
 			}
@@ -117,14 +130,14 @@ public class TowerSelector {
 
 	private boolean isValidPlace(Vector2 relativePos, EnemyRoad road, SpriteResourceManager res) {
 		Vector2 absolutePos = viewer.computeAbsolutePosition(relativePos);
-		return !(road.isPointOnRoad(relativePos) || manager.hasUnityIn(relativePos) || sideBar.isOverSideBar(res.getGraphicDevice(), absolutePos) ||
-				!scene.isPointInScene(relativePos, res));
+		return !(road.isPointOnRoad(relativePos) || manager.hasUnityIn(relativePos) || sideBar.isOverSideBar(res.getGraphicDevice(), absolutePos) || !scene
+				.isPointInScene(relativePos, res));
 	}
 
 	private Vector2 validatePos(Vector2 currentPos, Vector2 nextPos, EnemyRoad road, SpriteResourceManager res) {
 		Vector2 relativeCurrentPos = viewer.computeRelativePosition(currentPos);
 		Vector2 relativeNextPos = viewer.computeRelativePosition(nextPos);
-		if (isValidPlace(relativeNextPos, road, res)) {
+		if (!road.isPointOnRoad(relativeNextPos) && !manager.hasUnityIn(relativeNextPos)) {
 			return nextPos;
 		} else if (relativeNextPos.distance(relativeCurrentPos) > PropertyReader.getSmartPlaceTolerance()) {
 			return nextPos;
@@ -133,14 +146,13 @@ public class TowerSelector {
 			Vector2 testWithY = new Vector2(relativeCurrentPos.x, relativeNextPos.y);
 			if (isValidPlace(testWithX, road, res)) {
 				return viewer.computeAbsolutePosition(testWithX);
-			}
-			else if (isValidPlace(testWithY, road, res)) { 
+			} else if (isValidPlace(testWithY, road, res)) {
 				return viewer.computeAbsolutePosition(testWithY);
 			}
 			return grabbingTo;
 		}
 	}
-	
+
 	private void drawGrabber(GraphicDevice device, InputListener input, SpriteResourceManager res, EnemyRoad road) {
 		final Vector2 currentTouch = input.getCurrentTouch();
 		if (currentVikingGrabbed != null && currentTouch != null) {

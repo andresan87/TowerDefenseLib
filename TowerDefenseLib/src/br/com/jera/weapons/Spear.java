@@ -32,12 +32,12 @@ public class Spear implements WeaponProfile {
 	}
 
 	public int getResourceId() {
-		return Spear.resRet.getBmpWeaponProjectile01();
+		return Spear.resRet.getBmpWeaponProjectile(1);
 	}
 
 	public boolean shoot(GameCharacter actor, Vector2 pos, Enemy targetZombie, ProjectileManager manager, AudioPlayer audioPlayer) {
 		manager.addProjectile(new Projectile(getResourceId(), pos, targetZombie, getSpeed(), getRotationSpeed(), this, actor));
-		audioPlayer.play(Spear.resRet.getSfxWeaponTrigger01());
+		audioPlayer.play(Spear.resRet.getSfxWeaponTrigger(1));
 		return true;
 	}
 
@@ -60,12 +60,12 @@ public class Spear implements WeaponProfile {
 			public void applyEffect(GameCharacter target, AudioPlayer audioPlayer, EnemyRoad road) {
 				target.addToHp(Spear.DAMAGE);
 				if (!target.isDead()) {
-					audioPlayer.play(Spear.resRet.getSfxWeaponHit01());
+					audioPlayer.play(Spear.resRet.getSfxWeaponHit(1));
 					final Vector2 targetPos = target.get2DPos();
 					final Vector2 effectPos = targetPos.add(new Vector2(0, PropertyReader.getHitEffectHeightOffset()));
 					final float angle = CommonMath.getAngle(super.actor.get2DPos().sub(targetPos).normalize());
 					super.effectManager.addEffect(new AnimatedParticle(600, -CommonMath.radianToDegree(angle) + 90.0f,
-							Spear.resRet.getBmpWeaponHitEffect01(), effectPos, 6, 1, PropertyReader.getSpearHitEffectRadius()));
+							Spear.resRet.getBmpWeaponHitEffect(1), effectPos, 6, 1, PropertyReader.getSpearHitEffectRadius()));
 				}
 			}
 

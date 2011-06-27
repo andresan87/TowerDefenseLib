@@ -38,10 +38,6 @@ public class InfiniteWaveManager implements OutputData.Data {
 			waveChain++;
 
 			Integer soundFx1 = null, soundFx2 = null;
-			if (PropertyReader.hasShowUpSfx()) {
-				soundFx1 = new Integer(resRet.getSfxVirusAppear01());
-				soundFx2 = new Integer(resRet.getSfxVirusAppear02());
-			}
 
 			final float enemySpeedScale = PropertyReader.getEnemySpeedScale();
 			// TODO criar waves em arquivo resource, não em código

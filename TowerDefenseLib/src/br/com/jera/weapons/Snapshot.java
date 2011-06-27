@@ -34,7 +34,7 @@ public class Snapshot implements WeaponProfile {
 	}
 
 	public int getResourceId() {
-		return Snapshot.resRet.getBmpWeaponProjectile02();
+		return Snapshot.resRet.getBmpWeaponProjectile(2);
 	}
 
 	public boolean shoot(GameCharacter actor, Vector2 pos, Enemy targetTower, ProjectileManager manager, AudioPlayer audioPlayer) {
@@ -60,22 +60,22 @@ public class Snapshot implements WeaponProfile {
 
 			public void applyEffect(GameCharacter target, AudioPlayer audioPlayer, EnemyRoad road) {
 				if (!target.isDead()) {
-					audioPlayer.play(Snapshot.resRet.getSfxWeaponHit02());
+					audioPlayer.play(Snapshot.resRet.getSfxWeaponHit(2));
 					final Vector2 targetPos = target.get2DPos();
 					final Vector2 effectPos = targetPos.add(new Vector2(0, PropertyReader.getHitEffectHeightOffset()));
 					target.setPos(road.getTilePos(1));
 					((Enemy) target).setNextTile(2);
-					super.effectManager.addEffect(new AnimatedParticle(200, 0.0f, Snapshot.resRet.getBmpSnapshotFX(), effectPos, 4, 1, 854.0f));
+					super.effectManager.addEffect(new AnimatedParticle(200, 0.0f, Snapshot.resRet.getBmpWeaponHitEffect(4), effectPos, 4, 1, 854.0f));
 				}
 			}
 
 			public void removeEffect(GameCharacter target, AudioPlayer audioPlayer) {
-				// inimigos que receberam snapshot só podem receber uma vez
+				// inimigos que receberam snapshot sï¿½ podem receber uma vez
 				// ((Enemy) target).setNetLaunched(false);
 			}
 
 			public void drawHarmEffect(GameCharacter target, SceneViewer viewer, SpriteResourceManager res) {
-				Sprite sprite = res.getSprite(Snapshot.resRet.getBmpWeaponHitEffect02());
+				Sprite sprite = res.getSprite(Snapshot.resRet.getBmpWeaponHitEffect(2));
 				res.getGraphicDevice().setAlphaMode(ALPHA_MODE.DEFAULT);
 				// sprite.draw(.add(netOffset), GameCharacter.defaultSpriteOrigin);
 				sprite.draw(target.get2DPos().sub(viewer.getOrthogonalViewerPos()), new Vector2(32,32).add(netOffset),
