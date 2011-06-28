@@ -10,6 +10,8 @@ import br.com.jera.util.SpriteTileMap.Tile;
 
 public class Enemy extends GameCharacter {
 
+	private static final float HP_RATIO = 0.5f;
+
 	public Enemy(EnemyProfile profile, EnemyRoad road, Vector2 offset, AudioPlayer audioPlayer, ResourceIdRetriever resRet) {
 		super(profile.getResourceId(resRet), road.getRoadPath().get(0).getTileCenter().add(offset), audioPlayer, resRet);
 		assert (road.getRoadPath().size() > 1);
@@ -65,7 +67,6 @@ public class Enemy extends GameCharacter {
 		this.teleported = teleported;
 	}
 
-	
 	public boolean isNetLaunched() {
 		return netLaunched;
 	}
@@ -73,9 +74,9 @@ public class Enemy extends GameCharacter {
 	public boolean isTeleported() {
 		return teleported;
 	}
-	
+
 	private boolean netLaunched;
-	
+
 	private boolean teleported;
 
 	private float damageReceived = 0;
@@ -97,6 +98,8 @@ public class Enemy extends GameCharacter {
 
 	// TODO criar profiles de zumbis em arquivo resource, não no código
 	static public class Zombie01 extends EnemyProfile {
+		private static final float BASE_LIFE = 100;
+
 		public Zombie01(float level, float enemySpeedScale) {
 			super(level, enemySpeedScale);
 		}
@@ -108,7 +111,7 @@ public class Enemy extends GameCharacter {
 
 		@Override
 		public float getHp() {
-			return 100 * super.level * 0.6f;
+			return BASE_LIFE * super.level * HP_RATIO;
 		}
 
 		@Override
@@ -123,6 +126,8 @@ public class Enemy extends GameCharacter {
 	}
 
 	static public class Zombie02 extends EnemyProfile {
+		private static final float BASE_LIFE = 180;
+
 		public Zombie02(float level, float enemySpeedScale) {
 			super(level, enemySpeedScale);
 		}
@@ -134,7 +139,7 @@ public class Enemy extends GameCharacter {
 
 		@Override
 		public float getHp() {
-			return 180 * super.level;
+			return BASE_LIFE * super.level * HP_RATIO;
 		}
 
 		@Override
@@ -149,6 +154,8 @@ public class Enemy extends GameCharacter {
 	}
 
 	static public class Zombie03 extends EnemyProfile {
+		private static final float BASE_LIFE = 220;
+
 		public Zombie03(float level, float enemySpeedScale) {
 			super(level, enemySpeedScale);
 		}
@@ -160,7 +167,7 @@ public class Enemy extends GameCharacter {
 
 		@Override
 		public float getHp() {
-			return 250 * super.level;
+			return BASE_LIFE * super.level * HP_RATIO;
 		}
 
 		@Override
@@ -175,6 +182,9 @@ public class Enemy extends GameCharacter {
 	}
 
 	static public class Zombie04 extends EnemyProfile {
+
+		private static final float BASE_LIFE = 250;
+
 		public Zombie04(float level, float enemySpeedScale) {
 			super(level, enemySpeedScale);
 		}
@@ -186,7 +196,7 @@ public class Enemy extends GameCharacter {
 
 		@Override
 		public float getHp() {
-			return 300 * super.level;
+			return BASE_LIFE * super.level * HP_RATIO;
 		}
 
 		@Override

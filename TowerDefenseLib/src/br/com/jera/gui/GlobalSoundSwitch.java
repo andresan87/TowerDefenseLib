@@ -39,6 +39,10 @@ public class GlobalSoundSwitch {
 		audioPlayer.setGlobalVolume((icon.getButtonFrame() == 0) ? 1.0f : 0.0f);
 	}
 
+	public Vector2 getPos() {
+		return pos;
+	}
+	
 	private TouchButton icon;
 	private Vector2 pos;
 }

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.media.MediaPlayer;
 import br.com.jera.audio.AudioPlayer;
 import br.com.jera.graphic.GraphicDevice;
-import br.com.jera.gui.GlobalSoundSwitch;
 import br.com.jera.input.InputListener;
 import br.com.jera.resources.ResourceIdRetriever;
 import br.com.jera.towers.TowerProfile;

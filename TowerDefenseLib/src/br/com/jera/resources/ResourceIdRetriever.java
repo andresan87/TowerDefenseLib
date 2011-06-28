@@ -21,7 +21,6 @@ public interface ResourceIdRetriever {
 	public int getBmpMenu(int id);
 	public int getBmpGameOver();
 	public int getBmpGameWon();
-	public int getBmpForwarButton();
 	public int getBmpDefaultFont16();
 	public int getBmpMenuButtons();
 	public int getBmpMenuBackground();
@@ -32,16 +31,11 @@ public interface ResourceIdRetriever {
 	public int getBmpSideBar();
 	public int getBmpSideBarExtend();
 	public int getBmpSideBarBottom();
-	public int getBmpNextFrameButton();
-	public int getBmpSkipTutorialButton();
 	public int getBmpClockHelpCharacter();
 	public int getBmpClockHelpBalloon();
 	public int getBmpClockHelpTexts();
 	public int getBmpSelectmapBg();
 
-	public int getBmpHelpFrame(int frame);
-	public int getNumHelpFrames();
-	
 	public int getBmpTwitterButton();
 	public int getBmpFacebookButton();
 

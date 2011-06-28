@@ -37,7 +37,6 @@ public class GameOver extends FadeEffect {
 		} else {
 			gameOver = new Sprite(device, resRet.getBmpGameOver(), 1, 1);
 		}
-		res.loadResource(resRet.getBmpForwarButton(), 1, 1);
 		res.loadResource(resRet.getBmpThemeFont16(), 16, 16);
 		audioPlayer.load(resRet.getSfxBack());
 	}

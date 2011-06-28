@@ -34,10 +34,10 @@ public class SideBar {
 		sideBarExtend = new Sprite(device, resRet.getBmpSideBarExtend(), 1, 1);
 		sideBarBottom = new Sprite(device, resRet.getBmpSideBarBottom(), 1, 1);
 		backArrow = new TouchButton(new Vector2(0, 0), new Vector2(0, 0), resRet.getBmpBackButton(), 0, new Integer(resRet.getSfxBack()));
+		topBar = new Sprite(device, resRet.getBmpMenu(5), 1, 1);
 		Sprite sprite = res.getSprite(resRet.getBmpBackButton());
 		updateArrowPos(device, res, resRet);
 		sound = new GlobalSoundSwitch(new Vector2(backArrow.getPos().x + sprite.getFrameSize().x, 0), audioPlayer, resRet, resRet.getBmpMenu(4));
-		detail = new Sprite(device, resRet.getBmpMenu(5), 1, 1);
 		updateArrowPos(device, res, resRet);
 	}
 
@@ -66,7 +66,6 @@ public class SideBar {
 		GraphicDevice device = res.getGraphicDevice();
 		device.setAlphaMode(ALPHA_MODE.DEFAULT);
 		final Vector2 screenSize = device.getScreenSize();
-		sideBarSprite.draw(new Vector2(screenSize.x - sideBarWidth, 0), new Vector2(0, 0));
 		if (screenSize.y > sideBarSprite.getFrameSize().y) {
 			sideBarExtend.draw(new Vector2(screenSize.x - sideBarWidth, sideBarSprite.getFrameSize().y), new Vector2(0, 0));
 		}
@@ -74,9 +73,9 @@ public class SideBar {
 			sideBarBottom.draw(device.getScreenSize().sub(new Vector2(sideBarWidth, 0)), new Vector2(0.0f, 1.0f));
 		}
 		backArrow.putButton(device, audioPlayer, res, input);
-		Sprite sprite = res.getSprite(resRet.getBmpMenu(4));
 		sound.putButton(input, res, audioPlayer);
-		//detail.draw(new Vector2(sound.getPos().x + sprite.getFrameSize().x, 0), new Vector2(0, 0));
+		topBar.draw(new Vector2(sound.getPos().x + res.getSprite(resRet.getBmpMenu(4)).getBitmapSize().x, 0), new Vector2(0.0f, 0.0f));
+		sideBarSprite.draw(new Vector2(screenSize.x - sideBarWidth, 0), new Vector2(0, 0));
 		selector.draw(input, res, road, font);
 	}
 
@@ -92,9 +91,9 @@ public class SideBar {
 	private Sprite sideBarSprite;
 	private Sprite sideBarExtend;
 	private Sprite sideBarBottom;
+	private Sprite topBar;
 	private TouchButton backArrow;
 	private GlobalSoundSwitch sound;
-	private Sprite detail;
 	private final float sideBarWidth;
 	private InputListener input;
 }
