@@ -104,7 +104,7 @@ public class TowerManager implements OutputData.Data {
 	}
 
 	private LinkedList<Tower> vikings = new LinkedList<Tower>();
-	private static final int MAXIMUM_VIKINGS = 50;
+	private static final int MAXIMUM_VIKINGS = 55;
 	private ShootPriority shootPriority;
 	private ResourceIdRetriever resRet;
 

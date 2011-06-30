@@ -263,6 +263,10 @@ public class PropertyReader {
 		return scoreUrl;
 	}
 
+	public static String getPaidUrl() {
+		return paidUrl;
+	}
+	
 	public static String getTwitterUrl() {
 		return twitterUrl;
 	}
@@ -285,6 +289,7 @@ public class PropertyReader {
 
 	private static String officialSiteUrl = "http://games.jera.com.br/vvz/";
 	private static String scoreUrl = "http://games.jera.com.br/vvz/";
+	private static String paidUrl = "market://details?id=br.com.jera.soufodatube";
 	private static String twitterUrl = "http://twitter.com/Locaweb";
 	private static String facebookUrl = "http://www.facebook.com/group.php?gid=102501228423";
 
@@ -322,7 +327,7 @@ public class PropertyReader {
 	private static boolean spinAxe = true;
 	private static float enemySpeedScale = 1.0f;
 	private static int moneyDiv = 8;
-	private static int maxMoneyGain = 35;
+	private static int maxMoneyGain = 45;
 	private static boolean increaseEnemySpeed = false;
 	private static boolean showMenuLinks = false;
 	private static float menuLogoOffsetMulX = 0.5f;

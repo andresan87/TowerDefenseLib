@@ -10,7 +10,8 @@ import br.com.jera.util.SpriteTileMap.Tile;
 
 public class Enemy extends GameCharacter {
 
-	private static final float HP_RATIO = 0.5f;
+	private static final float HP_RATIO = 0.3f;
+	private static final float BASE_LIFE = 130;
 
 	public Enemy(EnemyProfile profile, EnemyRoad road, Vector2 offset, AudioPlayer audioPlayer, ResourceIdRetriever resRet) {
 		super(profile.getResourceId(resRet), road.getRoadPath().get(0).getTileCenter().add(offset), audioPlayer, resRet);
@@ -98,7 +99,8 @@ public class Enemy extends GameCharacter {
 
 	// TODO criar profiles de zumbis em arquivo resource, não no código
 	static public class Zombie01 extends EnemyProfile {
-		private static final float BASE_LIFE = 100;
+		private static final float BASE_LIFE_RATIO = 1.0f;
+		private static final float SPEED_RATIO = 12.0f;
 
 		public Zombie01(float level, float enemySpeedScale) {
 			super(level, enemySpeedScale);
@@ -106,12 +108,12 @@ public class Enemy extends GameCharacter {
 
 		@Override
 		public float getSpeed() {
-			return (10.0f * enemySpeedScale) + super.getSpeedBoost();
+			return (SPEED_RATIO * enemySpeedScale) + super.getSpeedBoost();
 		}
 
 		@Override
 		public float getHp() {
-			return BASE_LIFE * super.level * HP_RATIO;
+			return BASE_LIFE * BASE_LIFE_RATIO * super.level * HP_RATIO;
 		}
 
 		@Override
@@ -126,7 +128,8 @@ public class Enemy extends GameCharacter {
 	}
 
 	static public class Zombie02 extends EnemyProfile {
-		private static final float BASE_LIFE = 180;
+		private static final float BASE_LIFE_RATIO = 1.8f;
+		private static final float SPEED_RATIO = 15.0f;
 
 		public Zombie02(float level, float enemySpeedScale) {
 			super(level, enemySpeedScale);
@@ -134,12 +137,12 @@ public class Enemy extends GameCharacter {
 
 		@Override
 		public float getSpeed() {
-			return (15.0f * enemySpeedScale) + super.getSpeedBoost();
+			return (SPEED_RATIO * enemySpeedScale) + super.getSpeedBoost();
 		}
 
 		@Override
 		public float getHp() {
-			return BASE_LIFE * super.level * HP_RATIO;
+			return BASE_LIFE * BASE_LIFE_RATIO * super.level * HP_RATIO;
 		}
 
 		@Override
@@ -154,7 +157,8 @@ public class Enemy extends GameCharacter {
 	}
 
 	static public class Zombie03 extends EnemyProfile {
-		private static final float BASE_LIFE = 220;
+		private static final float BASE_LIFE_RATIO = 2.2f;
+		private static final float SPEED_RATIO = 17.0f;
 
 		public Zombie03(float level, float enemySpeedScale) {
 			super(level, enemySpeedScale);
@@ -162,12 +166,12 @@ public class Enemy extends GameCharacter {
 
 		@Override
 		public float getSpeed() {
-			return (18.0f * enemySpeedScale) + super.getSpeedBoost();
+			return (SPEED_RATIO * enemySpeedScale) + super.getSpeedBoost();
 		}
 
 		@Override
 		public float getHp() {
-			return BASE_LIFE * super.level * HP_RATIO;
+			return BASE_LIFE * BASE_LIFE_RATIO * super.level * HP_RATIO;
 		}
 
 		@Override
@@ -182,8 +186,8 @@ public class Enemy extends GameCharacter {
 	}
 
 	static public class Zombie04 extends EnemyProfile {
-
-		private static final float BASE_LIFE = 250;
+		private static final float BASE_LIFE_RATIO = 2.5f;
+		private static final float SPEED_RATIO = 16.0f;
 
 		public Zombie04(float level, float enemySpeedScale) {
 			super(level, enemySpeedScale);
@@ -191,12 +195,12 @@ public class Enemy extends GameCharacter {
 
 		@Override
 		public float getSpeed() {
-			return (17.0f * enemySpeedScale) + super.getSpeedBoost();
+			return (SPEED_RATIO * enemySpeedScale) + super.getSpeedBoost();
 		}
 
 		@Override
 		public float getHp() {
-			return BASE_LIFE * super.level * HP_RATIO;
+			return BASE_LIFE * BASE_LIFE_RATIO * super.level * HP_RATIO;
 		}
 
 		@Override
