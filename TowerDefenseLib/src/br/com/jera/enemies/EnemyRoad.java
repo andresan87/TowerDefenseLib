@@ -32,7 +32,7 @@ public class EnemyRoad {
 
 	public void draw(SpriteResourceManager res, SceneViewer viewer) {
 		res.getGraphicDevice().setAlphaMode(ALPHA_MODE.DEFAULT);
-		tileMap.draw(viewer, res);
+		//tileMap.draw(viewer, res);
 	}
 	
 	public ArrayList<Tile> getRoadPath() {

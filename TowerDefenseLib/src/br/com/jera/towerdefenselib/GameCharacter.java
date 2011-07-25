@@ -174,8 +174,7 @@ public class GameCharacter implements DisplayableEntity {
 			color.w = 0.7f;
 			sprite.setColor(color);
 			float hpBarHeight = PropertyReader.getHpBarHeight();
-			Vector2 barPos = pos.sub(viewer.getOrthogonalViewerPos()).sub(
-					new Vector2(defaultFrameSize.x / 2, defaultFrameSize.y + (hpBarHeight * 2)));
+			Vector2 barPos = pos.sub(viewer.getOrthogonalViewerPos()).sub(new Vector2(defaultFrameSize.x / 2, defaultFrameSize.y + (hpBarHeight * 2)));
 			sprite.draw(barPos, new Vector2(size, hpBarHeight), 0, Sprite.defaultOrigin, 0, false);
 		}
 	}
@@ -195,35 +194,9 @@ public class GameCharacter implements DisplayableEntity {
 		final float angle = CommonMath.getAngle(moveVector);
 		if (moveVector.length() > 0.0f) {
 			direction = findDirection(angle);
-			switch (direction) {
-			case MOVING_UP:
-				frameTimer.setFrame(12, 15, currentFrameStride);
-				break;
-			case MOVING_DOWN:
-				frameTimer.setFrame(0, 3, currentFrameStride);
-				break;
-			case MOVING_LEFT:
-				frameTimer.setFrame(4, 7, currentFrameStride);
-				break;
-			case MOVING_RIGHT:
-				frameTimer.setFrame(8, 11, currentFrameStride);
-				break;
-			}
+			frameTimer.setFrame(4 * direction, 4 * direction + 3, currentFrameStride);
 		} else {
-			switch (direction) {
-			case MOVING_UP:
-				frameTimer.setFrame(12, 12, defaultFrameStride);
-				break;
-			case MOVING_DOWN:
-				frameTimer.setFrame(0, 0, defaultFrameStride);
-				break;
-			case MOVING_LEFT:
-				frameTimer.setFrame(4, 4, defaultFrameStride);
-				break;
-			case MOVING_RIGHT:
-				frameTimer.setFrame(8, 8, defaultFrameStride);
-				break;
-			}
+			frameTimer.setFrame(4 * direction, 4 * direction, defaultFrameStride);
 		}
 		pos = pos.add(moveVector);
 

@@ -32,6 +32,11 @@
 	</natures>
 	<linkedResources>
 		<link>
+			<name>AndroidUtil_src</name>
+			<type>2</type>
+			<locationURI>_android_AndroidUtil_9b4b72f1/src</locationURI>
+		</link>
+		<link>
 			<name>TapjoyConnect_src</name>
 			<type>2</type>
 			<locationURI>_android_TapjoyConnect_76cc3e39/src</locationURI>

@@ -22,6 +22,9 @@ import br.com.jera.util.CommonMath.Rectangle2D;
 import br.com.jera.util.CommonMath.Vector2;
 import br.com.jera.util.SpriteResourceManager;
 
+import com.tapjoy.TapjoyConnect;
+import com.tapjoy.TapjoyPPA;
+
 public class EnemyWaveManager implements OutputData.Data {
 
 	public EnemyWaveManager(EnemyRoad road, long startTime, ResourceIdRetriever resRet) {
@@ -52,6 +55,9 @@ public class EnemyWaveManager implements OutputData.Data {
 				player.addMoney((int) Math.min(enemy.getInitialHp() / PropertyReader.getMoneyDiv(), MAXIMUM_MONEY_PER_ENEMY));
 				audioPlayer.play(resRet.getSfxEnemyDeath());
 				killedEnemies++;
+				if (killedEnemies == 100) {
+					TapjoyConnect.getTapjoyConnectInstance().actionComplete(TapjoyPPA.TJC_KILL_100_ZOMBIES_ON_VIKINGS_VS__ZOMBIES_);
+				}
 				iter.remove();
 			}
 		}
@@ -90,9 +96,9 @@ public class EnemyWaveManager implements OutputData.Data {
 			}
 		}
 	}
-	
+
 	public boolean verifyForceNextWave() {
-		return (System.currentTimeMillis() - this.timeForcedWave > NEXT_WAVE_LOCK_TIME); 
+		return (System.currentTimeMillis() - this.timeForcedWave > NEXT_WAVE_LOCK_TIME);
 	}
 
 	public void forceNextWave() {

@@ -6,16 +6,17 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.opengl.GLSurfaceView;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.widget.Toast;
+import br.com.jera.androidutil.AppMainActivity;
 import br.com.jera.game.StateManager;
 import br.com.jera.platform.android.AndroidSurfaceView;
 import br.com.jera.platform.android.JGRunnable;
 import br.com.jera.resources.PropertyReader;
 import br.com.jera.resources.ResourceIdRetriever;
 import br.com.jera.towers.TowerProfile;
-import br.com.jera.util.CommonMath.Vector2;
 
-public class TDActivity extends Activity {
+public class TDActivity extends AppMainActivity {
 
 	/*@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -90,6 +91,14 @@ public class TDActivity extends Activity {
 		mGLSurfaceView.onPause();
 	}
 
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+	    if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+	        return false;
+	    }
+	    return super.onKeyDown(keyCode, event);
+	}
+	
 	protected PropertyReader propertyReader;
 	private AndroidSurfaceView mGLSurfaceView;
 	private static StateManager manager;

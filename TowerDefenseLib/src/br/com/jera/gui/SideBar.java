@@ -34,10 +34,10 @@ public class SideBar {
 		sideBarExtend = new Sprite(device, resRet.getBmpSideBarExtend(), 1, 1);
 		sideBarBottom = new Sprite(device, resRet.getBmpSideBarBottom(), 1, 1);
 		backArrow = new TouchButton(new Vector2(0, 0), new Vector2(0, 0), resRet.getBmpBackButton(), 0, new Integer(resRet.getSfxBack()));
-		topBar = new Sprite(device, resRet.getBmpMenu(5), 1, 1);
+		topBar = new Sprite(device, resRet.getBmpGameBar(5), 1, 1);
 		Sprite sprite = res.getSprite(resRet.getBmpBackButton());
 		updateArrowPos(device, res, resRet);
-		sound = new GlobalSoundSwitch(new Vector2(backArrow.getPos().x + sprite.getFrameSize().x, 0), audioPlayer, resRet, resRet.getBmpMenu(4));
+		sound = new GlobalSoundSwitch(new Vector2(backArrow.getPos().x + sprite.getFrameSize().x, 0), audioPlayer, resRet, resRet.getBmpGameBar(4));
 		updateArrowPos(device, res, resRet);
 	}
 
@@ -74,7 +74,7 @@ public class SideBar {
 		}
 		backArrow.putButton(device, audioPlayer, res, input);
 		sound.putButton(input, res, audioPlayer);
-		topBar.draw(new Vector2(sound.getPos().x + res.getSprite(resRet.getBmpMenu(4)).getBitmapSize().x, 0), new Vector2(0.0f, 0.0f));
+		topBar.draw(new Vector2(sound.getPos().x + res.getSprite(resRet.getBmpGameBar(4)).getBitmapSize().x, 0), new Vector2(0.0f, 0.0f));
 		sideBarSprite.draw(new Vector2(screenSize.x - sideBarWidth, 0), new Vector2(0, 0));
 		selector.draw(input, res, road, font);
 	}

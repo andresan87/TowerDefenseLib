@@ -6,8 +6,6 @@
 	<string name="submit_hint">Nome completo ou conta no Twitter</string>
 	<string name="send">Enviar</string>
 	<string name="cancel">Cancelar</string>
-	<string name="game_over">Quantidade de vírus eliminados: </string>
-	<string name="submit_title"> ameaças eliminadas</string>
 	<string name="submit_fail">Falha ao enviar! Você está conectado à internet?</string>
 	<string name="submit_success">Pontuação enviada!</string>
 	<string name="ue">Erro inesperado</string>

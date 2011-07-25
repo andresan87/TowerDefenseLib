@@ -17,7 +17,7 @@ import br.com.jera.util.VirtualGoods;
 
 public class SpeedController {
 
-	private static final int SPEED_COUNT = 3;
+	private static final int SPEED_COUNT = 2;
 
 	public SpeedController(ResourceIdRetriever resRet) {
 		this.resRet = resRet;
@@ -44,38 +44,24 @@ public class SpeedController {
 		int speed;
 		switch (currentState) {
 		case 0:
-			speed = 1;
-			break;
-		case 1:
 			speed = 2;
 			break;
-		case 2:
-			if (VirtualGoods.purchasedSpeeds.contains(2)) {
-				speed = 4;
-			} else if (VirtualGoods.purchasedSpeeds.contains(3)) {
-				speed = 8;
-				currentState = 3;
-			} else {
-				if (!toasted)
-					TDActivity.toast(R.string.buy_vvzstore, (Activity) res.getGraphicDevice().getContext(), Toast.LENGTH_SHORT);
-				toasted = true;
-				speed = 1;
-				currentState = 0;
-			}
+		case 1:
+			speed = 4;
 			break;
-		case 3:
-			if (VirtualGoods.purchasedSpeeds.contains(3)) {
+		case 2:
+			if (VirtualGoods.purchasedSpeeds.contains(2) || VirtualGoods.purchasedSpeeds.contains(3)) {
 				speed = 8;
 			} else {
 				if (!toasted)
 					TDActivity.toast(R.string.buy_vvzstore, (Activity) res.getGraphicDevice().getContext(), Toast.LENGTH_SHORT);
 				toasted = true;
-				speed = 1;
+				speed = 2;
 				currentState = 0;
 			}
 			break;
 		default:
-			speed = 1;
+			speed = 2;
 			break;
 		}
 		return speed;

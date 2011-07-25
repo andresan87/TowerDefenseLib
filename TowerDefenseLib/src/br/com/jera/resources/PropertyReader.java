@@ -263,10 +263,6 @@ public class PropertyReader {
 		return scoreUrl;
 	}
 
-	public static String getPaidUrl() {
-		return paidUrl;
-	}
-	
 	public static String getTwitterUrl() {
 		return twitterUrl;
 	}
@@ -289,7 +285,6 @@ public class PropertyReader {
 
 	private static String officialSiteUrl = "http://games.jera.com.br/vvz/";
 	private static String scoreUrl = "http://games.jera.com.br/vvz/";
-	private static String paidUrl = "market://details?id=br.com.jera.soufodatube";
 	private static String twitterUrl = "http://twitter.com/Locaweb";
 	private static String facebookUrl = "http://www.facebook.com/group.php?gid=102501228423";
 

@@ -91,8 +91,8 @@ public class GameLevel extends FadeEffect {
 		spriteManager.loadResource(resRet.getBmpProgessBar(), 1, 1);
 		spriteManager.loadResource(resRet.getBmpTiles(), 4, 4);
 		spriteManager.loadResource(resRet.getBmpRange(), 1, 1);
-		spriteManager.loadResource(resRet.getBmpMenu(4), 1, 2);
-		spriteManager.loadResource(resRet.getBmpMenu(5), 1, 1);
+		spriteManager.loadResource(resRet.getBmpGameBar(4), 1, 2);
+		spriteManager.loadResource(resRet.getBmpGameBar(5), 1, 1);
 		spriteManager.loadResource(resRet.getBmpWeaponProjectile(1), 1, 1);
 		spriteManager.loadResource(resRet.getBmpWeaponProjectile(2), 1, 1);
 		spriteManager.loadResource(resRet.getBmpWeaponProjectile(3), 1, 1);
@@ -249,7 +249,7 @@ public class GameLevel extends FadeEffect {
 
 	private void resetScrollBounds(DisplayableEntity scene) {
 		Vector2 minBounds = new Vector2(scene.getMin(spriteManager).x, scene.getMin(spriteManager).y
-				- spriteManager.getSprite(resRet.getBmpMenu(1)).getBitmapSize().y + 6);
+				- spriteManager.getSprite(resRet.getBmpGameBar(1)).getBitmapSize().y + 6);
 		viewer.setScrollBounds(minBounds, scene.getMax(spriteManager), graphicDevice.getScreenSize().sub(new Vector2(sideBar.getSideBarWidth(), 0)));
 		if (!PropertyReader.isCustomViewStart()) {
 			viewer.scrollTo(new Vector2(((scene.getMin(spriteManager).x + scene.getMax(spriteManager).x / 2.0f)) - (graphicDevice.getScreenSize().x / 2.0f),

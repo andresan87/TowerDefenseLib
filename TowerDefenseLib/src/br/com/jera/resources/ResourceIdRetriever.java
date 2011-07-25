@@ -18,16 +18,14 @@ public interface ResourceIdRetriever {
 	public int getBmpScenarioSeam();
 	public int getBmpMoneySymbol();
 	public int getBmpTowerSymbol();
-	public int getBmpMenu(int id);
+	public int getBmpGameBar(int id);
 	public int getBmpGameOver();
 	public int getBmpGameWon();
 	public int getBmpDefaultFont16();
-	public int getBmpMenuButtons();
+	public int getBmpMainMenu(int id);
 	public int getBmpMenuBackground();
 	public int getBmpMenuLogo();
-	public int getBmpSoundToggle();
 	public int getBmpCompanyLogo();
-	public int getBmpSplashScreenBg();
 	public int getBmpSideBar();
 	public int getBmpSideBarExtend();
 	public int getBmpSideBarBottom();
@@ -57,4 +55,10 @@ public interface ResourceIdRetriever {
 	public int getBmpSpeedButtons();
 	public int getBmpBackButton();
 	public int getBmpNextWaveButton();
+	
+	
+	public int getNumHelpFrames();
+	public int getBmpHelpFrame(int t);
+	public int getBmpNextFrameButton();
+	public int getBmpSkipTutorialButton();
 }

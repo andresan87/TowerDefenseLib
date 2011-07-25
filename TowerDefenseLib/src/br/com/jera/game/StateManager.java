@@ -71,8 +71,10 @@ public class StateManager implements BaseApplication {
 				callMainMenu();
 			} else if (level.callGameOver() != GameLevel.GAME_STATUS.RUNNING) {
 				mPlayer = MediaPlayer.create((Context) device.getContext(), resRet.getSfxGameOver());
-				mPlayer.setVolume(player.getGlobalVolume(), player.getGlobalVolume());
-				mPlayer.start();
+				if (mPlayer != null) {
+					mPlayer.setVolume(player.getGlobalVolume(), player.getGlobalVolume());
+					mPlayer.start();
+				}
 				currentState = new GameOver(GAMEOVER_FADE_IN_TIME, level.getScore(), resRet, level.callGameOver());
 				currentState.create(device, input, player);
 				currentState.loadResources();
@@ -100,7 +102,7 @@ public class StateManager implements BaseApplication {
 	private String versionStr;
 	private static final long FADE_IN_TIME = 2000;
 	private static final long GAMEOVER_FADE_IN_TIME = 4000;
-	private MediaPlayer mPlayer;
+	public static MediaPlayer mPlayer;
 	private BaseApplication currentState;
 	private static GameLevel level;
 	private ResourceIdRetriever resRet;
