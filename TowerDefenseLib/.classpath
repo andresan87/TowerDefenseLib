@@ -9,6 +9,6 @@
 	<classpathentry kind="lib" path="/AndroidUtil/lib/XtifyAndroidSDK.jar"/>
 	<classpathentry kind="src" path="AndroidUtil_src"/>
 	<classpathentry kind="src" path="jeraGame_src"/>
-	<classpathentry kind="src" path="TapjoyConnect_src"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/TapjoyConnect"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
