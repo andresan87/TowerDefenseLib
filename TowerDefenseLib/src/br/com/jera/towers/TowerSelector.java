@@ -2,7 +2,6 @@
 
 import android.app.Activity;
 import android.widget.Toast;
-import br.com.jera.android.R;
 import br.com.jera.audio.AudioPlayer;
 import br.com.jera.enemies.EnemyRoad;
 import br.com.jera.graphic.GraphicDevice;
@@ -14,6 +13,7 @@ import br.com.jera.resources.PropertyReader;
 import br.com.jera.resources.ResourceIdRetriever;
 import br.com.jera.towerdefenselib.GameCharacter;
 import br.com.jera.towerdefenselib.Player;
+import br.com.jera.towerdefenselib.R;
 import br.com.jera.towerdefenselib.Scenario;
 import br.com.jera.towerdefenselib.TDActivity;
 import br.com.jera.util.BitmapFont;

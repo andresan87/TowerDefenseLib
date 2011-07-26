@@ -7,6 +7,7 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.ListIterator;
 
+import android.util.Log;
 import br.com.jera.audio.AudioPlayer;
 import br.com.jera.effects.AnimatedParticle;
 import br.com.jera.effects.EffectManager;
@@ -56,7 +57,11 @@ public class EnemyWaveManager implements OutputData.Data {
 				audioPlayer.play(resRet.getSfxEnemyDeath());
 				killedEnemies++;
 				if (killedEnemies == 100) {
-					TapjoyConnect.getTapjoyConnectInstance().actionComplete(TapjoyPPA.TJC_KILL_100_ZOMBIES_ON_VIKINGS_VS__ZOMBIES_);
+					try{
+						TapjoyConnect.getTapjoyConnectInstance().actionComplete(TapjoyPPA.TJC_KILL_100_ZOMBIES_ON_VIKINGS_VS__ZOMBIES_);
+					}catch(Exception e) {
+						Log.e("TAPJOY", "ERROR: "+e.getMessage());
+					}
 				}
 				iter.remove();
 			}
