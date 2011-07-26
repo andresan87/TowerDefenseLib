@@ -30,6 +30,7 @@ import br.com.jera.util.CommonMath.Vector4;
 import br.com.jera.util.DisplayableEntity;
 import br.com.jera.util.SpriteResourceManager;
 import br.com.jera.weapons.ProjectileManager;
+import br.com.jeramobstats.JeraAgent;
 
 public class GameLevel extends FadeEffect {
 
@@ -216,6 +217,7 @@ public class GameLevel extends FadeEffect {
 		forceNextWave.setPos(pos);
 		forceNextWave.putButton(graphicDevice, audioPlayer, spriteManager, input);
 		if (forceNextWave.getStatus() == TouchButton.STATUS.ACTIVATED) {
+			JeraAgent.logEvent("NEXT_WAVE_BUTTON");
 			forceNextWave.setStatus(TouchButton.STATUS.IDLE);
 			waveManager.forceNextWave();
 		}

@@ -9,6 +9,7 @@ import br.com.jera.resources.ResourceIdRetriever;
 import br.com.jera.util.CommonMath.Vector2;
 import br.com.jera.util.CommonMath.Vector4;
 import br.com.jera.util.SpriteResourceManager;
+import br.com.jeramobstats.JeraAgent;
 
 public class GameTutorial {
 
@@ -30,6 +31,7 @@ public class GameTutorial {
 
 	private void putButtons(SpriteResourceManager res, InputListener input, AudioPlayer player, ResourceIdRetriever resRet) {
 		if (nextPage.getStatus() == STATUS.ACTIVATED) {
+			JeraAgent.logEvent("TUTORIAL_NEXT_PAGE");
 			goToNextPage(resRet);
 			player.play(resRet.getSfxMenuButtonPressed());
 			nextPage.setStatus(STATUS.IDLE);
@@ -43,6 +45,7 @@ public class GameTutorial {
 		skipTutorial.putButton(res.getGraphicDevice(), player, res, input);
 
 		if (skipTutorial.getStatus() == STATUS.ACTIVATED) {
+			JeraAgent.logEvent("TUTORIAL_SKIP_BUTTON");
 			player.play(resRet.getSfxBack());
 			skipTutorial.setStatus(STATUS.IDLE);
 			finished = true;

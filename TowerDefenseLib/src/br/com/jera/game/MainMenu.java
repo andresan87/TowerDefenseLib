@@ -16,6 +16,7 @@ import br.com.jera.util.BaseApplication;
 import br.com.jera.util.BitmapFont;
 import br.com.jera.util.CommonMath.Vector2;
 import br.com.jera.util.SpriteResourceManager;
+import br.com.jeramobstats.JeraAgent;
 
 public class MainMenu extends FadeEffect {
 
@@ -93,18 +94,22 @@ public class MainMenu extends FadeEffect {
 			if (chosenState != BUTTON.TUTORIAL) {
 				if (splash.isOver()) {
 					if (buttons[0].getStatus() == TouchButton.STATUS.ACTIVATED) {
+						JeraAgent.logEvent("NEW_GAME");
 						if (PropertyReader.hasHelp()) {
 							chosenState = BUTTON.TUTORIAL;
 						} else {
 							chosenState = BUTTON.NEW_GAME;
 						}
 					} else if (buttons[1].getStatus() == TouchButton.STATUS.ACTIVATED) {
+						JeraAgent.logEvent("CONTINUE_GAME");
 						chosenState = BUTTON.CONTINUE;
 					} else if (buttons[2].getStatus() == TouchButton.STATUS.ACTIVATED) {
+						JeraAgent.logEvent("EXIT_GAME");
 						chosenState = BUTTON.EXIT;
 						splash = null;
 						return BaseApplication.STATE.EXIT;
 					} else if (buttons[3].getStatus() == TouchButton.STATUS.ACTIVATED) {
+						JeraAgent.logEvent("OPEN_HIGH_SCORE_PAGE");
 						buttons[3].setStatus(TouchButton.STATUS.IDLE);
 						device.openUrl(PropertyReader.getScoreUrl());
 					}

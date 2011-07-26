@@ -10,6 +10,7 @@ import br.com.jera.resources.ResourceIdRetriever;
 import br.com.jera.util.BaseApplication;
 import br.com.jera.util.CommonMath.Vector2;
 import br.com.jera.util.SpriteResourceManager;
+import br.com.jeramobstats.JeraAgent;
 
 public class GameOver extends FadeEffect {
 
@@ -34,8 +35,10 @@ public class GameOver extends FadeEffect {
 	public void loadResources() {
 		super.loadResources();
 		if (status == GameLevel.GAME_STATUS.WON) {
+			JeraAgent.logEvent("GAME_WON");
 			gameOver = new Sprite(device, resRet.getBmpGameWon(), 1, 1);	
 		} else {
+			JeraAgent.logEvent("GAME_LOST");
 			gameOver = new Sprite(device, resRet.getBmpGameOver(), 1, 1);
 		}
 		res.loadResource(resRet.getBmpForwarButton(), 1, 1);
