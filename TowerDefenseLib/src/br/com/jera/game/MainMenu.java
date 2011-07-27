@@ -22,6 +22,7 @@ public class MainMenu extends FadeEffect {
 
 	protected static boolean mayResume = false;
 	private static JeraSplash splash;
+	private float scale = 1.0f;
 
 	protected MainMenu(long fadeTime, String versionStr, ResourceIdRetriever resRet) {
 		super(fadeTime, resRet);
@@ -36,6 +37,11 @@ public class MainMenu extends FadeEffect {
 		this.input = input;
 		this.audioPlayer = player;
 		chosenState = BUTTON.NONE;
+		
+		// yes, this is ugly as f@ck
+		if (device.getScreenSize().x < 500)  {
+			scale = 0.5f;
+		}
 	}
 
 	@Override
@@ -53,7 +59,7 @@ public class MainMenu extends FadeEffect {
 		if (PropertyReader.isShowMenuLinks()) {
 			resourceManager.loadResource(resRet.getBmpTwitterButton(), 1, 1);
 			resourceManager.loadResource(resRet.getBmpFacebookButton(), 1, 1);
-			hyperlinks = new HyperlinkList(resourceManager, resRet, new Vector2(1.0f, 0.0f));
+			hyperlinks = new HyperlinkList(resourceManager, resRet, new Vector2(1.0f, 0.0f), scale);
 		}
 
 		if (PropertyReader.hasHelp()) {
@@ -77,11 +83,11 @@ public class MainMenu extends FadeEffect {
 		super.resetFrameBuffer(width, height);
 		device.setup2DView(width, height);
 		Sprite sprite = resourceManager.getSprite(resRet.getBmpMenuButtons());
-		Vector2 cursor = device.getScreenSize().sub(new Vector2(0, (menuButtons - 1) * (sprite.getFrameSize().y + PropertyReader.getMainMenuButtonOffset())));
+		Vector2 cursor = device.getScreenSize().sub(new Vector2(0, (menuButtons - 1) * (sprite.getFrameSize().y + (PropertyReader.getMainMenuButtonOffset() * scale))));
 		for (int n = 0; n < menuButtons; n++) {
-			buttons[n] = new TouchButton(cursor, buttonOrigin, resRet.getBmpMenuButtons(), n, new Integer(resRet.getSfxMenuButtonPressed()));
+			buttons[n] = new TouchButton(cursor, buttonOrigin, resRet.getBmpMenuButtons(), n, new Integer(resRet.getSfxMenuButtonPressed()), scale);
 			if (n != 1 || mayResume) {
-				cursor = cursor.add(new Vector2(0, (sprite.getFrameSize().y + PropertyReader.getMainMenuButtonStride())));
+				cursor = cursor.add(new Vector2(0, ((sprite.getFrameSize().y + PropertyReader.getMainMenuButtonStride()) * scale)));
 			}
 		}
 	}
@@ -170,9 +176,8 @@ public class MainMenu extends FadeEffect {
 	private void drawLogo() {
 		Sprite logo = resourceManager.getSprite(resRet.getBmpMenuLogo());
 		if (logo != null) {
-			Vector2 pos = device.getScreenSize().multiply(new Vector2(PropertyReader.getMenuLogoOffsetMulX(), PropertyReader.getMenuLogoOffsetMulY()));
-			pos.y = Math.max(pos.y, logo.getFrameSize().y);
-			logo.draw(pos, new Vector2(0.5f, 1.0f));
+			Vector2 pos = device.getScreenSize().multiply(new Vector2(0.32f, 0.5f));
+			logo.draw(pos, logo.getFrameSize().multiply(scale), 0.0f, new Vector2(0.5f, 0.5f), 0, false);
 		}
 	}
 

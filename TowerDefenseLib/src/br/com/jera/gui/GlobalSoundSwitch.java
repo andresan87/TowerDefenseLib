@@ -10,7 +10,7 @@ import br.com.jera.util.SpriteResourceManager;
 public class GlobalSoundSwitch {
 
 	public GlobalSoundSwitch(Vector2 pos, AudioPlayer audioPlayer, ResourceIdRetriever resRet) {
-		icon = new TouchButton(pos, new Vector2(0, 1), resRet.getBmpSoundToggle(), getButtonFrame(audioPlayer), null);
+		icon = new TouchButton(pos, new Vector2(0, 1), resRet.getBmpSoundToggle(), getButtonFrame(audioPlayer), null, 1.0f);
 		// audioPlayer.setGlobalVolume(status ? 1.0f : 0.0f);
 	}
 

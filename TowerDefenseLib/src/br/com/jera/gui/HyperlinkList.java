@@ -12,9 +12,10 @@ import br.com.jera.util.SpriteResourceManager;
 
 public class HyperlinkList {
 
-	public HyperlinkList(SpriteResourceManager res, ResourceIdRetriever resRet, Vector2 origin) {
-		linkList.add(new Hyperlink(Sprite.zero, origin, resRet.getBmpTwitterButton(), PropertyReader.getTwitterUrl()));
-		linkList.add(new Hyperlink(Sprite.zero, origin, resRet.getBmpFacebookButton(), PropertyReader.getFacebookUrl()));
+	public HyperlinkList(SpriteResourceManager res, ResourceIdRetriever resRet, Vector2 origin, float scale) {
+		linkList.add(new Hyperlink(Sprite.zero, origin, resRet.getBmpTwitterButton(), PropertyReader.getTwitterUrl(), scale));
+		linkList.add(new Hyperlink(Sprite.zero, origin, resRet.getBmpFacebookButton(), PropertyReader.getFacebookUrl(), scale));
+		this.scale = scale;
 	}
 
 	public void putButtons(SpriteResourceManager res, AudioPlayer player, InputListener input, Vector2 pos, boolean toTheRight) {
@@ -24,9 +25,9 @@ public class HyperlinkList {
 			
 			Vector2 add;
 			if (toTheRight)
-				add = hl.getSize(res).multiply(new Vector2(1.0f, 0.0f));
+				add = hl.getSize(res).multiply(new Vector2(1.0f, 0.0f).multiply(scale));
 			else
-				add = hl.getSize(res).multiply(new Vector2(-1.0f, 0.0f));
+				add = hl.getSize(res).multiply(new Vector2(-1.0f, 0.0f).multiply(scale));
 			hl.setPos(cursor);
 			hl.putButton(res.getGraphicDevice(), player, res, input);
 			cursor = cursor.add(add);
@@ -34,4 +35,5 @@ public class HyperlinkList {
 	}
 
 	private ArrayList<Hyperlink> linkList = new ArrayList<Hyperlink>();
+	private float scale;
 }

@@ -32,7 +32,7 @@ public class SideBar {
 		sideBarSprite = new Sprite(device, resRet.getBmpSideBar(), 1, 1);
 		sideBarExtend = new Sprite(device, resRet.getBmpSideBarExtend(), 1, 1);
 		sideBarBottom = new Sprite(device, resRet.getBmpSideBarBottom(), 1, 1);
-		backArrow = new TouchButton(new Vector2(0, device.getScreenSize().y), new Vector2(0, 1), resRet.getBmpBackButton(), 0, new Integer(resRet.getSfxBack()));
+		backArrow = new TouchButton(new Vector2(0, device.getScreenSize().y), new Vector2(0, 1), resRet.getBmpBackButton(), 0, new Integer(resRet.getSfxBack()), 1.0f);
 		updateArrowPos(device);
 	}
 

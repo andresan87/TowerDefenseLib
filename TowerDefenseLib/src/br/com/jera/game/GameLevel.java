@@ -48,7 +48,7 @@ public class GameLevel extends FadeEffect {
 		this.tileSize = tileSize;
 		this.mainLayer = mainLayer;
 		this.pathLayer = pathLayer;
-		forceNextWave = new TouchButton(Sprite.zero, Sprite.zero, resRet.getBmpNextWaveButton(), 0, resRet.getSfxBack());
+		forceNextWave = new TouchButton(Sprite.zero, Sprite.zero, resRet.getBmpNextWaveButton(), 0, resRet.getSfxBack(), 1.0f);
 		Tower.setTowerProfiles(towerProfiles); // TODO carregar profiles de
 												// arquivo e não via static
 	}

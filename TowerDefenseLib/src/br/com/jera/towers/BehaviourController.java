@@ -17,7 +17,7 @@ public class BehaviourController {
 		this.resRet = resRet;
 		int length = buttons.length;
 		for (int t = 0; t < length; t++) {
-			buttons[t] = new TouchButton(Sprite.zero, Sprite.zero, resRet.getBmpBehaveButtons(), t, new Integer(resRet.getSfxBack()));
+			buttons[t] = new TouchButton(Sprite.zero, Sprite.zero, resRet.getBmpBehaveButtons(), t, new Integer(resRet.getSfxBack()), 1.0f);
 		}
 	}
 

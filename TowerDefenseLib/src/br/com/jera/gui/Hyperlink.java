@@ -12,8 +12,8 @@ import br.com.jeramobstats.JeraAgent;
 
 public class Hyperlink extends TouchButton {
 
-	public Hyperlink(Vector2 pos, Vector2 origin, int buttonSpriteId, String url) {
-		super(pos, origin, buttonSpriteId, 0, null);
+	public Hyperlink(Vector2 pos, Vector2 origin, int buttonSpriteId, String url, float scale) {
+		super(pos, origin, buttonSpriteId, 0, null, scale);
 		this.url = url;
 	}
 
