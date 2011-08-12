@@ -4,11 +4,13 @@
 	<classpathentry kind="src" path="gen"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/jeraGame"/>
-	<classpathentry kind="lib" path="lib/FlurryAgent.jar"/>
-	<classpathentry kind="lib" path="lib/jeraMobStats.jar"/>
-	<classpathentry kind="lib" path="/AndroidUtil/lib/XtifyAndroidSDK.jar"/>
 	<classpathentry kind="src" path="AndroidUtil_src"/>
-	<classpathentry kind="src" path="jeraGame_src"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/TapjoyConnect"/>
+	<classpathentry kind="src" path="jeraGame_src"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/Android-Util"/>
+	<classpathentry kind="lib" path="/Android-Util/lib/android-query.0.8.2.jar"/>
+	<classpathentry kind="lib" path="/Android-Util/lib/FlurryAgent.jar"/>
+	<classpathentry kind="lib" path="/Android-Util/lib/GoogleAdMobAdsSdk-4.1.1.jar"/>
+	<classpathentry kind="lib" path="/Android-Util/lib/jeraMobStats.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

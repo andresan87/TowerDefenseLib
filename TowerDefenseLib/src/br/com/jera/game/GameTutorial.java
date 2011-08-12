@@ -22,7 +22,7 @@ public class GameTutorial {
 
 	public void loadResources(SpriteResourceManager res, ResourceIdRetriever resRet) {
 		for (int t = 0; t < resRet.getNumHelpFrames(); t++) {
-			res.loadResource(resRet.getBmpHelpFrame(t), 1, 1);
+			res.loadResource(resRet.getBmpHelpFrame(t), 1, 1);			
 		}
 		res.loadResource(resRet.getBmpNextFrameButton(), 1, 1);
 		res.loadResource(resRet.getBmpSkipTutorialButton(), 1, 1);
